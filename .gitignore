@@ -154,3 +154,4 @@ cython_debug/
 #.idea/
 *.geojson
 data/.DS_Store
+config/config.js
