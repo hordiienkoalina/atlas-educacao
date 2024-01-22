@@ -10,7 +10,9 @@ macOS:
 python3 -m venv test-venv
 source test-venv/bin/activate
 pip3 install -r requirements.txt
-python3 scripts/gpd_to_geojson.py
+python3 scripts/gpd_to_geojson_state.py
+python3 scripts/gpd_to_geojson_microregion.py
+python3 scripts/gpd_to_geojson_municipality.py
 open index.html
 ```
 
