@@ -13,19 +13,19 @@ map.on('load', function() {
     // State data source
     map.addSource('brazil-state-data', {
         'type': 'geojson',
-        'data': './map/data/access_data_state.geojson'
+        'data': '../map/data/access_data_state.geojson'
     });
 
     // Microregion data source
     map.addSource('brazil-microregion-data', {
         'type': 'geojson',
-        'data': './map/data/access_data_microregion.geojson'
+        'data': '../map/data/access_data_microregion.geojson'
     });
 
     // Municipality data source
     map.addSource('brazil-municipality-data', {
         'type': 'geojson',
-        'data': './map/data/access_data_municipality.geojson'
+        'data': '../map/data/access_data_municipality.geojson'
     });
 
     // State layer
