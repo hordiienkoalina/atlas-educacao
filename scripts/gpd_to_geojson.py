@@ -1,6 +1,6 @@
 import geopandas as gpd
 import pandas as pd
-from shapely import wkt, ops, geometry
+from shapely import wkt, ops
 
 access_data_path = "map/data/access_df.csv"
 
