@@ -28,6 +28,12 @@ map.on('load', function() {
         'data': '../map/data/access_data_municipality.geojson'
     });
 
+    // Census level data source
+    map.addSource('brazil-census-data', {
+        'type': 'geojson',
+        'data': '../map/data/access_data_census_simplified.geojson'
+    });
+
     // State layer
     map.addLayer({
         'id': 'brazil-state-layer',
@@ -73,7 +79,8 @@ map.on('load', function() {
         'id': 'brazil-municipality-layer',
         'type': 'fill',
         'source': 'brazil-municipality-data',
-        'minzoom': zoomThreshold + 3, // Adjust zoom level for municipality layer
+        'minzoom': zoomThreshold + 3,
+        'maxzoom': zoomThreshold + 6,
         'layout': {},
         'paint': {
             'fill-color': [
@@ -85,6 +92,32 @@ map.on('load', function() {
             ],
             'fill-opacity': 0.75
         }
+    });
+
+    // Census layer
+    map.addLayer({
+        'id': 'brazil-census-layer',
+        'type': 'fill',
+        'source': 'brazil-census-data',
+        'minzoom': zoomThreshold + 6,
+        'layout': {},
+        'paint': {
+            'fill-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'A'],
+                0, 'red', // Lowest access score
+                1, 'green' // Highest access score
+            ],
+            'fill-opacity': 0.75
+        }
+    });
+
+    map.addLayer({
+        'id': 'brazil-census-layer-points',
+        'type': 'circle',
+        'source': 'brazil-census-data',
+        'geometry': {'type': "MultiPoint", 'coordinates': 'points'}
     });
 
     // State border layer
@@ -120,6 +153,20 @@ map.on('load', function() {
         'type': 'line',
         'source': 'brazil-municipality-data',
         'minzoom': zoomThreshold + 3,
+        'maxzoom': zoomThreshold + 6,
+        'layout': {},
+        'paint': {
+            'line-color': '#FFFFFF',
+            'line-width': 0
+        }
+    });
+
+    // Census border layer
+    map.addLayer({
+        'id': 'brazil-census-border',
+        'type': 'line',
+        'source': 'brazil-census-data',
+        'minzoom': zoomThreshold + 6,
         'layout': {},
         'paint': {
             'line-color': '#FFFFFF',

@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 from shapely import wkt, ops
 
-access_data_path = "map/data/access_df.csv"
+access_data_path = "map/data/access_df_polygons.csv"
 
 # Load access data
 access_df = pd.read_csv(access_data_path)
@@ -25,7 +25,7 @@ access_gdf.reset_index(drop=True, inplace=True)
 access_gdf.set_index("row_id", inplace = True)
 
 # Convert the GeoDataFrame to GeoJSON
-output_geojson_path = "map/data/access_data.geojson"
+output_geojson_path = "map/data/access_data_polygons.geojson"
 try:
     access_gdf.to_file(output_geojson_path, driver='GeoJSON')
     print(f"GeoJSON file has been created successfully at {output_geojson_path}!")
