@@ -28,10 +28,10 @@ map.on('load', function() {
         'data': '../map/data/access_data_municipality.geojson'
     });
 
-    // Census level data source
-    map.addSource('brazil-census-data', {
+    // Point data source
+    map.addSource('brazil-point-data', {
         'type': 'geojson',
-        'data': '../map/data/access_data_polygons_converted.geojson'
+        'data': '../map/data/access_data_points_converted.geojson'
     });
 
     // State layer
@@ -80,26 +80,7 @@ map.on('load', function() {
         'type': 'fill',
         'source': 'brazil-municipality-data',
         'minzoom': zoomThreshold + 3,
-        'maxzoom': zoomThreshold + 6,
-        'layout': {},
-        'paint': {
-            'fill-color': [
-                'interpolate',
-                ['linear'],
-                ['get', 'A'],
-                0, 'red', // Lowest access score
-                1, 'green' // Highest access score
-            ],
-            'fill-opacity': 0.75
-        }
-    });
-
-    // Census layer
-    map.addLayer({
-        'id': 'brazil-census-layer',
-        'type': 'fill',
-        'source': 'brazil-census-data',
-        'minzoom': zoomThreshold + 6,
+        'maxzoom': zoomThreshold + 5,
         'layout': {},
         'paint': {
             'fill-color': [
@@ -146,7 +127,7 @@ map.on('load', function() {
         'type': 'line',
         'source': 'brazil-municipality-data',
         'minzoom': zoomThreshold + 3,
-        'maxzoom': zoomThreshold + 6,
+        'maxzoom': zoomThreshold + 5,
         'layout': {},
         'paint': {
             'line-color': '#FFFFFF',
@@ -154,16 +135,22 @@ map.on('load', function() {
         }
     });
 
-    // Census border layer
+    // Point layer
     map.addLayer({
-        'id': 'brazil-census-border',
-        'type': 'line',
-        'source': 'brazil-census-data',
-        'minzoom': zoomThreshold + 6,
-        'layout': {},
+        'id': 'brazil-point-layer',
+        'type': 'circle',
+        'source': 'brazil-point-data',
+        'minzoom': zoomThreshold + 5,
         'paint': {
-            'line-color': '#FFFFFF',
-            'line-width': 0
+            'circle-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'A'],
+                0, 'red', // Lowest access score
+                1, 'green' // Highest access score
+            ],
+            'circle-opacity': 0.75,
+            'circle-radius': 5
         }
     });
 });
