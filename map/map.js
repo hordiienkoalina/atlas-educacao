@@ -31,7 +31,7 @@ map.on('load', function() {
     // Census level data source
     map.addSource('brazil-census-data', {
         'type': 'geojson',
-        'data': '../map/data/access_data_census_simplified.geojson'
+        'data': '../map/data/access_data_polygons_converted.geojson'
     });
 
     // State layer
@@ -111,13 +111,6 @@ map.on('load', function() {
             ],
             'fill-opacity': 0.75
         }
-    });
-
-    map.addLayer({
-        'id': 'brazil-census-layer-points',
-        'type': 'circle',
-        'source': 'brazil-census-data',
-        'geometry': {'type': "MultiPoint", 'coordinates': 'points'}
     });
 
     // State border layer
