@@ -1,10 +1,19 @@
 mapboxgl.accessToken = mapboxConfig.MAPBOX_ACCESS_TOKEN;
 
+// Add map bounds to prevent user from panning outside of Brazil
+const bounds = [
+    [-100, -45], // Southwest coordinates
+    [-10, 20] // Northeast coordinates
+];
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [-52, -14], // Centered over Brazil
-    zoom: 3
+    zoom: 3, // Start overlooking the country
+    minZoom: 3,
+    maxZoom: 12,
+    maxBounds: bounds
 });
 
 const zoomThreshold = 5;
