@@ -1,10 +1,19 @@
 mapboxgl.accessToken = mapboxConfig.MAPBOX_ACCESS_TOKEN;
 
+// Add map bounds to prevent user from panning outside of Brazil
+const bounds = [
+    [-100, -45], // Southwest coordinates
+    [-10, 20] // Northeast coordinates
+];
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [-52, -14], // Centered over Brazil
-    zoom: 3
+    zoom: 3, // Start overlooking the country
+    minZoom: 3,
+    maxZoom: 12,
+    maxBounds: bounds
 });
 
 const zoomThreshold = 5;
@@ -26,6 +35,12 @@ map.on('load', function() {
     map.addSource('brazil-municipality-data', {
         'type': 'geojson',
         'data': '../map/data/access_data_municipality.geojson'
+    });
+
+    // Point data source
+    map.addSource('brazil-point-data', {
+        'type': 'geojson',
+        'data': '../map/data/access_data_points_converted.geojson'
     });
 
     // State layer
@@ -73,7 +88,8 @@ map.on('load', function() {
         'id': 'brazil-municipality-layer',
         'type': 'fill',
         'source': 'brazil-municipality-data',
-        'minzoom': zoomThreshold + 3, // Adjust zoom level for municipality layer
+        'minzoom': zoomThreshold + 3,
+        'maxzoom': zoomThreshold + 5,
         'layout': {},
         'paint': {
             'fill-color': [
@@ -120,10 +136,30 @@ map.on('load', function() {
         'type': 'line',
         'source': 'brazil-municipality-data',
         'minzoom': zoomThreshold + 3,
+        'maxzoom': zoomThreshold + 5,
         'layout': {},
         'paint': {
             'line-color': '#FFFFFF',
             'line-width': 0
+        }
+    });
+
+    // Point layer
+    map.addLayer({
+        'id': 'brazil-point-layer',
+        'type': 'circle',
+        'source': 'brazil-point-data',
+        'minzoom': zoomThreshold + 5,
+        'paint': {
+            'circle-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'A'],
+                0, 'red', // Lowest access score
+                1, 'green' // Highest access score
+            ],
+            'circle-opacity': 0.75,
+            'circle-radius': 5
         }
     });
 });
