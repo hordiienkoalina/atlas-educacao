@@ -23,7 +23,9 @@ var map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
 map.on('load', function() {
-
+    const legend = document.getElementById('legend');
+    map.getContainer().appendChild(legend);
+    
     const layers = map.getStyle().layers;
     // Find the index of the first symbol layer in the map style.
     console.log(layers);
