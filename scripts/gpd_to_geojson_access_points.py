@@ -17,4 +17,6 @@ gdf.reset_index(drop=True, inplace=True)
 gdf.set_index("row_id", inplace = True)
 
 # Export to GeoJSON
-gdf.to_file("map/data/access_data_points.geojson", driver='GeoJSON')
+gdf.to_file("map/data/access_data_points_new.geojson", driver='GeoJSON')
+
+print('Done')
