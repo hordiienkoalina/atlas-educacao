@@ -22,7 +22,20 @@ var map = new mapboxgl.Map({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    countries: 'BR', // Limit search to Brazil
+    marker: {
+        color: 'black'
+    }
+});
+
+map.addControl(geocoder, 'bottom-right');
+
 map.on('load', function() {
+    const legend = document.getElementById('legend');
+    map.getContainer().appendChild(legend);
 
     const layers = map.getStyle().layers;
     // Find the index of the first symbol layer in the map style.
