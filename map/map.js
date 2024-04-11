@@ -8,44 +8,32 @@ const bounds = [
 
 // Define the color values in the color scale for each variable
 const colorValues = {
-  A_percentile: ["#a7d1ff", "#1f3845"],
-  Q_percentile: ["#e5dae5", "#bc39d6"],
-  H_percentile: ["#b5e7c6", "#137e37"],
+  A_percentile: ["#f8fccb", "#b7e3b6", "#40b5c4", "#2567ad", "#152774"],
+  Q_percentile: ["#fff9f4", "#fcd2d0", "#f98ab7" ,"#d41ac0", "#49006a"],
+  H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"],
 };
+
+function createColorScale(percentileKey, colorArray) {
+    // Assuming the scale goes from 0 to 100, evenly distributing color stops
+    const stepSize = 1 / (colorArray.length - 1);
+    const scale = ['interpolate', ['linear'], ['get', percentileKey]];
+
+    // Add color stops to the scale
+    colorArray.forEach((color, index) => {
+        scale.push(index * stepSize); // Calculate the step value
+        scale.push(color); // Add the color
+    });
+
+    return scale;
+}
+
 
 // Formats the color scales in the mapbox format
 const colorScales = {
-  A_percentile: [
-    "interpolate",
-    ["linear"],
-    ["get", "A_percentile"],
-    0,
-    colorValues.A_percentile[0],
-    1,
-    colorValues.A_percentile[1],
-  ],
-
-  Q_percentile: [
-    "interpolate",
-    ["linear"],
-    ["get", "Q_percentile"],
-    0,
-    colorValues.Q_percentile[0],
-    1,
-    colorValues.Q_percentile[1],
-  ],
-
-  H_percentile: [
-    "interpolate",
-    ["linear"],
-    ["get", "H_percentile"],
-    0,
-    colorValues.H_percentile[0],
-    1,
-    colorValues.H_percentile[1],
-  ],
+    A_percentile: createColorScale('A_percentile', colorValues.A_percentile),
+    Q_percentile: createColorScale('Q_percentile', colorValues.Q_percentile),
+    H_percentile: createColorScale('H_percentile', colorValues.H_percentile),
 };
-
 // clear cache
 //mapboxgl.clearStorage();
 
@@ -91,7 +79,26 @@ map.on("load", function () {
       "access-data-points-converted-dj3ili",
       "circle-color",
       colorScales[variable]
-    );
+    )
+    
+    map.setPaintProperty(
+        "access-data-municipality-new-9tg8nj",
+        "fill-color",
+        colorScales[variable]
+      )
+    
+    map.setPaintProperty(
+        "access-data-microregion-new-1wvxsu",
+        "fill-color",
+        colorScales[variable]
+      )
+    
+    map.setPaintProperty(
+        "access-data-state-new-9vri20",
+        "fill-color",
+        colorScales[variable]
+      )
+    ;
   }
 
   function updateLegendColor(variable) {
