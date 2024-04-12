@@ -13,8 +13,8 @@ const colorValues = {
   H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"],
 };
 
-function createColorScale(percentileKey, colorArray) {
-    // Assuming the scale goes from 0 to 100, evenly distributing color stops
+function createColorScale(percentileKey, colorArray, nullValue = "#cccccc") {
+    // Assuming the scale goes from 0 to 1, evenly distributing color stops
     const stepSize = 1 / (colorArray.length - 1);
     const scale = ['interpolate', ['linear'], ['get', percentileKey]];
 
@@ -24,15 +24,16 @@ function createColorScale(percentileKey, colorArray) {
         scale.push(color); // Add the color
     });
 
-    return scale;
+    const fullScale = ["case", ["==", ["get", percentileKey], null], nullValue, scale]
+    return fullScale;
 }
 
 
 // Formats the color scales in the mapbox format
 const colorScales = {
-    A_percentile: createColorScale('A_percentile', colorValues.A_percentile),
-    Q_percentile: createColorScale('Q_percentile', colorValues.Q_percentile),
-    H_percentile: createColorScale('H_percentile', colorValues.H_percentile),
+    A_percentile: createColorScale('A_percentile', colorValues.A_percentile, nullValue = colorValues.A_percentile[0]),
+    Q_percentile: createColorScale('Q_percentile', colorValues.Q_percentile, "gray"),
+    H_percentile: createColorScale('H_percentile', colorValues.H_percentile, colorValues.H_percentile[0]),
 };
 // clear cache
 //mapboxgl.clearStorage();
