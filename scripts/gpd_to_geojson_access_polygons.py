@@ -25,7 +25,7 @@ access_gdf.reset_index(drop=True, inplace=True)
 access_gdf.set_index("row_id", inplace = True)
 
 # Convert the GeoDataFrame to GeoJSON
-output_geojson_path = "map/data/access_data_polygons.geojson"
+output_geojson_path = "map/data/access_data_polygons_new.geojson"
 try:
     access_gdf.to_file(output_geojson_path, driver='GeoJSON')
     print(f"GeoJSON file has been created successfully at {output_geojson_path}!")
