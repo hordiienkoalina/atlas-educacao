@@ -24,7 +24,7 @@ def load_and_process_data(file_path, geom_type, output_directory):
     print(f"Geometry converted for {geom_type}.")
 
     # Check if geometry needs reorientation (applicable for polygon types)
-    if geom_type in ['state', 'municipality', 'microregion']:
+    if geom_type in ['state', 'municipality', 'microregion', 'polygons']:
         df['geometry'] = df['geometry'].apply(
             lambda geom: ops.transform(lambda x, y, z=None: (x, y), ops.orient(geom))
         )
@@ -35,7 +35,7 @@ def load_and_process_data(file_path, geom_type, output_directory):
     gdf.set_index('row_id', inplace=True)
     
     # Save to GeoJSON
-    output_path = f"{output_directory}/access_data_{geom_type}_new.geojson"
+    output_path = f"{output_directory}/access_data_{geom_type}.geojson"
     try:
         gdf.to_file(output_path, driver='GeoJSON')
         print(f"GeoJSON file has been created successfully at {output_path}!")
@@ -50,7 +50,7 @@ def main():
     """
     parser = argparse.ArgumentParser(description="Process geographic data into GeoJSON format.")
     parser.add_argument('csv_path', type=str, help='Path to the CSV file containing the geographic data.')
-    parser.add_argument('geom_type', type=str, choices=['state', 'municipality', 'microregion', 'points'], help='Type of geography data to process.')
+    parser.add_argument('geom_type', type=str, choices=['state', 'municipality', 'microregion', 'points', 'polygons'], help='Type of geography data to process.')
     parser.add_argument('--output_dir', type=str, default='map/data', help='Output directory to save GeoJSON files.')
 
     args = parser.parse_args()
