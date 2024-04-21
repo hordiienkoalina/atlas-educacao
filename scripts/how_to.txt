@@ -1,8 +1,0 @@
-Run:
-
-csv_point_polygons to create separate dataframes from access_df for points and for polygons. 
-
-gpd_to_geojson to convert all the csvs to geojson
-
-epsg_convert_access to convert things into lat/lon
-
