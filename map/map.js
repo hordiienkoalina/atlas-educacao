@@ -78,6 +78,11 @@ map.on("load", function () {
   // Initialize the color scales for data visualization
   updateColorScale("A_percentile");
   updateLegendColor("A_percentile");
+  // Toggle visibility of all layers on
+  map.setLayoutProperty("access-data-points-converted-dj3ili", "visibility", "visible");
+  map.setLayoutProperty("access-data-municipality-new-9tg8nj", "visibility", "visible");
+  map.setLayoutProperty("access-data-microregion-new-1wvxsu", "visibility", "visible");
+  map.setLayoutProperty("access-data-state-new-9vri20", "visibility", "visible");
 
   // Append the legend to the map container
   const legend = document.getElementById("legend");
