@@ -14,7 +14,7 @@ const colorValues = {
 };
 
 // Function to create a color scale for map features
-function createColorScale(percentileKey, colorArray, nullValue = "#cccccc") {
+function createColorScale(percentileKey, colorArray, nullValue = "#c7c7c7") {
   const stepSize = 1 / (colorArray.length - 1);
   const scale = ['interpolate', ['linear'], ['get', percentileKey]];
 
@@ -24,13 +24,17 @@ function createColorScale(percentileKey, colorArray, nullValue = "#cccccc") {
     scale.push(color);
   });
 
-  return ["case", ["==", ["get", percentileKey], null], nullValue, scale];
+  return ["case", 
+        ["==", ["get", percentileKey], null], 
+        nullValue, // If the property is null, use the nullValue color
+        scale // Otherwise, use the scale for interpolation
+        ];
 }
 
 // Store color scales formatted for Mapbox
 const colorScales = {
   A_percentile: createColorScale('A_percentile', colorValues.A_percentile, colorValues.A_percentile[0]),
-  Q_percentile: createColorScale('Q_percentile', colorValues.Q_percentile, "gray"),
+  Q_percentile: createColorScale('Q_percentile', colorValues.Q_percentile),
   H_percentile: createColorScale('H_percentile', colorValues.H_percentile, colorValues.H_percentile[0]),
 };
 
@@ -70,47 +74,74 @@ geocoder.on('result', function(e) {
 // Store the ID of the currently highlighted feature
 var currentHighlightedId = null;
 
+
+
 // Setup map event listeners
 map.on("load", function () {
+    map.addSource('brazil-state-data', {
+        'type': 'geojson',
+        'data': '../map/data/access_data_state_new.geojson'
+    });
+    
+    const zoomThreshold = 5;
+    
+    map.addLayer({
+        'id': 'brazil-state-layer-edge',
+        'type': 'line',
+        'source': 'brazil-state-data',
+        'layout': {},
+        'paint': {
+            'line-color': '#000000',
+            'line-width': 2.5,
+            'line-opacity': 1,
+        }
+    }
+    );
   // Log all layers for debugging
   console.log(map.getStyle().layers);
+
+    // Define function to update the color scale on the map
+    function updateColorScale(variable) {
+        map.setPaintProperty("access-data-points-converted-dj3ili", "circle-color", colorScales[variable]);
+        map.setPaintProperty("access-data-municipality-new-9tg8nj", "fill-color", colorScales[variable]);
+        map.setPaintProperty("access-data-microregion-new-1wvxsu", "fill-color", colorScales[variable]);
+        map.setPaintProperty("access-data-state-new-9vri20", "fill-color", colorScales[variable]);
+      }
+    
+      // Define function to update the legend color
+      function updateLegendColor(variable) {
+        const colors = colorValues[variable];
+        const gradient = `linear-gradient(to right, ${colors.join(", ")})`;
+        const legendColorElement = document.querySelector("#legend > div");
+        legendColorElement.style.background = gradient;
+      }
 
   // Initialize the color scales for data visualization
   updateColorScale("A_percentile");
   updateLegendColor("A_percentile");
+  // Toggle visibility of all layers on
+    map.setLayoutProperty("access-data-points-converted-dj3ili", "visibility", "visible");
+    map.setLayoutProperty("access-data-municipality-new-9tg8nj", "visibility", "visible");
+    map.setLayoutProperty("access-data-microregion-new-1wvxsu", "visibility", "visible");
+    map.setLayoutProperty("access-data-state-new-9vri20", "visibility", "visible");
 
   // Append the legend to the map container
   const legend = document.getElementById("legend");
   map.getContainer().appendChild(legend);
 
-  // Define function to update the color scale on the map
-  function updateColorScale(variable) {
-    map.setPaintProperty("access-data-points-converted-dj3ili", "circle-color", colorScales[variable]);
-    map.setPaintProperty("access-data-municipality-new-9tg8nj", "fill-color", colorScales[variable]);
-    map.setPaintProperty("access-data-microregion-new-1wvxsu", "fill-color", colorScales[variable]);
-    map.setPaintProperty("access-data-state-new-9vri20", "fill-color", colorScales[variable]);
-  }
-
-  // Define function to update the legend color
-  function updateLegendColor(variable) {
-    const colors = colorValues[variable];
-    const gradient = `linear-gradient(to right, ${colors.join(", ")})`;
-    const legendColorElement = document.querySelector("#legend > div");
-    legendColorElement.style.background = gradient;
-  }
 
   // Event listeners for UI elements to update scales
-  document.getElementById("btnA").addEventListener("click", function () {
+  document.getElementById("mapA").addEventListener("click", function () {
     updateColorScale("A_percentile");
     updateLegendColor("A_percentile");
   });
 
-  document.getElementById("btnQ").addEventListener("click", function () {
+  document.getElementById("mapQ").addEventListener("click", function () {
     updateColorScale("Q_percentile");
     updateLegendColor("Q_percentile");
   });
 
-  document.getElementById("btnH").addEventListener("click", function () {
+  document.getElementById("mapH").addEventListener("click", function () {
     updateColorScale("H_percentile");
     updateLegendColor("H_percentile");
   });

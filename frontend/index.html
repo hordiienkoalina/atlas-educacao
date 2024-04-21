@@ -22,24 +22,73 @@
             top: 10px; /* Adjust as needed */
             left: 10px; /* Adjust as needed */
             z-index: 1; /* Ensure it's above the map */
-            background: rgba(255,255,255,0.8); /* Semi-transparent white background */
+            display: flex;
+            /*background: rgba(255,255,255,0.8); /* Semi-transparent white background */
             padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
+            /*border-radius: 5px;
+            /*box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
+            position: relative;
+            
         }
-        button {
-            display: block;
-            margin-bottom: 5px; /* Space between buttons */
+        .map-thumbnail {
+            margin-right: 5px; /* Space between thumbnails */
+            cursor: pointer;
+            position: relative;
         }
+        .map-thumbnail img {
+            width: 180px; /* Thumbnail width, adjust as needed */
+            aspect-ratio: 5/4;
+            border: 1px solid #ccc; /* Optional border for visibility */
+            object-fit: cover;
+            transition: filter 0.3s; /* Smooth transition for grayscale effect */
+            
+        }
+
+        .map-thumbnail .map-name {
+            position: absolute;
+            top: 50%; /* Position the top edge of the text block at the center */
+            left: 0;
+            right: 0;
+            transform: translateY(-50%); /* Shift the text block up by half its height to center */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically for flex columns */
+            text-align: center; /* Ensure multi-line text is centered */
+            font-size: 1em; /* Adjust font size as needed */
+            padding: 0 10px; /* Add some padding inside the overlay box */
+            box-sizing: border-box; /* Ensure padding doesn't increase the size of the box */
+            opacity: 0; /* Start with an invisible overlay */
+            transition: opacity 0.3s; /* Smooth transition for the overlay */
+            line-height: 1.2em; /* Adjust line height as needed for better readability */
+        }
+
+        .map-thumbnail:hover .map-name {
+            opacity: 1; /* Fully visible on hover */
+        }
+
+        .map-thumbnail:hover img {
+            filter: grayscale(100%); /* Gray out the image */
+        }   
+
     </style>
 
 </head>
 <body>
     <div id='map'></div>
-    <div class="map-overlay" style=>
-        <button id="btnA">Access</button>
-        <button id="btnQ">Quality</button>
-        <button id="btnH">Quality-Adjusted Access</button>
+    <div class="map-overlay">
+        <div id="mapA" class="map-thumbnail">
+            <img src="images/Access.png" alt="Access Map Preview">
+            <div class="map-name">Access</div>
+        </div>
+        <div id="mapQ" class="map-thumbnail">
+            <img src="images/Quality.png" alt="Quality Map Preview">
+            <div class="map-name">Quality</div>
+        </div>
+        <div id="mapH" class="map-thumbnail">
+            <img src="images/Quality-adjusted Access.png" alt="Quality Adjusted Access Map Preview">
+            <div class="map-name">Quality Adjusted Access</div>
+        </div>
     </div>
     <div id="legend" style="position: absolute; bottom: 70px; right: 60px; padding: 5px; background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); border-radius: 3px;">
         <div style="height: 20px; width: 230px;"></div>
