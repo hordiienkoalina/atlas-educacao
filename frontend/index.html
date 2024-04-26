@@ -31,11 +31,55 @@
             display: block;
             margin-bottom: 5px; /* Space between buttons */
         }
+        /* Additional styles for navigation menu */
+        .nav-menu {
+            height: 100%;
+            width: 0; /* Navigation menu width is zero initially */
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden; /* Hide horizontal scroll */
+            transition: 0.5s; /* Smooth transition effect */
+            padding-top: 60px; /* Space for the close button */
+            box-shadow: 4px 0 10px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
+        }
+        .nav-menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .nav-menu a:hover {
+            color: #f1f1f1;
+        }
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
     </style>
 
 </head>
 <body>
     <div id='map'></div>
+    <!-- Add a button to handle the opening of the nav menu -->
+    <span style="font-size:30px;cursor:pointer;z-index:5;position:absolute;top:10px;left:10px;" onclick="openNav()">&#9776;</span>
+
+    <!-- The navigation menu -->
+    <div id="myNav" class="nav-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+        <a href="#">About Us</a>
+        <a href="#">Tutorial</a>
+        <a href="#">Methodology</a>
+        <a href="#">Download</a>
+    </div>
+
     <div class="map-overlay" style=>
         <button id="btnA">Access</button>
         <button id="btnQ">Quality</button>
@@ -46,8 +90,9 @@
         <p style="position: absolute; top: 40px; left: 47px; background: white; padding: 2px 5px; margin: 0; transform: translateX(-100%); border-radius: 3px">Scarce</p>
         <p style="position: absolute; top: 40px; right: -61px; background: white; padding: 2px 5px; margin: 0; transform: translateX(-100%); border-radius: 3px">Adequate</p>
     </div>
-
+<script src="../frontend/nav.js"></script>
 <script src="../config/config.js"></script> 
 <script src="../map/map.js"></script> 
+
 </body>
 </html>
