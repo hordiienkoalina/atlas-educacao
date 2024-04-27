@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+.team {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.team-member {
+    width: 300px; /* Adjust width as needed */
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%; /* This makes the image responsive */
+    border-radius: 10px; /* Optional: Rounds the corners of the image */
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+    .team {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .team-member {
+        margin-bottom: 20px;
+    }
+}
+
+
+.tutorial article {
+    margin-bottom: 20px;
+}
+
+.tutorial img {
+    width: 100%; /* or fixed width, depending on your layout */
+    border-radius: 5px;
+}
+
+.tutorial h2 {
+    margin-top: 10px;
+}
+
+.tutorial p {
+    text-align: left;
+}
+
+.downloads {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-item {
+    margin: 20px;
+    text-align: center;
+}
+
+.download-item img {
+    width: 100px; /* or according to your design */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.download-item a {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    background: #f2f2f2; /* Example background color */
+    color: #333; /* Example text color */
+    border-radius: 5px;
+    text-decoration: none;
+}
