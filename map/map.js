@@ -138,6 +138,54 @@ map.on("load", function () {
     }
   });
 
+ // Variables to store the previous zoom level
+let previousZoom = map.getZoom();
+
+map.on('zoom', function() {
+    var newZoom = map.getZoom();
+
+    // Define the zoom level boundaries for your layers
+    var zoomRanges = {
+        'state': { min: map.getLayer('access-data-state-new-9vri20').minzoom, max: map.getLayer('access-data-microregion-new-1wvxsu').minzoom },
+        'microregion': { min: map.getLayer('access-data-microregion-new-1wvxsu').minzoom, max: map.getLayer('access-data-municipality-new-9tg8nj').minzoom },
+        'municipality': { min: map.getLayer('access-data-municipality-new-9tg8nj').minzoom, max: map.getLayer('access-data-municipality-new-9tg8nj').maxzoom },
+        'points': { min: map.getLayer('access-data-municipality-new-9tg8nj').maxzoom, max: Infinity }
+    };
+
+    // Determine the current and previous layer based on zoom level
+    let currentLayer = null;
+    let previousLayer = null;
+    
+    for (const layer in zoomRanges) {
+        if (newZoom >= zoomRanges[layer].min && newZoom < zoomRanges[layer].max) {
+            currentLayer = layer;
+        }
+        if (previousZoom >= zoomRanges[layer].min && previousZoom < zoomRanges[layer].max) {
+            previousLayer = layer;
+        }
+    }
+
+    // Clear the highlight if the layer has changed
+    if (currentLayer !== previousLayer) {
+        map.getSource('highlight-feature').setData({
+            'type': 'FeatureCollection',
+            'features': []
+        });
+        currentHighlightedId = null; // Reset the highlighted ID
+
+        // Close any open popups
+        if (currentPopup) {
+            currentPopup.remove();
+            currentPopup = null;
+        }
+    }
+
+    // Update previousZoom for the next event
+    previousZoom = newZoom;
+});
+
+
+
   // Variable to hold the currently open popup to manage its visibility
   let currentPopup = null;
 
@@ -193,4 +241,68 @@ map.on("load", function () {
           }
       });
   });
+
+  // --------- CENSUS LEVEL POLYGONS --------- //
+  
+  // map.addSource('access-data-polygons', {
+  //   type: 'geojson',
+  //   data: '../map/data/access_data_polygons.geojson'
+  // });
+
+  // // Add a layer to display the polygons but with no fill color
+  // map.addLayer({
+  //     id: 'polygons-layer',
+  //     type: 'fill',
+  //     source: 'access-data-polygons',
+  //     paint: {
+  //         'fill-opacity': 0 // No fill color
+  //     },
+  //     minzoom: map.getLayer('access-data-points-converted-dj3ili').minzoom // Set minzoom to match the specified layer
+  // });
+
+  // // Add a layer to highlight features on click
+  // map.addLayer({
+  //     id: 'highlight',
+  //     type: 'line',
+  //     source: 'access-data-polygons',
+  //     paint: {
+  //         'line-color': '#000000',
+  //         'line-width': 2
+  //     },
+  //     layout: {
+  //         'visibility': 'none' // Start with the layer not visible
+  //     },
+  //     filter: ['==', 'row_id', ''] // Initially set to an impossible condition
+  // });
+
+  // // Enable highlight layer when the zoom level is appropriate
+  // map.on('zoom', function() {
+  //     if (map.getZoom() >= map.getLayer('access-data-points-converted-dj3ili').minzoom) {
+  //         map.setLayoutProperty('highlight', 'visibility', 'visible');
+  //     } else {
+  //         map.setLayoutProperty('highlight', 'visibility', 'none');
+  //     }
+  // });
+
+  // // Setup click functionality to highlight polygon
+  // map.on('click', 'polygons-layer', function(e) {
+  //     var features = map.queryRenderedFeatures(e.point, { layers: ['polygons-layer'] });
+  //     if (features.length > 0) {
+  //         var feature = features[0];
+
+  //         // Set the filter to create the highlight effect
+  //         map.setFilter('highlight', ['==', 'row_id', feature.properties.row_id]);
+  //     } else {
+  //         // No feature was clicked, remove highlight
+  //         map.setFilter('highlight', ['==', 'row_id', '']);
+  //     }
+  // });
+
+  // // Reset highlight when clicking off a feature
+  // map.on('click', function(e) {
+  //     var features = map.queryRenderedFeatures(e.point, { layers: ['polygons-layer'] });
+  //     if (features.length === 0) {
+  //         map.setFilter('highlight', ['==', 'row_id', '']);
+  //     }
+  // });
 });
