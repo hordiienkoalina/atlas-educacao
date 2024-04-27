@@ -8,63 +8,7 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
-    <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        .mapboxgl-ctrl-geocoder {
-            position: absolute;
-            bottom: 110px;
-            right: 50px;
-            z-index: 1;
-        }
-        .map-overlay {
-            position: absolute;
-            top: 10px; /* Adjust as needed */
-            left: 50px; /* Adjust as needed */
-            z-index: 1; /* Ensure it's above the map */
-            background: rgba(255,255,255,0.8); /* Semi-transparent white background */
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
-        }
-        button {
-            display: block;
-            margin-bottom: 5px; /* Space between buttons */
-        }
-        /* Additional styles for navigation menu */
-        .nav-menu {
-            height: 100%;
-            width: 0; /* Navigation menu width is zero initially */
-            position: absolute;
-            z-index: 2;
-            top: 0;
-            left: 0;
-            background-color: #f9f9f9;
-            overflow-x: hidden; /* Hide horizontal scroll */
-            transition: 0.5s; /* Smooth transition effect */
-            padding-top: 60px; /* Space for the close button */
-            box-shadow: 4px 0 10px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
-        }
-        .nav-menu a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-        .nav-menu a:hover {
-            color: #f1f1f1;
-        }
-        .close-btn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id='map'></div>
@@ -74,10 +18,10 @@
     <!-- The navigation menu -->
     <div id="myNav" class="nav-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
-        <li><a href="pages/about-us.html">About Us</a></li>
-        <li><a href="pages/tutorial.html">Tutorial</a></li>
-        <li><a href="pages/methodology.html">Methodology</a></li>
-        <li><a href="pages/download.html">Download</a></li>
+        <a href="pages/about-us.html">About Us</a>
+        <a href="pages/tutorial.html">Tutorial</a>
+        <a href="pages/methodology.html">Methodology</a>
+        <a href="pages/download.html">Download</a>
     </div>
 
     <div class="map-overlay" style=>
