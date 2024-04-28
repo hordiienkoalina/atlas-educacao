@@ -1,138 +1,59 @@
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+body { 
+    margin: 0; 
+    padding: 0; 
+    font-family: Be Vietnam Pro, sans-serif;
+}
+#map { 
+    position: absolute; 
+    top: 0; 
+    bottom: 40px; /* Adjust this value to the height of the footer */
+    width: 100%; 
+}
 .mapboxgl-ctrl-geocoder {
     position: absolute;
-    bottom: 110px;
+    bottom: 170px; /* Adjust this value to place above the footer correctly */
     right: 50px;
     z-index: 1;
 }
 .map-overlay {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    left: 50px; /* Adjust as needed */
-    z-index: 1; /* Ensure it's above the map */
-    background: rgba(255,255,255,0.8); /* Semi-transparent white background */
+    top: 10px;
+    left: 50px;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.8);
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 button {
     display: block;
-    margin-bottom: 5px; /* Space between buttons */
+    margin-bottom: 5px;
 }
-/* Additional styles for navigation menu */
-.nav-menu {
-    height: 100%;
-    width: 0; /* Navigation menu width is zero initially */
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    background-color: #f9f9f9;
-    overflow-x: hidden; /* Hide horizontal scroll */
-    transition: 0.5s; /* Smooth transition effect */
-    padding-top: 60px; /* Space for the close button */
-    box-shadow: 4px 0 10px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */
+.footer-menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff; /* or any other color */
+    color: white;
+    text-align: left; /* Align text to the left */
+    padding: 10px 20px; /* Added 20px left and right padding for better spacing */
+    height: 20px;
+    z-index: 1000;
+    border-top: 1px solid #848484; /* adding a thin gray line */
 }
-.nav-menu a {
-    padding: 10px 15px;
+.footer-menu a{
+    padding: 5px 5px;
+    text-decoration: underline;
+    font-size: 12px;
+    color: rgb(126, 126, 126);
+    display: inline; /* Maintain inline display */
+}
+
+.footer-menu .divider {
+    padding: 5px 5px;
     text-decoration: none;
-    font-size: 18px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-.nav-menu a:hover {
-    color: #f1f1f1;
-}
-.close-btn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    font-size: 12px;
+    color: rgb(126, 126, 126);
+    display: inline; /* Maintain inline display */
 }
 
-
-.team {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
-}
-
-.team-member {
-    width: 300px; /* Adjust width as needed */
-    text-align: center;
-}
-
-.team-member img {
-    width: 100%; /* This makes the image responsive */
-    border-radius: 10px; /* Optional: Rounds the corners of the image */
-}
-
-.social-links {
-    margin-top: 10px;
-}
-
-.social-links img {
-    width: 24px;
-    height: 24px;
-    margin: 0 5px;
-}
-
-/* Media query for responsive design */
-@media (max-width: 768px) {
-    .team {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .team-member {
-        margin-bottom: 20px;
-    }
-}
-
-
-.tutorial article {
-    margin-bottom: 20px;
-}
-
-.tutorial img {
-    width: 100%; /* or fixed width, depending on your layout */
-    border-radius: 5px;
-}
-
-.tutorial h2 {
-    margin-top: 10px;
-}
-
-.tutorial p {
-    text-align: left;
-}
-
-.downloads {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.download-item {
-    margin: 20px;
-    text-align: center;
-}
-
-.download-item img {
-    width: 100px; /* or according to your design */
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.download-item a {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    background: #f2f2f2; /* Example background color */
-    color: #333; /* Example text color */
-    border-radius: 5px;
-    text-decoration: none;
-}
