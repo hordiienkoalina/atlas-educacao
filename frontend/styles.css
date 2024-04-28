@@ -11,7 +11,7 @@ body {
 }
 .mapboxgl-ctrl-geocoder {
     position: absolute;
-    bottom: 170px; /* Adjust this value to place above the footer correctly */
+    bottom: 100px; /* Adjust this value to place above the footer correctly */
     right: 50px;
     z-index: 1;
 }
