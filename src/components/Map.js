@@ -107,25 +107,25 @@ map.on("load", function () {
   // State data source
   map.addSource("brazil-state-data", {
     type: "geojson",
-    data: "../map/data/access_data_state.geojson",
+    data: "../src/data/access_data_state.geojson",
   });
 
   // Microregion data source
   map.addSource("brazil-microregion-data", {
     type: "geojson",
-    data: "../map/data/access_data_microregion.geojson",
+    data: "../src/data/access_data_microregion.geojson",
   });
 
   // Municipality data source
   map.addSource("brazil-municipality-data", {
     type: "geojson",
-    data: "../map/data/access_data_municipality.geojson",
+    data: "../src/data/access_data_municipality.geojson",
   });
 
   // Point data source
   map.addSource("brazil-point-data", {
     type: "geojson",
-    data: "../map/data/access_data_points.geojson",
+    data: "../src/data/access_data_points.geojson",
   });
 
   // State border layer
