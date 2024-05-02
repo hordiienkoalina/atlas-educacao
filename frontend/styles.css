@@ -20,11 +20,117 @@ body {
     top: 10px;
     left: 50px;
     z-index: 1;
+    display: flex;
     background: rgba(255, 255, 255, 0.8);
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    
 }
+.layer-selection {
+    position: absolute;
+    bottom: 60px; /* Position from the bottom */
+    left: 50px; /* Position from the left */
+    z-index: 10;
+    cursor: pointer;
+    display: flex; /* Ensure elements are in line */
+    align-items: start; /* Align items at the top */
+    
+}
+
+.current-layer {
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 5; /* Ensures it appears below the options on hover */
+}
+
+.current-layer img {
+    width: 50px; /* Keep your existing size */
+    height: auto;
+    border-radius: 8px;
+}
+
+.layer-options {
+    display: flex;
+    visibility: hidden; /* Initially hidden */
+    opacity: 0; /* Start fully transparent */
+    position: absolute;
+    bottom: 0; /* Align top with current layer */
+    left: calc(100% + 10px); /* Offset to the right of the current layer, minimal gap */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    box-sizing: border-box;
+    width: auto; /* Let it size according to content or specify a width */
+    transition: visibility 0.7s 0.3s, opacity 0.3s 0.7s; /* Delay the visibility change, smooth opacity transition */
+    font-size: 12px;    
+}
+
+.layer-selection:hover .layer-options {
+    visibility: visible; /* Make visible when hovered */
+    opacity: 1; /* Fully opaque */
+    transition: visibility 0s linear 0s, opacity 0s linear; /* Apply no delay when showing */
+}
+
+.layer-option {
+    padding: 5px;
+    border-radius: 4px;
+    display: block; /* Stack them vertically */
+    margin-bottom: 5px; /* Space between options */
+    text-align: center; /* Center-align the text */
+}
+
+.layer-option img {
+    width: 80px; /* Ensure the image stretches to the width of the .layer-option */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Optional: rounded corners for the images */
+}
+
+.map-thumbnail {
+    margin-right: 5px; /* Space between thumbnails */
+    cursor: pointer;
+    position: relative;
+}
+
+.map-thumbnail img {
+    width: 50px; /* Thumbnail width, adjust as needed */
+    aspect-ratio: 5/4;
+    border: 1px solid #ccc; /* Optional border for visibility */
+    object-fit: cover;
+    transition: filter 0.3s; /* Smooth transition for grayscale effect */
+    
+}
+
+.map-thumbnail .map-name {
+    position: absolute;
+    top: 50%; /* Position the top edge of the text block at the center */
+    left: 0;
+    right: 0;
+    transform: translateY(-50%); /* Shift the text block up by half its height to center */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically for flex columns */
+    text-align: center; /* Ensure multi-line text is centered */
+    font-size: 1em; /* Adjust font size as needed */
+    padding: 0 10px; /* Add some padding inside the overlay box */
+    box-sizing: border-box; /* Ensure padding doesn't increase the size of the box */
+    opacity: 0; /* Start with an invisible overlay */
+    transition: opacity 0.3s; /* Smooth transition for the overlay */
+    line-height: 1.2em; /* Adjust line height as needed for better readability */
+}
+
+.map-thumbnail:hover .map-name {
+    opacity: 1; /* Fully visible on hover */
+}
+
+.map-thumbnail:hover img {
+    filter: grayscale(100%); /* Gray out the image */
+}   
+
 button {
     display: block;
     margin-bottom: 5px;

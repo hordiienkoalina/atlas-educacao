@@ -14,7 +14,7 @@ const colorValues = {
 };
 
 // Function to create a color scale for map features
-function createColorScale(percentileKey, colorArray, nullValue = "#c7c7c7") {
+function createColorScale(percentileKey, colorArray, nullValue = "#cccccc") {
   const stepSize = 1 / (colorArray.length - 1);
   const scale = ["interpolate", ["linear"], ["get", percentileKey]];
 
@@ -24,11 +24,7 @@ function createColorScale(percentileKey, colorArray, nullValue = "#c7c7c7") {
     scale.push(color);
   });
 
-  return ["case", 
-        ["==", ["get", percentileKey], null], 
-        nullValue, // If the property is null, use the nullValue color
-        scale // Otherwise, use the scale for interpolation
-        ];
+  return ["case", ["==", ["get", percentileKey], null], nullValue, scale];
 }
 
 // Store color scales formatted for Mapbox
@@ -86,29 +82,140 @@ geocoder.on("result", function (e) {
 // Store the ID of the currently highlighted feature
 var currentHighlightedId = null;
 
-
-
 // Setup map event listeners
 map.on("load", function () {
   const layers = map.getStyle().layers;
   // Log all layers for debugging
   console.log(map.getStyle().layers);
 
+  let firstSymbolId;
+  for (const layer of layers) {
+    if (layer.type === "symbol") {
+      firstSymbolId = layer.id;
+      break;
+    }
+  }
+
+  let firstLineId;
+  for (const layer of layers) {
+    if (layer.type === "line") {
+      firstLineId = layer.id;
+      break;
+    }
+  }
+  const zoomThreshold = 5;
+  // State data source
+  map.addSource("brazil-state-data", {
+    type: "geojson",
+    data: "../map/data/access_data_state.geojson",
+  });
+
+  // Microregion data source
+  map.addSource("brazil-microregion-data", {
+    type: "geojson",
+    data: "../map/data/access_data_microregion.geojson",
+  });
+
+  // Municipality data source
+  map.addSource("brazil-municipality-data", {
+    type: "geojson",
+    data: "../map/data/access_data_municipality.geojson",
+  });
+
+  // Point data source
+  map.addSource("brazil-point-data", {
+    type: "geojson",
+    data: "../map/data/access_data_points.geojson",
+  });
+
+  // State border layer
+  map.addLayer(
+    {
+      id: "brazil-state-border",
+      type: "line",
+      source: "brazil-state-data",
+      layout: {},
+      paint: {
+        "line-color": "#000000",
+        "line-width": 1.5,
+      },
+    },
+    firstSymbolId
+  );
+
+  // Microregion layer
+  map.addLayer(
+    {
+      id: "brazil-microregion-layer",
+      type: "fill",
+      source: "brazil-microregion-data",
+      minzoom: zoomThreshold,
+      maxzoom: zoomThreshold + 1,
+      layout: {},
+    },
+    "brazil-state-border"
+  );
+
+  // Municipality layer
+  map.addLayer(
+    {
+      id: "brazil-municipality-layer",
+      type: "fill",
+      source: "brazil-municipality-data",
+      minzoom: zoomThreshold,
+      maxzoom: zoomThreshold + 3,
+      layout: {},
+    },
+    "brazil-microregion-layer"
+  );
+
+  // Point layer
+  map.addLayer(
+    {
+      id: "brazil-point-layer",
+      type: "circle",
+      source: "brazil-point-data",
+      minzoom: zoomThreshold + 2,
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 1.5, 13, 5],
+        "circle-blur": ["interpolate", ["linear"], ["zoom"], 8, 1, 13, 0],
+      },
+    },
+    firstLineId
+  );
+
+  // Define function to update the color scale on the map
+  function updateColorScale(variable) {
+    map.setPaintProperty(
+      "brazil-point-layer",
+      "circle-color",
+      colorScales[variable]
+    );
+    map.setPaintProperty(
+      "brazil-municipality-layer",
+      "fill-color",
+      colorScales[variable]
+    );
+    map.setPaintProperty(
+      "brazil-microregion-layer",
+      "fill-color",
+      colorScales[variable]
+    );
+  }
+
   // Initialize the color scales for data visualization
   updateColorScale("A_percentile");
   updateLegendColor("A_percentile");
 
+  //   // Toggle visibility of all layers on
+  //   map.setLayoutProperty("access-data-points-converted-dj3ili", "visibility", "visible");
+  //   map.setLayoutProperty("access-data-municipality-new-9tg8nj", "visibility", "visible");
+  //   map.setLayoutProperty("access-data-microregion-new-1wvxsu", "visibility", "visible");
+  //   map.setLayoutProperty("access-data-state-new-9vri20", "visibility", "visible");
+
   // Append the legend to the map container
   const legend = document.getElementById("legend");
   map.getContainer().appendChild(legend);
-
-  // Define function to update the color scale on the map
-  function updateColorScale(variable) {
-    map.setPaintProperty("access-data-points-converted-dj3ili", "circle-color", colorScales[variable]);
-    map.setPaintProperty("access-data-municipality-new-9tg8nj", "fill-color", colorScales[variable]);
-    map.setPaintProperty("access-data-microregion-new-1wvxsu", "fill-color", colorScales[variable]);
-    map.setPaintProperty("access-data-state-new-9vri20", "fill-color", colorScales[variable]);
-  }
 
   // Define function to update the legend color
   function updateLegendColor(variable) {
