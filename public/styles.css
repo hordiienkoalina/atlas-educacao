@@ -3,9 +3,24 @@ body {
     padding: 0; 
     font-family: Be Vietnam Pro, sans-serif;
 }
+
+header {
+    background-color: #ffffff; /* Dark gray background */
+    color: #585858; /* White text color */
+    padding: 10px 10px; /* Vertical and horizontal padding */
+    text-align: left; /* Centers the text horizontally */
+    z-index: 5;
+    position: fixed;
+    width: 100%;
+}
+h1 {
+    margin: 0; /* Removes default margin */
+    font-size: 24px; /* Sets the size of the title text */
+}
+
 #map { 
     position: absolute; 
-    top: 0; 
+    top: 40px; 
     bottom: 40px; /* Adjust this value to the height of the footer */
     width: 100%; 
 }
@@ -38,7 +53,7 @@ button {
     text-align: left; /* Align text to the left */
     padding: 10px 20px; /* Added 20px left and right padding for better spacing */
     height: 20px;
-    z-index: 1000;
+    z-index: 5;
     border-top: 1px solid #848484; /* adding a thin gray line */
 }
 .footer-menu a{
