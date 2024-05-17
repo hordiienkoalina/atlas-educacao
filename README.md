@@ -16,3 +16,10 @@ python3 scripts/gpd_to_geojson.py [full path to microregion csv] microregion
 python3 scripts/gpd_to_geojson.py [full path to census polygons csv] polygons
 python3 scripts/gpd_to_geojson.py [full path to census points csv] points
 ```
+
+#### Running the App
+
+```
+npm install
+npm start
+```
