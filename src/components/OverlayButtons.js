@@ -1,18 +1,41 @@
-// OverlayButtons.js
-import React from 'react';
+import React, { useState } from 'react';
 import './OverlayButtons.css';
 
 function OverlayButtons({ onButtonClick }) {
+    const [activeButton, setActiveButton] = useState('Access');
+
     const handleClick = (type) => {
-        console.log("Button clicked:", type);
-        onButtonClick(type);
-    }
+    setActiveButton(type);
+    onButtonClick(type);
+    };
+
     return (
-        <div className="map-overlay">
-            <button onClick={() => handleClick('Access')}>Access</button>
-            <button onClick={() => handleClick('Quality')}>Quality</button>
-            <button onClick={() => handleClick('Quality-Adjusted Access')}>Quality-Adjusted Access</button>
-        </div>
+    <div className="overlay-buttons">
+        <button 
+        className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
+        onClick={() => handleClick('Access')}
+        >
+        Access
+        </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Quality' ? 'active' : ''}`} 
+        onClick={() => handleClick('Quality')}
+        >
+        Quality
+        </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Access+Quality' ? 'active' : ''}`} 
+        onClick={() => handleClick('Access+Quality')}
+        >
+        Access-Quality
+        </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Population' ? 'active' : ''}`} 
+        onClick={() => handleClick('Population')}
+        >
+        Population
+        </button>
+    </div>
     );
 }
 

@@ -205,8 +205,9 @@ class Map extends Component {
     const variableMap = {
       'Access': 'A_percentile',
       'Quality': 'Q_percentile',
-      'Quality-Adjusted Access': 'H_percentile',
-    }
+      'Access+Quality': 'H_percentile',
+      'Population': 'P_percentile'
+    };
     this.setState({ activeVariable: variableMap[type] });
   }
 

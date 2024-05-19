@@ -1,48 +1,39 @@
 /* OverlayButtons.css */
-.map-overlay {
-    position: absolute;
-    top: 10px;
-    left: 50px;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.overlay-buttons {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    bottom: 60px;
+    left: 210px;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 0px 0px;
+    flex-wrap: nowrap;
 }
 
-.map-overlay button {
-display: block;
-margin-bottom: 5px;
-padding: 5px 10px;
-cursor: pointer;
-background-color: #f0f0f0;
-border: none;
-border-radius: 3px;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.map-overlay button:hover {
-background-color: #e1e1e1;
-}  
-
-.button {
-    padding: 10px 20px;
-    margin-right: 5px;
+.overlay-button {
+    padding: 10px 15px;
     border: none;
-    background-color: lightgray;
+    background-color: transparent;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    border-radius: 10px;
+    margin: 0 0px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
 }
 
-.button.active {
-    background-color: blue;
-    color: white;
+.overlay-button:hover {
+    background-color: #ddd;
 }
 
-.map-overlay {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
+.overlay-button.active {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #333;
 }

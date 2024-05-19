@@ -1,11 +1,15 @@
 /* Footer.css */
 .footer-menu {
+    display: flex; /* Use flexbox for layout */
+    justify-content: left; /* Center the menu items horizontally */
+    align-items: center; /* Center the menu items vertically */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow content */
     position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #ffffff; /* White background color */
     color: #7e7e7e; /* Gray text color for better visibility */
-    text-align: left; /* Align text to the left */
     padding: 10px 20px; /* Padding for top, bottom, and horizontal spacing */
     box-sizing: border-box; /* Include padding and border in the width */
     border-top: 1px solid #848484; /* A thin gray line at the top of the footer */
@@ -13,15 +17,16 @@
 }
 
 .footer-menu a {
-color: #7e7e7e; /* Gray color for links */
-text-decoration: underline; /* Underline for clarity that they are clickable */
-padding: 5px; /* Padding to increase clickable area */
-font-size: 12px; /* Smaller font size for subtlety */
-margin-right: 10px; /* Right margin for spacing between links */
+    color: #7e7e7e; /* Gray color for links */
+    text-decoration: underline; /* Underline for clarity that they are clickable */
+    padding: 5px; /* Padding to increase clickable area */
+    font-size: 12px; /* Smaller font size for subtlety */
+    margin-right: 10px; /* Right margin for spacing between links */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .footer-menu .divider {
-color: #7e7e7e; /* Gray color to match the text */
-padding: 0 5px; /* Horizontal padding for spacing around the divider */
-font-size: 12px; /* Match font size with links */
-}  
+    color: #7e7e7e; /* Gray color to match the text */
+    padding: 0 5px; /* Horizontal padding for spacing around the divider */
+    font-size: 12px; /* Match font size with links */
+}
