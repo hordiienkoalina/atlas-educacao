@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './OverlayButtons.css';
 
-function OverlayButtons({ onButtonClick }) {
+function OverlayButtons({ onButtonClick, onLayerChange }) {
     const [activeButton, setActiveButton] = useState('Access');
 
     const handleClick = (type) => {
     setActiveButton(type);
     onButtonClick(type);
+    
     };
 
     return (
@@ -24,8 +25,8 @@ function OverlayButtons({ onButtonClick }) {
         Quality
         </button>
         <button 
-        className={`overlay-button ${activeButton === 'Access+Quality' ? 'active' : ''}`} 
-        onClick={() => handleClick('Access+Quality')}
+        className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
+        onClick={() => handleClick('Access-Quality')}
         >
         Access-Quality
         </button>

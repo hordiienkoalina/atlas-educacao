@@ -1,0 +1,23 @@
+.subheader {
+background-color: #ffffff; /* White background color */
+padding: 5px; /* Adjust padding as needed */
+text-align: left;
+position: relative; /* Ensure it's not absolute or fixed */
+z-index: 10; /* Ensure it stays above other content */
+border-bottom: 1px solid #848484;
+}
+
+.subheader h2 {
+font-size: 18px;
+color: #555;
+margin: 0;
+padding-left: 35px;
+padding-bottom: -30px;
+padding-top: 15px;
+}
+
+.subheader p {
+font-size: 14px;
+color: #777;
+padding-left: 35px;
+}

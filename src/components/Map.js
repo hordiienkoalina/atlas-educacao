@@ -81,7 +81,7 @@ class Map extends Component {
     const colorValues = {
       A_percentile: ["#f8fccb", "#b7e3b6", "#40b5c4", "#2567ad", "#152774"],
       Q_percentile: ["#fff9f4", "#fcd2d0", "#f98ab7", "#d41ac0", "#49006a"],
-      H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"]
+      H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"],
     };
     let colorScales = {};
     Object.keys(colorValues).forEach(key => {
@@ -95,7 +95,7 @@ class Map extends Component {
     const colorValues = {
       A_percentile: ["#f8fccb", "#b7e3b6", "#40b5c4", "#2567ad", "#152774"],
       Q_percentile: ["#fff9f4", "#fcd2d0", "#f98ab7", "#d41ac0", "#49006a"],
-      H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"]
+      H_percentile: ["#fefddc", "#a9c689", "#669409", "#11692b", "#263021"],
     };
 
     this.setState({
@@ -233,10 +233,11 @@ class Map extends Component {
     const variableMap = {
       'Access': 'A_percentile',
       'Quality': 'Q_percentile',
-      'Access+Quality': 'H_percentile',
+      'Access-Quality': 'H_percentile',
       'Population': 'P_percentile'
     };
     this.setState({ activeVariable: variableMap[type] });
+    this.props.onLayerChange(type); // Pass to parent component
   }
 
   render() {
@@ -244,7 +245,7 @@ class Map extends Component {
     return (
       <div className='map-wrapper'>
         <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} /> {/* Adjust height */}
-        <OverlayButtons onButtonClick={this.handleButtonClick} />
+        <OverlayButtons onButtonClick={this.handleButtonClick} onLayerChange={this.props.onLayerChange} />
         <Legend colors={colors} labels={labels} />
       </div>
     );

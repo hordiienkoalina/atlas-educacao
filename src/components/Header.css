@@ -1,17 +1,10 @@
-/* Header.css */
 .header {
 background-color: #ffffff; /* White background color */
-border-bottom: 1px solid #dcdcdc; /* Light gray border */
 padding: 20px; /* Adjust padding as needed */
 text-align: left;
 position: relative; /* Ensure it's not absolute or fixed */
 z-index: 10; /* Ensure it stays above other content */
-border-bottom: 1px solid #848484;
-}
-
-.header-content {
-max-width: 1200px; /* Limit the maximum width */
-margin: 0 auto; /* Center the content */
+border-bottom: 1px solid #dcdcdc; /* Light gray border */
 }
 
 .header h1 {
@@ -19,29 +12,4 @@ font-size: 24px;
 color: #333;
 margin: 0;
 padding-left: 20px; /* Add padding if needed */
-}
-
-.header-line {
-border: none;
-border-top: 1px solid #dcdcdc; /* Light gray border */
-margin: 10px 0; /* Space around the line */
-width: calc(100% + 40px); /* Make the line extend beyond the container padding */
-transform: translateX(-20px); /* Align the line with the container edges */
-}
-
-.subheader {
-margin-top: 15px;
-padding-left: 20px; /* Add padding if needed */
-}
-
-.subheader h2 {
-font-size: 18px;
-color: #555;
-margin: 0;
-}
-
-.subheader p {
-font-size: 14px;
-color: #777;
-margin: 5px 0 0 0;
 }
