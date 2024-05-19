@@ -215,7 +215,7 @@ class Map extends Component {
     const { colors, labels } = this.state;
     return (
       <div className='map-wrapper'>
-        <div ref={this.mapContainer} className="map-container" style={{ height: '100vh' }} />
+        <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} />
         <OverlayButtons onButtonClick={this.handleButtonClick} />
         <Legend colors={colors} labels={labels} />
       </div>
