@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import OverlayButtons from './OverlayButtons';
 import Legend from './Legend';
 import { MAPBOX_ACCESS_TOKEN } from '../config/config';
 import './Map.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -34,8 +36,34 @@ class Map extends Component {
     map.on('load', () => {
       this.setState({ map }, () => {
         this.initializeMapLayers();
+        this.addMapControls(map);
       });
     });
+  }
+
+  addMapControls = (map) => {
+    // Add default navigation controls
+    map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+    // Add search control
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      countries: 'br', 
+      placeholder: 'Search', 
+      zoom: 10, 
+      marker: false 
+    });
+
+    geocoder.on('result', (event) => {
+      // Adjust the zoom level manually if needed
+      map.flyTo({
+        center: event.result.center,
+        zoom: 10 // Set your desired zoom level here
+      });
+    });
+
+    map.addControl(geocoder, 'top-right'); // Add geocoder to the top right
   }
 
   createColorScale = (percentileKey, colorArray) => [
@@ -215,7 +243,7 @@ class Map extends Component {
     const { colors, labels } = this.state;
     return (
       <div className='map-wrapper'>
-        <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} />
+        <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} /> {/* Adjust height */}
         <OverlayButtons onButtonClick={this.handleButtonClick} />
         <Legend colors={colors} labels={labels} />
       </div>
