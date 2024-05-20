@@ -3,6 +3,33 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Be Vietnam Pro', sans-serif;
+  height: 100%; /* Ensure the body takes full height */
+}
+
+html {
+  height: 100%; /* Ensure the html takes full height */
+}
+
+#root {
+  height: 100%; /* Ensure the root takes full height */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.map-container {
+  flex-grow: 1;
+  position: relative;
 }
 
 /* Style adjustments for overall UI components */

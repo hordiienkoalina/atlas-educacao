@@ -23,11 +23,15 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Subheader 
-        title={`Currently Showing: ${selectedLayer}`} 
-        description={layerDescriptions[selectedLayer] || 'No description available.'} 
-      />
-      <Map onLayerChange={handleLayerChange} />
+      <div className="content">
+        <Subheader 
+          title={`Currently Showing: ${selectedLayer}`} 
+          description={layerDescriptions[selectedLayer] || 'No description available.'} 
+        />
+        <div className="map-container">
+          <Map onLayerChange={handleLayerChange} />
+        </div>
+      </div>
       <Footer />
     </div>
   );
