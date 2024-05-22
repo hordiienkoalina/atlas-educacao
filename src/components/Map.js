@@ -84,26 +84,62 @@ class Map extends Component {
   };
 
   handleMapClick = (e) => {
+    const { activeVariable, colorScales } = this.state;
     const coordinates = e.lngLat;
     const properties = e.features[0].properties;
-
+  
+    // Extract the percentile value for the active layer
+    const percentileValue = properties[activeVariable];
+    const percentage = Math.round(percentileValue * 100); // Convert to percentage
+  
+    const layerNameMap = {
+      'A_percentile': 'Access',
+      'Q_percentile': 'Quality',
+      'H_percentile': 'Quality-Adjusted Access',
+      'P_percentile': 'Population'
+    };
+    const layerName = layerNameMap[activeVariable];
+  
+    // Format the percentile rank (e.g., 82nd, 21st, 3rd)
+    const formatPercentileRank = (rank) => {
+      if (rank > 10 && rank < 20) return `${rank}th`; // Handle 'teens' cases
+      const lastDigit = rank % 10;
+      switch (lastDigit) {
+        case 1: return `${rank}st`;
+        case 2: return `${rank}nd`;
+        case 3: return `${rank}rd`;
+        default: return `${rank}th`;
+      }
+    };
+  
+    const percentileRank = formatPercentileRank(percentage);
+  
+    // Get the color for the active variable at the clicked percentile
+    const colorScale = colorScales[activeVariable];
+    console.log('colorScale:', colorScale);
+    console.log('percentileValue:', percentileValue);
+  
+    const colorValue = this.getColorForValue(colorScale, percentileValue);
+    console.log('colorValue:', colorValue);
+  
     const popupContent = `
-      <div>
-        <strong>A_percentile:</strong> ${properties.A_percentile}<br>
-        <strong>Q_percentile:</strong> ${properties.Q_percentile}<br>
-        <strong>H_percentile:</strong> ${properties.H_percentile}
+      <div class="popup-container">
+        <span class="color-box" style="background-color: ${colorValue};"></span>
+        <div style="flex: 1;">
+          <strong>${percentileRank}</strong> ${layerName} Percentile
+        </div>
       </div>
     `;
-
+  
     if (this.state.popup) {
       this.state.popup.remove();
     }
-
-    const newPopup = new mapboxgl.Popup()
+  
+    const newPopup = new mapboxgl.Popup({ closeButton: false }) // Remove close button
       .setLngLat(coordinates)
       .setHTML(popupContent)
       .addTo(this.state.map);
-
+  
     // Check if the clicked feature is the same as the currently highlighted feature
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
@@ -115,7 +151,70 @@ class Map extends Component {
         this.highlightFeature();
       });
     }
+  };  
+  
+  getColorForValue = (colorScale, value) => {
+    // Ensure the colorScale is structured correctly
+    if (!Array.isArray(colorScale) || colorScale.length < 6) {
+      console.error('Invalid color scale format', colorScale);
+      return '#000000'; // Fallback color
+    }
+  
+    // Define fixed stops
+    const stops = [
+      { stop: 0, color: colorScale[4] },
+      { stop: 0.25, color: colorScale[6] },
+      { stop: 0.5, color: colorScale[8] },
+      { stop: 0.75, color: colorScale[10] },
+      { stop: 1, color: colorScale[12] },
+    ];
+  
+    console.log('stops:', stops);
+  
+    // Find the correct color range for the value
+    for (let i = 0; i < stops.length - 1; i++) {
+      console.log(`Checking if ${value} is between ${stops[i].stop} and ${stops[i + 1].stop}`);
+      if (value >= stops[i].stop && value <= stops[i + 1].stop) {
+        const t = (value - stops[i].stop) / (stops[i + 1].stop - stops[i].stop);
+        const interpolatedColor = this.interpolateColor(stops[i].color, stops[i + 1].color, t);
+        console.log('Interpolating between', stops[i].color, 'and', stops[i + 1].color, 'with factor', t, 'result:', interpolatedColor);
+        return interpolatedColor;
+      }
+    }
+  
+    // If value is not in any range, return the last color
+    console.warn('Value out of range, using last color', stops[stops.length - 1].color);
+    return stops[stops.length - 1].color;
   };
+  
+  interpolateColor = (color1, color2, factor) => {
+    const c1 = this.hexToRgb(color1);
+    const c2 = this.hexToRgb(color2);
+    const result = {
+      r: Math.round(c1.r + factor * (c2.r - c1.r)),
+      g: Math.round(c1.g + factor * (c2.g - c1.g)),
+      b: Math.round(c1.b + factor * (c2.b - c1.b))
+    };
+    return this.rgbToHex(result);
+  };
+  
+  hexToRgb = (hex) => {
+    // Ensure hex is a string
+    if (typeof hex !== 'string') {
+      console.error('Invalid hex color format', hex);
+      return { r: 0, g: 0, b: 0 }; // Fallback color
+    }
+    const bigint = parseInt(hex.slice(1), 16);
+    return {
+      r: (bigint >> 16) & 255,
+      g: (bigint >> 8) & 255,
+      b: (bigint & 255)
+    };
+  };
+  
+  rgbToHex = (rgb) => {
+    return `#${((1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b).toString(16).slice(1).toUpperCase()}`;
+  };  
 
   highlightFeature = () => {
     const { map, selectedFeature } = this.state;
@@ -162,6 +261,20 @@ class Map extends Component {
     }
   };
 
+  initializeColorScales = () => {
+    const colorValues = {
+      A_percentile: ['#f8fccb', '#b7e3b6', '#40b5c4', '#2567ad', '#152774'],
+      Q_percentile: ['#fff9f4', '#fcd2d0', '#f98ab7', '#d41ac0', '#49006a'],
+      H_percentile: ['#fefddc', '#a9c689', '#669409', '#11692b', '#263021'],
+      P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
+    };
+    let colorScales = {};
+    Object.keys(colorValues).forEach((key) => {
+      colorScales[key] = this.createColorScale(key, colorValues[key]);
+    });
+    return colorScales;
+  };
+  
   createColorScale = (percentileKey, colorArray) => [
     'interpolate',
     ['linear'],
@@ -172,20 +285,6 @@ class Map extends Component {
     0.75, colorArray[3],
     1, colorArray[4],
   ];
-
-  initializeColorScales = () => {
-    const colorValues = {
-      A_percentile: ['#f8fccb', '#b7e3b6', '#40b5c4', '#2567ad', '#152774'],
-      Q_percentile: ['#fff9f4', '#fcd2d0', '#f98ab7', '#d41ac0', '#49006a'],
-      H_percentile: ['#fefddc', '#a9c689', '#669409', '#11692b', '#263021'],
-      P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'], // Example color scale for P_percentile
-    };
-    let colorScales = {};
-    Object.keys(colorValues).forEach((key) => {
-      colorScales[key] = this.createColorScale(key, colorValues[key]);
-    });
-    return colorScales;
-  };
 
   initializeMapLayers = () => {
     const map = this.state.map;

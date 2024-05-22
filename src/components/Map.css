@@ -1,33 +1,59 @@
 /* Map.css - Specific styles for the Map component */
 .map-container {
-    position: relative;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: calc(100vh - 100px); /* Adjust height to account for header and footer */
-    z-index: 0; /* Ensure the map is behind the header */
+position: relative;
+top: 0;
+bottom: 0;
+width: 100%;
+height: calc(100vh - 100px); /* Adjust height to account for header and footer */
+z-index: 0; /* Ensure the map is behind the header */
 }
 
 .map-wrapper {
-    position: relative;
-    z-index: 0; /* Ensure the wrapper does not overlay the header */
+position: relative;
+z-index: 0; /* Ensure the wrapper does not overlay the header */
 }
 
 .mapboxgl-ctrl-top-right {
-    margin-top: 145px; /* Adjust if needed to avoid overlapping with the header */
-    margin-right: -45px;
+margin-top: 145px; /* Adjust if needed to avoid overlapping with the header */
+margin-right: -45px;
 }
 
 .mapboxgl-ctrl-geocoder {
-    height: 36px !important; /* Set a fixed width */
-    max-height: 36px !important; /* Ensure it does not exceed this width */
-    min-height: 36px !important; /* Ensure it does not shrink below this width */
-    font-size: 14px;
+height: 36px !important; /* Set a fixed width */
+max-height: 36px !important; /* Ensure it does not exceed this width */
+min-height: 36px !important; /* Ensure it does not shrink below this width */
+font-size: 14px;
+}
+.mapboxgl-popup-content {
+position: relative;
+padding: 10px;
+border-radius: 5px;
+font-size: 14px;
+}
+
+.mapboxgl-popup-tip {
+display: none; /* Hide the default popup arrow */
+}
+
+.color-box {
+display: inline-block;
+width: 15px;
+height: 15px;
+flex-shrink: 0;
+margin-right: 7.5px;
+border: 1px solid #747474;
+border-radius: 2px;
+vertical-align: top;
+}
+
+.popup-container {
+display: flex;
+align-items: flex-start;
 }
 
 /* temporary fix for search bar resizing on narrow window sizes */
 @media (max-width: 650px) {
-    .mapboxgl-ctrl-geocoder {
-        display: none !important;
-    }
+.mapboxgl-ctrl-geocoder {
+    display: none !important;
+}
 }
