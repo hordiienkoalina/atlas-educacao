@@ -31,10 +31,16 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
         Access-Quality
         </button>
         <button 
-        className={`overlay-button ${activeButton === 'Population' ? 'active' : ''}`} 
-        onClick={() => handleClick('Population')}
+        className={`overlay-button ${activeButton === 'Income' ? 'active' : ''}`} 
+        onClick={() => handleClick('Income')}
         >
-        Population
+        Income
+        </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Gender' ? 'active' : ''}`} 
+        onClick={() => handleClick('Gender')}
+        >
+        Gender
         </button>
     </div>
     );

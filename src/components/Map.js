@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -7,43 +8,48 @@ import { MAPBOX_ACCESS_TOKEN } from '../config/config';
 import './Map.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
+// Setting the Mapbox access token
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 class Map extends Component {
   constructor(props) {
     super(props);
+    // Initializing the state
     this.state = {
-      map: null,
-      activeVariable: 'A_percentile',
-      colorScales: this.initializeColorScales(),
-      colors: [],
-      labels: [],
-      selectedFeature: null,
-      popup: null,
+      map: null, // Map instance
+      activeVariable: 'A_percentile', // Active data variable
+      colorScales: this.initializeColorScales(), // Color scales for different variables
+      colors: [], // Colors for the legend
+      labels: [], // Labels for the legend
+      selectedFeature: null, // Currently selected map feature
+      popup: null, // Popup for displaying information
     };
-    this.mapContainer = React.createRef();
-    this.zoomThreshold = 5;
+    this.mapContainer = React.createRef(); // Reference to the map container DOM element
+    this.zoomThreshold = 5; // Zoom threshold for different layers
   }
 
+  // Lifecycle method called after the component is mounted
   componentDidMount() {
     const map = new mapboxgl.Map({
-      container: this.mapContainer.current,
-      style: 'mapbox://styles/felipehlvo/cltz1z7gn00pw01qu2xm23yjs',
-      center: [-46.63, -23.6],
-      zoom: 7,
-      minZoom: 5,
-      maxZoom: 12,
+      container: this.mapContainer.current, // Map container reference
+      style: 'mapbox://styles/felipehlvo/cltz1z7gn00pw01qu2xm23yjs', // Map style
+      center: [-46.63, -23.6], // Initial map center
+      zoom: 7, // Initial map zoom level
+      minZoom: 5, // Minimum zoom level
+      maxZoom: 12, // Maximum zoom level
     });
 
+    // Event listener for when the map has loaded
     map.on('load', () => {
       this.setState({ map }, () => {
-        this.initializeMapLayers();
-        this.addMapControls(map);
-        this.addMapClickHandler(map);
+        this.initializeMapLayers(); // Initialize map layers
+        this.addMapControls(map); // Add map controls
+        this.addMapClickHandler(map); // Add click handler for the map
       });
     });
   }
 
+  // Method to add map controls
   addMapControls = (map) => {
     // Add default navigation controls
     map.addControl(new mapboxgl.NavigationControl(), 'top-left');
@@ -58,17 +64,19 @@ class Map extends Component {
       marker: false,
     });
 
+    // Event listener for search results
     geocoder.on('result', (event) => {
-      // Adjust the zoom level manually if needed
       map.flyTo({
         center: event.result.center,
-        zoom: 10, // Set your desired zoom level here
+        zoom: 10, // Adjust the zoom level
       });
     });
 
-    map.addControl(geocoder, 'top-right'); // Add geocoder to the top right
+    // Add geocoder to the top right
+    map.addControl(geocoder, 'top-right');
   };
 
+  // Method to add click handler for the map
   addMapClickHandler = (map) => {
     map.on('click', 'brazil-microregion-layer', (e) => {
       this.handleMapClick(e);
@@ -83,23 +91,32 @@ class Map extends Component {
     });
   };
 
+  // Method to handle map click events
   handleMapClick = (e) => {
     const { activeVariable, colorScales } = this.state;
     const coordinates = e.lngLat;
     const properties = e.features[0].properties;
   
+    console.log('Map clicked at:', coordinates); // Add this log
+    console.log('Properties of clicked feature:', properties); // Add this log
+    console.log('Active variable:', activeVariable); // Add this log
+
     // Extract the percentile value for the active layer
     const percentileValue = properties[activeVariable];
     const percentage = Math.round(percentileValue * 100); // Convert to percentage
-  
+
     const layerNameMap = {
       'A_percentile': 'Access',
       'Q_percentile': 'Quality',
       'H_percentile': 'Quality-Adjusted Access',
-      'P_percentile': 'Population'
+      'P_percentile': 'Population',
+      'avg_monthly_earnings': 'Income',
+      'pct_men': 'Gender',
     };
     const layerName = layerNameMap[activeVariable];
-  
+
+    console.log('Layer name:', layerName); // Add this log
+
     // Format the percentile rank (e.g., 82nd, 21st, 3rd)
     const formatPercentileRank = (rank) => {
       if (rank > 10 && rank < 20) return `${rank}th`; // Handle 'teens' cases
@@ -111,17 +128,17 @@ class Map extends Component {
         default: return `${rank}th`;
       }
     };
-  
+
     const percentileRank = formatPercentileRank(percentage);
-  
+
     // Get the color for the active variable at the clicked percentile
     const colorScale = colorScales[activeVariable];
-    console.log('colorScale:', colorScale);
-    console.log('percentileValue:', percentileValue);
-  
+    console.log('Color scale:', colorScale); // Add this log
+    console.log('Percentile value:', percentileValue); // Add this log
+
     const colorValue = this.getColorForValue(colorScale, percentileValue);
-    console.log('colorValue:', colorValue);
-  
+    console.log('Color value:', colorValue); // Add this log
+
     const popupContent = `
       <div class="popup-container">
         <span class="color-box" style="background-color: ${colorValue};"></span>
@@ -130,29 +147,31 @@ class Map extends Component {
         </div>
       </div>
     `;
-  
+
+    // Remove the previous popup if it exists
     if (this.state.popup) {
       this.state.popup.remove();
     }
-  
+
     const newPopup = new mapboxgl.Popup({ closeButton: false }) // Remove close button
       .setLngLat(coordinates)
       .setHTML(popupContent)
       .addTo(this.state.map);
-  
+
     // Check if the clicked feature is the same as the currently highlighted feature
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
-        this.removeHighlight();
-        newPopup.remove();
+        this.removeHighlight(); // Remove highlight if same feature is clicked again
+        newPopup.remove(); // Remove the popup
       });
     } else {
       this.setState({ selectedFeature: e.features[0], popup: newPopup }, () => {
-        this.highlightFeature();
+        this.highlightFeature(); // Highlight the new selected feature
       });
     }
-  };  
-  
+  };
+
+  // Method to get color for a value based on color scale
   getColorForValue = (colorScale, value) => {
     // Ensure the colorScale is structured correctly
     if (!Array.isArray(colorScale) || colorScale.length < 6) {
@@ -169,24 +188,25 @@ class Map extends Component {
       { stop: 1, color: colorScale[12] },
     ];
   
-    console.log('stops:', stops);
+    console.log('stops:', stops); // Add this log
   
     // Find the correct color range for the value
     for (let i = 0; i < stops.length - 1; i++) {
-      console.log(`Checking if ${value} is between ${stops[i].stop} and ${stops[i + 1].stop}`);
+      console.log(`Checking if ${value} is between ${stops[i].stop} and ${stops[i + 1].stop}`); // Add this log
       if (value >= stops[i].stop && value <= stops[i + 1].stop) {
         const t = (value - stops[i].stop) / (stops[i + 1].stop - stops[i].stop);
         const interpolatedColor = this.interpolateColor(stops[i].color, stops[i + 1].color, t);
-        console.log('Interpolating between', stops[i].color, 'and', stops[i + 1].color, 'with factor', t, 'result:', interpolatedColor);
+        console.log('Interpolating between', stops[i].color, 'and', stops[i + 1].color, 'with factor', t, 'result:', interpolatedColor); // Add this log
         return interpolatedColor;
       }
     }
   
     // If value is not in any range, return the last color
-    console.warn('Value out of range, using last color', stops[stops.length - 1].color);
+    console.warn('Value out of range, using last color', stops[stops.length - 1].color); // Add this log
     return stops[stops.length - 1].color;
   };
-  
+
+  // Method to interpolate between two colors
   interpolateColor = (color1, color2, factor) => {
     const c1 = this.hexToRgb(color1);
     const c2 = this.hexToRgb(color2);
@@ -197,7 +217,8 @@ class Map extends Component {
     };
     return this.rgbToHex(result);
   };
-  
+
+  // Method to convert hex color to RGB
   hexToRgb = (hex) => {
     // Ensure hex is a string
     if (typeof hex !== 'string') {
@@ -211,11 +232,13 @@ class Map extends Component {
       b: (bigint & 255)
     };
   };
-  
+
+  // Method to convert RGB color to hex
   rgbToHex = (rgb) => {
     return `#${((1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b).toString(16).slice(1).toUpperCase()}`;
-  };  
+  };
 
+  // Method to highlight a map feature
   highlightFeature = () => {
     const { map, selectedFeature } = this.state;
 
@@ -249,6 +272,7 @@ class Map extends Component {
     }
   };
 
+  // Method to remove highlight from map features
   removeHighlight = () => {
     const { map } = this.state;
     const highlightData = {
@@ -261,37 +285,55 @@ class Map extends Component {
     }
   };
 
+  // Method to initialize color scales for different variables
   initializeColorScales = () => {
     const colorValues = {
       A_percentile: ['#f8fccb', '#b7e3b6', '#40b5c4', '#2567ad', '#152774'],
       Q_percentile: ['#fff9f4', '#fcd2d0', '#f98ab7', '#d41ac0', '#49006a'],
       H_percentile: ['#fefddc', '#a9c689', '#669409', '#11692b', '#263021'],
       P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
+      avg_monthly_earnings: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
+      pct_men: ['#e7f1fa', '#b2d2e8', '#5fa6d1', '#2877b8', '#083d7f'],
+    };
+    const colorStops = {
+      A_percentile: [0, 0.25, 0.5, 0.75, 1],
+      Q_percentile: [0, 0.25, 0.5, 0.75, 1],
+      H_percentile: [0, 0.25, 0.5, 0.75, 1],
+      P_percentile: [0, 0.25, 0.5, 0.75, 1],
+      avg_monthly_earnings: [0, 300, 700, 1000, 1500],
+      pct_men: [0, 0.25, 0.5, 0.75, 1],
     };
     let colorScales = {};
     Object.keys(colorValues).forEach((key) => {
-      colorScales[key] = this.createColorScale(key, colorValues[key]);
+      colorScales[key] = this.createColorScale(key, colorValues[key], colorStops[key]);
     });
+    console.log('Initialized color scales:', colorScales); // Add this log
     return colorScales;
   };
-  
-  createColorScale = (percentileKey, colorArray) => [
-    'interpolate',
-    ['linear'],
-    ['get', percentileKey],
-    0, colorArray[0],
-    0.25, colorArray[1],
-    0.5, colorArray[2],
-    0.75, colorArray[3],
-    1, colorArray[4],
-  ];
 
-  initializeMapLayers = () => {
-    const map = this.state.map;
-
-    this.addMapSourcesAndLayers(map);
+  // Method to create a color scale for a variable
+  createColorScale = (mapVariable, colorArray, colorStops) => {
+    const colorScale = [
+      'interpolate',
+      ['linear'],
+      ['get', mapVariable],
+      colorStops[0], colorArray[0],
+      colorStops[1], colorArray[1],
+      colorStops[2], colorArray[2],
+      colorStops[3], colorArray[3],
+      colorStops[4], colorArray[4],
+    ];
+    console.log(`Color scale for ${mapVariable}:`, colorScale); // Add this log
+    return colorScale;
   };
 
+  // Method to initialize map layers
+  initializeMapLayers = () => {
+    const map = this.state.map;
+    this.addMapSourcesAndLayers(map); // Add map sources and layers
+  };
+
+  // Method to add sources and layers to the map
   addMapSourcesAndLayers = (map) => {
     map.addSource('brazil-state-data', {
       type: 'geojson',
@@ -310,9 +352,10 @@ class Map extends Component {
       data: '/data/access_data_points.geojson',
     });
 
-    this.setupMapLayers(map);
+    this.setupMapLayers(map); // Setup map layers
   };
 
+  // Method to setup map layers
   setupMapLayers = (map) => {
     const { colorScales, activeVariable } = this.state;
 
@@ -379,6 +422,7 @@ class Map extends Component {
     );
   };
 
+  // Method to get the first symbol layer ID
   getFirstSymbolLayerId = (map) => {
     const layers = map.getStyle().layers;
     for (let i = 0; i < layers.length; i++) {
@@ -389,6 +433,7 @@ class Map extends Component {
     return undefined;
   };
 
+  // Method to get the first line layer ID
   getFirstLineLayerId = (map) => {
     const layers = map.getStyle().layers;
     for (let i = 0; i < layers.length; i++) {
@@ -399,15 +444,21 @@ class Map extends Component {
     return undefined;
   };
 
+  // Lifecycle method called when the component is updated
   componentDidUpdate(prevProps, prevState) {
     if (prevState.activeVariable !== this.state.activeVariable) {
-      this.updateMapLayers();
+      console.log('Active variable changed from', prevState.activeVariable, 'to', this.state.activeVariable); // Add this log
+      this.updateMapLayers(); // Update map layers if the active variable changes
     }
   }
 
+  // Method to update map layers
   updateMapLayers = () => {
     const { map, colorScales, activeVariable } = this.state;
     if (!map) return;
+
+    console.log('Updating map layers for activeVariable:', activeVariable); // Add this log
+    console.log('Color scale being applied:', colorScales[activeVariable]); // Add this log
 
     const layerTypes = {
       'brazil-microregion-layer': 'fill-color',
@@ -419,6 +470,7 @@ class Map extends Component {
       if (map.getLayer(layerId)) {
         const colorScale = colorScales[activeVariable];
         if (colorScale) {
+          console.log(`Setting color scale for layer ${layerId}`); // Add this log
           map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
         } else {
           console.error(`Color scale for ${activeVariable} is not defined`);
@@ -427,17 +479,23 @@ class Map extends Component {
     });
   };
 
+  // Method to handle button click events
   handleButtonClick = (type) => {
     const variableMap = {
       Access: 'A_percentile',
       Quality: 'Q_percentile',
       'Access-Quality': 'H_percentile',
       Population: 'P_percentile',
+      Income: 'avg_monthly_earnings', 
+      Gender: 'pct_men',
     };
+    console.log('Button clicked:', type); // Add this log
+    console.log('Setting activeVariable to:', variableMap[type]); // Add this log
     this.setState({ activeVariable: variableMap[type] });
     this.props.onLayerChange(type); // Pass to parent component
   };
 
+  // Render method
   render() {
     const { colors, labels } = this.state;
     return (

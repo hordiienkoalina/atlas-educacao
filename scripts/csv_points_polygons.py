@@ -65,6 +65,6 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process and filter geographic data from CSV to CSV.")
     parser.add_argument('input_filepath', type=str, help='Path to the input CSV file containing geographic data.')
-    parser.add_argument('--output_dir', type=str, default='map/data', help='Output directory to save CSV files.')
+    parser.add_argument('--output_dir', type=str, default='public/data', help='Output directory to save CSV files.')
     args = parser.parse_args()
     main(args)

@@ -51,7 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description="Process geographic data into GeoJSON format.")
     parser.add_argument('csv_path', type=str, help='Path to the CSV file containing the geographic data.')
     parser.add_argument('geom_type', type=str, choices=['state', 'municipality', 'microregion', 'points', 'polygons'], help='Type of geography data to process.')
-    parser.add_argument('--output_dir', type=str, default='map/data', help='Output directory to save GeoJSON files.')
+    parser.add_argument('--output_dir', type=str, default='public/data', help='Output directory to save GeoJSON files.')
 
     args = parser.parse_args()
 
