@@ -51,7 +51,7 @@ class Map extends Component {
 
   // Method to add map controls
   addMapControls = (map) => {
-    // Add default navigation controls
+    // Add default navigation controls (zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
     // Add search control
