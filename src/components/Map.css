@@ -1,59 +1,69 @@
 /* Map.css - Specific styles for the Map component */
+
+/* Styling for the map container */
 .map-container {
-position: relative;
-top: 0;
-bottom: 0;
-width: 100%;
-height: calc(100vh - 100px); /* Adjust height to account for header and footer */
-z-index: 0; /* Ensure the map is behind the header */
+    position: relative; /* Position relative to parent */
+    top: 0;
+    bottom: 0;
+    width: 100%; /* Full width */
+    height: calc(100vh - 100px); /* Adjust height to account for header and footer */
+    z-index: 0; /* Ensure the map is behind the header */
 }
 
+/* Styling for the map wrapper */
 .map-wrapper {
-position: relative;
-z-index: 0; /* Ensure the wrapper does not overlay the header */
+    position: relative; /* Position relative to parent */
+    z-index: 0; /* Ensure the wrapper does not overlay the header */
 }
 
+/* Styling adjustments for the top-right map controls */
 .mapboxgl-ctrl-top-right {
-margin-top: 145px; /* Adjust if needed to avoid overlapping with the header */
-margin-right: -45px;
+    margin-top: 145px; /* Adjust to avoid overlapping with the header */
+    margin-right: -45px; /* Adjust to position correctly */
 }
 
+/* Styling for the map geocoder control */
 .mapboxgl-ctrl-geocoder {
-height: 36px !important; /* Set a fixed width */
-max-height: 36px !important; /* Ensure it does not exceed this width */
-min-height: 36px !important; /* Ensure it does not shrink below this width */
-font-size: 14px;
+    height: 36px !important; /* Set a fixed height */
+    max-height: 36px !important; /* Ensure it does not exceed this height */
+    min-height: 36px !important; /* Ensure it does not shrink below this height */
+    font-size: 14px; /* Set font size */
 }
+
+/* Styling for the map popup content */
 .mapboxgl-popup-content {
-position: relative;
-padding: 10px;
-border-radius: 5px;
-font-size: 14px;
+    position: relative; /* Position relative to parent */
+    padding: 10px; /* Padding for spacing */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Set font size */
 }
 
+/* Hide the default popup arrow */
 .mapboxgl-popup-tip {
-display: none; /* Hide the default popup arrow */
+    display: none; /* Hide the default popup arrow */
 }
 
+/* Styling for the color box in the legend */
 .color-box {
-display: inline-block;
-width: 15px;
-height: 15px;
-flex-shrink: 0;
-margin-right: 7.5px;
-border: 1px solid #747474;
-border-radius: 2px;
-vertical-align: top;
+    display: inline-block; /* Display inline */
+    width: 15px; /* Set width */
+    height: 15px; /* Set height */
+    flex-shrink: 0; /* Prevent shrinking */
+    margin-right: 7.5px; /* Margin for spacing */
+    border: 1px solid #747474; /* Border color */
+    border-radius: 2px; /* Rounded corners */
+    vertical-align: top; /* Align to the top */
 }
 
+/* Styling for the popup container */
 .popup-container {
-display: flex;
-align-items: flex-start;
+    display: flex; /* Use flexbox for layout */
+    align-items: flex-start; /* Align items to the start */
 }
 
-/* temporary fix for search bar resizing on narrow window sizes */
+/* Temporary fix for search bar resizing on narrow window sizes */
 @media (max-width: 650px) {
-.mapboxgl-ctrl-geocoder {
-    display: none !important;
-}
-}
+    .mapboxgl-ctrl-geocoder {
+        display: none !important; /* Hide the geocoder control on narrow screens */
+    }
+}  
