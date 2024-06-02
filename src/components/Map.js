@@ -81,17 +81,21 @@ class Map extends Component {
     map.on('click', 'brazil-point-layer', (e) => {
       this.handleMapClick(e);
     });
+
+    map.on('click', 'brazil-polygon-layer', (e) => {
+      this.handleMapClick(e);
+    });
   };
 
   handleMapClick = (e) => {
     const { activeVariable, colorScales } = this.state;
     const coordinates = e.lngLat;
     const properties = e.features[0].properties;
-  
+
     // Extract the percentile value for the active layer
     const percentileValue = properties[activeVariable];
     const percentage = Math.round(percentileValue * 100); // Convert to percentage
-  
+
     const layerNameMap = {
       'A_percentile': 'Access',
       'Q_percentile': 'Quality',
@@ -99,7 +103,7 @@ class Map extends Component {
       'P_percentile': 'Population'
     };
     const layerName = layerNameMap[activeVariable];
-  
+
     // Format the percentile rank (e.g., 82nd, 21st, 3rd)
     const formatPercentileRank = (rank) => {
       if (rank > 10 && rank < 20) return `${rank}th`; // Handle 'teens' cases
@@ -111,17 +115,17 @@ class Map extends Component {
         default: return `${rank}th`;
       }
     };
-  
+
     const percentileRank = formatPercentileRank(percentage);
-  
+
     // Get the color for the active variable at the clicked percentile
     const colorScale = colorScales[activeVariable];
     console.log('colorScale:', colorScale);
     console.log('percentileValue:', percentileValue);
-  
+
     const colorValue = this.getColorForValue(colorScale, percentileValue);
     console.log('colorValue:', colorValue);
-  
+
     const popupContent = `
       <div class="popup-container">
         <span class="color-box" style="background-color: ${colorValue};"></span>
@@ -130,16 +134,16 @@ class Map extends Component {
         </div>
       </div>
     `;
-  
+
     if (this.state.popup) {
       this.state.popup.remove();
     }
-  
+
     const newPopup = new mapboxgl.Popup({ closeButton: false }) // Remove close button
       .setLngLat(coordinates)
       .setHTML(popupContent)
       .addTo(this.state.map);
-  
+
     // Check if the clicked feature is the same as the currently highlighted feature
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
@@ -151,15 +155,15 @@ class Map extends Component {
         this.highlightFeature();
       });
     }
-  };  
-  
+  };
+
   getColorForValue = (colorScale, value) => {
     // Ensure the colorScale is structured correctly
     if (!Array.isArray(colorScale) || colorScale.length < 6) {
       console.error('Invalid color scale format', colorScale);
       return '#000000'; // Fallback color
     }
-  
+
     // Define fixed stops
     const stops = [
       { stop: 0, color: colorScale[4] },
@@ -168,9 +172,9 @@ class Map extends Component {
       { stop: 0.75, color: colorScale[10] },
       { stop: 1, color: colorScale[12] },
     ];
-  
+
     console.log('stops:', stops);
-  
+
     // Find the correct color range for the value
     for (let i = 0; i < stops.length - 1; i++) {
       console.log(`Checking if ${value} is between ${stops[i].stop} and ${stops[i + 1].stop}`);
@@ -181,12 +185,12 @@ class Map extends Component {
         return interpolatedColor;
       }
     }
-  
+
     // If value is not in any range, return the last color
     console.warn('Value out of range, using last color', stops[stops.length - 1].color);
     return stops[stops.length - 1].color;
   };
-  
+
   interpolateColor = (color1, color2, factor) => {
     const c1 = this.hexToRgb(color1);
     const c2 = this.hexToRgb(color2);
@@ -197,7 +201,7 @@ class Map extends Component {
     };
     return this.rgbToHex(result);
   };
-  
+
   hexToRgb = (hex) => {
     // Ensure hex is a string
     if (typeof hex !== 'string') {
@@ -211,10 +215,10 @@ class Map extends Component {
       b: (bigint & 255)
     };
   };
-  
+
   rgbToHex = (rgb) => {
     return `#${((1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b).toString(16).slice(1).toUpperCase()}`;
-  };  
+  };
 
   highlightFeature = () => {
     const { map, selectedFeature } = this.state;
@@ -274,7 +278,7 @@ class Map extends Component {
     });
     return colorScales;
   };
-  
+
   createColorScale = (percentileKey, colorArray) => [
     'interpolate',
     ['linear'],
@@ -308,6 +312,10 @@ class Map extends Component {
     map.addSource('brazil-point-data', {
       type: 'geojson',
       data: '/data/access_data_points.geojson',
+    });
+    map.addSource('brazil-polygon-data', {
+      type: 'geojson',
+      data: '/data/access_data_polygons.geojson',
     });
 
     this.setupMapLayers(map);
@@ -377,6 +385,22 @@ class Map extends Component {
       },
       this.getFirstLineLayerId(map)
     );
+
+    map.addLayer(
+      {
+        id: 'brazil-polygon-layer',
+        type: 'fill',
+        source: 'brazil-polygon-data',
+        minzoom: this.zoomThreshold + 3,
+        maxzoom: 13, // Adjust as necessary
+        layout: {},
+        paint: {
+          'fill-color': colorScales[activeVariable],
+          'fill-opacity': 0.2,
+        },
+      },
+      'brazil-municipality-layer'
+    );
   };
 
   getFirstSymbolLayerId = (map) => {
@@ -413,6 +437,7 @@ class Map extends Component {
       'brazil-microregion-layer': 'fill-color',
       'brazil-municipality-layer': 'fill-color',
       'brazil-point-layer': 'circle-color',
+      'brazil-polygon-layer': 'fill-color',
     };
 
     Object.keys(layerTypes).forEach((layerId) => {
