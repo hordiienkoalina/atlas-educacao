@@ -3,12 +3,14 @@ import './Header.css';
 
 const Header = () => {
     return (
-    <header className="header">
-        <div className="header-content">
-        <h1>Atlas Educação</h1>
-        </div>
-    </header>
+        // Header container with class "header"
+        <header className="header">
+            <div className="header-content">
+                {/* Main title of the header */}
+                <h1>Atlas Educação</h1>
+            </div>
+        </header>
     );
 };
 
-export default Header;
+export default Header; // Export the Header component as the default export
