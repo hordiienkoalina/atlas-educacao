@@ -8,33 +8,31 @@ import { MAPBOX_ACCESS_TOKEN } from '../config/config';
 import './Map.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-// Setting the Mapbox access token
-mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN; // Set the Mapbox access token
 
 class Map extends Component {
   constructor(props) {
-    super(props);
-    // Initializing the state
+    super(props); // Call the constructor of the parent class (Component)
     this.state = {
       map: null, // Map instance
-      activeVariable: 'A_percentile', // Active data variable
-      colorScales: this.initializeColorScales(), // Color scales for different variables
-      colors: [], // Colors for the legend
-      labels: [], // Labels for the legend
-      selectedFeature: null, // Currently selected map feature
-      popup: null, // Popup for displaying information
+      activeVariable: 'A_percentile', // Currently active data layer
+      colorScales: this.initializeColorScales(), // Color scales for different data layers
+      colors: [], // Colors for legend
+      labels: [], // Labels for legend
+      selectedFeature: null, // Currently selected feature on the map
+      popup: null, // Current popup on the map
     };
-    this.mapContainer = React.createRef(); // Reference to the map container DOM element
-    this.zoomThreshold = 5; // Zoom threshold for different layers
+    this.mapContainer = React.createRef(); // Reference to the map container element
+    this.zoomThreshold = 5; // Zoom level threshold for switching layers
   }
 
   // Lifecycle method called after the component is mounted
   componentDidMount() {
     const map = new mapboxgl.Map({
-      container: this.mapContainer.current, // Map container reference
+      container: this.mapContainer.current, // HTML container ID
       style: 'mapbox://styles/felipehlvo/cltz1z7gn00pw01qu2xm23yjs', // Map style
-      center: [-46.63, -23.6], // Initial map center
-      zoom: 7, // Initial map zoom level
+      center: [-46.63, -23.6], // Initial map center coordinates
+      zoom: 7, // Initial zoom level
       minZoom: 5, // Minimum zoom level
       maxZoom: 12, // Maximum zoom level
     });
@@ -42,9 +40,9 @@ class Map extends Component {
     // Event listener for when the map has loaded
     map.on('load', () => {
       this.setState({ map }, () => {
-        this.initializeMapLayers(); // Initialize map layers
-        this.addMapControls(map); // Add map controls
-        this.addMapClickHandler(map); // Add click handler for the map
+        this.initializeMapLayers(); // Initialize map layers and sources
+        this.addMapControls(map); // Add navigation and geocoder controls
+        this.addMapClickHandler(map); // Add click handlers for map layers
       });
     });
   }
@@ -54,40 +52,42 @@ class Map extends Component {
     // Add default navigation controls (zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
-    // Add search control
     const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      countries: 'br',
-      placeholder: 'Search',
-      zoom: 10,
-      marker: false,
+      accessToken: mapboxgl.accessToken, // Access token for geocoder
+      mapboxgl: mapboxgl, // Reference to mapboxgl library
+      countries: 'br', // Limit search to Brazil
+      placeholder: 'Search', // Placeholder text in the search box
+      zoom: 10, // Zoom level when a search result is selected
+      marker: false, // Do not add a marker for the search result
     });
 
     // Event listener for search results
     geocoder.on('result', (event) => {
       map.flyTo({
-        center: event.result.center,
-        zoom: 10, // Adjust the zoom level
+        center: event.result.center, // Center the map at the result's coordinates
+        zoom: 10, // Set the zoom level
       });
     });
 
-    // Add geocoder to the top right
-    map.addControl(geocoder, 'top-right');
+    map.addControl(geocoder, 'top-right'); // Add the geocoder control to the top-right corner of the map
   };
 
   // Method to add click handler for the map
   addMapClickHandler = (map) => {
     map.on('click', 'brazil-microregion-layer', (e) => {
-      this.handleMapClick(e);
+      this.handleMapClick(e); // Handle click event for microregion layer
     });
 
     map.on('click', 'brazil-municipality-layer', (e) => {
-      this.handleMapClick(e);
+      this.handleMapClick(e); // Handle click event for municipality layer
     });
 
     map.on('click', 'brazil-point-layer', (e) => {
-      this.handleMapClick(e);
+      this.handleMapClick(e); // Handle click event for point layer
+    });
+
+    map.on('click', 'brazil-polygon-layer', (e) => {
+      this.handleMapClick(e); // Handle click event for polygon layer
     });
   };
 
@@ -122,10 +122,10 @@ class Map extends Component {
       if (rank > 10 && rank < 20) return `${rank}th`; // Handle 'teens' cases
       const lastDigit = rank % 10;
       switch (lastDigit) {
-        case 1: return `${rank}st`;
-        case 2: return `${rank}nd`;
-        case 3: return `${rank}rd`;
-        default: return `${rank}th`;
+        case 1: return `${rank}st`; // 1st
+        case 2: return `${rank}nd`; // 2nd
+        case 3: return `${rank}rd`; // 3rd
+        default: return `${rank}th`; // Default case
       }
     };
 
@@ -150,36 +150,33 @@ class Map extends Component {
 
     // Remove the previous popup if it exists
     if (this.state.popup) {
-      this.state.popup.remove();
+      this.state.popup.remove(); // Remove the existing popup
     }
 
-    const newPopup = new mapboxgl.Popup({ closeButton: false }) // Remove close button
-      .setLngLat(coordinates)
-      .setHTML(popupContent)
-      .addTo(this.state.map);
+    const newPopup = new mapboxgl.Popup({ closeButton: false }) // Create a new popup
+      .setLngLat(coordinates) // Set the coordinates of the popup
+      .setHTML(popupContent) // Set the HTML content of the popup
+      .addTo(this.state.map); // Add the popup to the map
 
-    // Check if the clicked feature is the same as the currently highlighted feature
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
-        this.removeHighlight(); // Remove highlight if same feature is clicked again
+        this.removeHighlight(); // Remove the highlight from the feature
         newPopup.remove(); // Remove the popup
       });
     } else {
       this.setState({ selectedFeature: e.features[0], popup: newPopup }, () => {
-        this.highlightFeature(); // Highlight the new selected feature
+        this.highlightFeature(); // Highlight the selected feature
       });
     }
   };
 
   // Method to get color for a value based on color scale
   getColorForValue = (colorScale, value) => {
-    // Ensure the colorScale is structured correctly
     if (!Array.isArray(colorScale) || colorScale.length < 6) {
       console.error('Invalid color scale format', colorScale);
       return '#000000'; // Fallback color
     }
-  
-    // Define fixed stops
+
     const stops = [
       { stop: 0, color: colorScale[4] },
       { stop: 0.25, color: colorScale[6] },
@@ -215,12 +212,11 @@ class Map extends Component {
       g: Math.round(c1.g + factor * (c2.g - c1.g)),
       b: Math.round(c1.b + factor * (c2.b - c1.b))
     };
-    return this.rgbToHex(result);
+    return this.rgbToHex(result); // Convert the interpolated RGB to HEX
   };
 
   // Method to convert hex color to RGB
   hexToRgb = (hex) => {
-    // Ensure hex is a string
     if (typeof hex !== 'string') {
       console.error('Invalid hex color format', hex);
       return { r: 0, g: 0, b: 0 }; // Fallback color
@@ -268,7 +264,7 @@ class Map extends Component {
         features: [selectedFeature],
       };
 
-      map.getSource('highlight-source').setData(highlightData);
+      map.getSource('highlight-source').setData(highlightData); // Update the highlight source with the selected feature
     }
   };
 
@@ -281,7 +277,7 @@ class Map extends Component {
     };
 
     if (map.getSource('highlight-source')) {
-      map.getSource('highlight-source').setData(highlightData);
+      map.getSource('highlight-source').setData(highlightData); // Clear the highlight source data
     }
   };
 
@@ -303,7 +299,7 @@ class Map extends Component {
       avg_monthly_earnings: [0, 300, 700, 1000, 1500],
       pct_men: [0, 0.25, 0.5, 0.75, 1],
     };
-    let colorScales = {};
+    let colorScales = {}; // Object to hold the color scales
     Object.keys(colorValues).forEach((key) => {
       colorScales[key] = this.createColorScale(key, colorValues[key], colorStops[key]);
     });
@@ -351,6 +347,10 @@ class Map extends Component {
       type: 'geojson',
       data: '/data/access_data_points.geojson',
     });
+    map.addSource('brazil-polygon-data', {
+      type: 'geojson',
+      data: '/data/access_data_polygons.geojson',
+    });
 
     this.setupMapLayers(map); // Setup map layers
   };
@@ -370,7 +370,7 @@ class Map extends Component {
           'line-width': 1.5,
         },
       },
-      this.getFirstSymbolLayerId(map)
+      this.getFirstSymbolLayerId(map) // Ensure this layer is below any symbol layers
     );
 
     map.addLayer(
@@ -420,6 +420,22 @@ class Map extends Component {
       },
       this.getFirstLineLayerId(map)
     );
+
+    map.addLayer(
+      {
+        id: 'brazil-polygon-layer',
+        type: 'fill',
+        source: 'brazil-polygon-data',
+        minzoom: this.zoomThreshold + 3,
+        maxzoom: 13, // Adjust as necessary
+        layout: {},
+        paint: {
+          'fill-color': colorScales[activeVariable],
+          'fill-opacity': 0.2,
+        },
+      },
+      'brazil-municipality-layer'
+    );
   };
 
   // Method to get the first symbol layer ID
@@ -464,6 +480,7 @@ class Map extends Component {
       'brazil-microregion-layer': 'fill-color',
       'brazil-municipality-layer': 'fill-color',
       'brazil-point-layer': 'circle-color',
+      'brazil-polygon-layer': 'fill-color',
     };
 
     Object.keys(layerTypes).forEach((layerId) => {

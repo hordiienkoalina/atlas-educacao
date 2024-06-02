@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import './OverlayButtons.css';
+import React, { useState } from 'react'; // Import React library and useState hook
+import './OverlayButtons.css'; // Import CSS for overlay buttons
 
 function OverlayButtons({ onButtonClick, onLayerChange }) {
-    const [activeButton, setActiveButton] = useState('Access');
+    const [activeButton, setActiveButton] = useState('Access'); // Initialize state for the active button
 
     const handleClick = (type) => {
-    setActiveButton(type);
-    onButtonClick(type);
-    
+        setActiveButton(type); // Update the active button state
+        onButtonClick(type); // Call the onButtonClick function passed as a prop
     };
 
     return (
@@ -46,4 +45,4 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
     );
 }
 
-export default OverlayButtons;
+export default OverlayButtons; // Export the OverlayButtons component as the default export
