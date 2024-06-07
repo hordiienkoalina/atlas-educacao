@@ -7,7 +7,7 @@
     position: fixed; /* Fix the position of the container */
     bottom: 60px; /* Position 60px from the bottom */
     left: 210px; /* Position 210px from the left */
-    transform: translateX(-50%); /* Center the container horizontally */
+    transform: translateX(-44%); /* Center the container horizontally */
     z-index: 2; /* Ensure the container stays above other elements */
     background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
     border-radius: 12.5px; /* Rounded corners */
