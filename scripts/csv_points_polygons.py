@@ -47,7 +47,7 @@ def main(args):
         'pct_black', 'pct_white', 'pct_indigenous', 'pct_pardos', 'pct_asian', 'pct_men', 
         'avg_monthly_earnings', 'fpl_below', 'A', 'Q', 'H',
         'A_percentile', 'Q_percentile', 'H_percentile', 
-        'A_normalized', 'H_normalized'
+        'A_normalized', 'H_normalized', 'avg_monthly_earnings_percentile', 'pct_men_percentile', 'majority_race'
     ]
 
     # Define output file paths
