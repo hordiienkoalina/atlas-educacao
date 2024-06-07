@@ -5,20 +5,22 @@ function Footer() {
     return (
         // Footer container with class "footer-menu"
         <footer className="footer-menu">
-            {/* Link to the About Us page */}
-            <a href="pages/about-us.html">About Us</a> 
+            {/* Link to the GitHub repository */}
+            <a href="https://github.com/hordiienkoalina/access-to-education" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-github"></i> {/* GitHub icon */}
+            </a>
             <span className="divider">|</span> {/* Divider between links */}
-            
-            {/* Link to the Tutorial page */}
-            <a href="pages/tutorial.html">Tutorial</a> 
-            <span className="divider">|</span> {/* Divider between links */}
-            
+
             {/* Link to the Methodology page */}
-            <a href="pages/methodology.html">Methodology</a> 
+            <a href="pages/methodology.html">Methodology</a>
             <span className="divider">|</span> {/* Divider between links */}
-            
-            {/* Link to the Download page */}
-            <a href="pages/download.html">Download</a>
+
+            {/* Link to the Data Download */}
+            <a href="pages/data.html">Download Data</a>
+            <span className="divider">|</span> {/* Divider between links */}
+
+            {/* Link to the Map Export */}
+            <a href="pages/export.html">Export Map</a>
         </footer>
     );
 }
