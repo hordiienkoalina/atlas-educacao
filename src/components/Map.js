@@ -96,7 +96,44 @@ class Map extends Component {
     const { activeVariable, colorScales } = this.state;
     const coordinates = e.lngLat;
     const properties = e.features[0].properties;
-  
+
+    // Extract relevant information
+    const stateName = properties.name_state || 'Data Unavailable';
+    const stateCode = properties.state_id || properties.abbrev_state || 'Data Unavailable';
+    const cityName = properties.city_name || properties.name_muni || properties.code_muni || 'Data Unavailable';
+    const censusTract = properties.sector_id || 'Data Unavailable';
+    const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
+    const population = this.formatNumber(properties.n_people);
+
+    // Handle case where data is unavailable
+    const value = properties[activeVariable];
+    if (value === undefined || isNaN(value)) {
+        const popupContent = `
+            <div class="popup-container">
+                <div style="flex: 1;">
+                    <strong>Data Unavailable</strong>
+                    <p>${stateName}, ${stateCode}</p>
+                    <p>City: ${cityName}</p>
+                    <p>Census Tract: ${censusTract}</p>
+                    <p>Population: ${population}</p>
+                    <p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>
+                </div>
+            </div>
+        `;
+
+        if (this.state.popup) {
+            this.state.popup.remove(); // Remove the existing popup
+        }
+
+        const newPopup = new mapboxgl.Popup({ closeButton: false }) // Create a new popup
+            .setLngLat(coordinates) // Set the coordinates of the popup
+            .setHTML(popupContent) // Set the HTML content of the popup
+            .addTo(this.state.map); // Add the popup to the map
+
+        this.setState({ popup: newPopup }); // Update the state with the new popup
+        return; // Exit the function early
+    }
+
     console.log('Map clicked at:', coordinates); // Add this log
     console.log('Properties of clicked feature:', properties); // Add this log
     console.log('Active variable:', activeVariable); // Add this log
@@ -144,6 +181,11 @@ class Map extends Component {
         <span class="color-box" style="background-color: ${colorValue};"></span>
         <div style="flex: 1;">
           <strong>${percentileRank}</strong> ${layerName} Percentile
+          <p>${stateName}, ${stateCode}</p>
+          <p>City: ${cityName}</p>
+          <p>Census Tract: ${censusTract}</p>
+          <p>Population: ${population}</p>
+          <p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>
         </div>
       </div>
     `;
@@ -168,6 +210,11 @@ class Map extends Component {
         this.highlightFeature(); // Highlight the selected feature
       });
     }
+  };
+
+  // Method to format numbers with commas
+  formatNumber = (num) => {
+    return num ? num.toLocaleString() : 'Data Unavailable';
   };
 
   // Method to get color for a value based on color scale
