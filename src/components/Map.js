@@ -98,28 +98,27 @@ class Map extends Component {
     const properties = e.features[0].properties;
 
     // Extract relevant information
-    const stateName = properties.name_state || 'Data Unavailable';
-    const stateCode = properties.state_id || properties.abbrev_state || 'Data Unavailable';
-    const cityName = properties.city_name || properties.name_muni || properties.code_muni || 'Data Unavailable';
-    const censusTract = properties.sector_id || 'Data Unavailable';
+    const stateName = properties.name_state;
+    const stateCode = properties.state_id || properties.abbrev_state;
+    const cityName = properties.city_name || properties.name_muni || properties.code_muni;
+    const censusTract = properties.sector_id;
     const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
     const population = this.formatNumber(properties.n_people);
 
     // Handle case where data is unavailable
     const value = properties[activeVariable];
     if (value === undefined || isNaN(value)) {
-        const popupContent = `
+        let popupContent = `
             <div class="popup-container">
                 <div style="flex: 1;">
                     <strong>Data Unavailable</strong>
-                    <p>${stateName}, ${stateCode}</p>
-                    <p>City: ${cityName}</p>
-                    <p>Census Tract: ${censusTract}</p>
-                    <p>Population: ${population}</p>
-                    <p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>
-                </div>
-            </div>
         `;
+        if (cityName) popupContent += `<p>${cityName}</p>`;
+        if (stateName) popupContent += `<p>${stateName} (${stateCode})</p>`;
+        if (censusTract) popupContent += `<p>Census Tract: ${censusTract}</p>`;
+        if (population) popupContent += `<p>Population: ${population}</p>`;
+        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>`;
+        popupContent += `</div></div>`;
 
         if (this.state.popup) {
             this.state.popup.remove(); // Remove the existing popup
@@ -176,19 +175,20 @@ class Map extends Component {
     const colorValue = this.getColorForValue(colorScale, percentileValue);
     console.log('Color value:', colorValue); // Add this log
 
-    const popupContent = `
+    let popupContent = `
       <div class="popup-container">
         <span class="color-box" style="background-color: ${colorValue};"></span>
         <div style="flex: 1;">
           <strong>${percentileRank}</strong> ${layerName} Percentile
-          <p>${stateName}, ${stateCode}</p>
-          <p>City: ${cityName}</p>
-          <p>Census Tract: ${censusTract}</p>
-          <p>Population: ${population}</p>
-          <p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>
-        </div>
-      </div>
     `;
+
+    if (censusTract) popupContent += `<p style="margin: 0; line-height: 1.2; color: gray; font-variant: small-caps; font-weight: bold;">tract ${censusTract}</p>`;
+    const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null].filter(Boolean).join(', ');
+    if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
+    if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Population:</strong> ${population}</p>`;
+    if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Earnings:</strong> ${avgMonthlyEarnings}</p>`;
+    popupContent += `</div></div>`;
+
 
     // Remove the previous popup if it exists
     if (this.state.popup) {
@@ -214,7 +214,7 @@ class Map extends Component {
 
   // Method to format numbers with commas
   formatNumber = (num) => {
-    return num ? num.toLocaleString() : 'Data Unavailable';
+    return num ? num.toLocaleString() : null;
   };
 
   // Method to get color for a value based on color scale
