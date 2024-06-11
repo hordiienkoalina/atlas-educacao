@@ -1,0 +1,44 @@
+/* OverlayButtons.css - Styles for overlay buttons */
+
+/* Container for overlay buttons */
+.overlay-buttons {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center the buttons horizontally */
+    position: fixed; /* Fix the position of the container */
+    bottom: 60px; /* Position 60px from the bottom */
+    left: 210px; /* Position 210px from the left */
+    transform: translateX(-44%); /* Center the container horizontally */
+    z-index: 2; /* Ensure the container stays above other elements */
+    background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+    border-radius: 12.5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    padding: 0px 0px; /* No padding */
+    flex-wrap: nowrap; /* Prevent wrapping of flex items */
+}
+
+/* Styling for individual buttons */
+.overlay-button {
+    padding: 10px 15px; /* Padding inside the button */
+    border: none; /* No border */
+    background-color: transparent; /* Transparent background */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Font size for the button text */
+    font-weight: bold; /* Bold font weight */
+    color: #555; /* Gray text color */
+    border-radius: 10px; /* Rounded corners */
+    margin: 0 0px; /* No margin */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Styling for button hover state */
+.overlay-button:hover {
+    background-color: #ddd; /* Light gray background on hover */
+}
+
+/* Styling for active button state */
+.overlay-button.active {
+    background-color: white; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    color: #333; /* Darker text color */
+}

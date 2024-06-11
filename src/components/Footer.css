@@ -1,0 +1,36 @@
+/* Footer.css - Styles for the footer menu */
+
+/* Styling for the footer menu container */
+.footer-menu {
+    display: flex; /* Use flexbox for layout */
+    justify-content: left; /* Align the menu items to the left */
+    align-items: center; /* Center the menu items vertically */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow content */
+    position: fixed; /* Fix the position at the bottom of the viewport */
+    bottom: 0; /* Align the footer to the bottom */
+    width: 100%; /* Full width of the viewport */
+    background-color: #ffffff; /* White background color */
+    color: #7e7e7e; /* Gray text color for better visibility */
+    padding: 10px 20px; /* Padding for top, bottom, and horizontal spacing */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    border-top: 1px solid #848484; /* A thin gray line at the top of the footer */
+    z-index: 1000; /* Ensure the footer stays on top of other content */
+}
+
+/* Styling for links within the footer menu */
+.footer-menu a {
+    color: #7e7e7e; /* Gray color for links */
+    text-decoration: underline; /* Underline to indicate they are clickable */
+    padding: 5px; /* Padding to increase the clickable area */
+    font-size: 12px; /* Smaller font size for subtlety */
+    margin-right: 10px; /* Right margin for spacing between links */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Styling for the divider within the footer menu */
+.footer-menu .divider {
+    color: #7e7e7e; /* Gray color to match the text */
+    padding: 0 5px; /* Horizontal padding for spacing around the divider */
+    font-size: 12px; /* Match font size with links */
+}

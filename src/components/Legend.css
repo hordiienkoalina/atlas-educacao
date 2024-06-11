@@ -1,0 +1,35 @@
+/* Legend.css - Styles for the legend component */
+
+/* Styling for the legend container */
+.legend {
+    padding: 5px; /* Padding for spacing */
+    background: white; /* White background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for a floating effect */
+    border-radius: 3px; /* Rounded corners */
+}
+
+/* Styling for the legend scale list */
+.legend-scale ul {
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Styling for each label in the legend */
+.legend-labels li {
+    display: inline-block; /* Display labels inline */
+    margin-right: 10px; /* Margin to space out labels */
+}
+
+/* Styling for the legend info container */
+.legend-info {
+    position: relative; /* Position relative to parent */
+    height: auto; /* Auto height */
+}
+
+/* Styling for each paragraph in the legend info */
+.legend-info p {
+    margin: 0; /* Remove default margin */
+    transform: translateX(-100%); /* Translate text position */
+    text-align: right; /* Align text to the right */
+}

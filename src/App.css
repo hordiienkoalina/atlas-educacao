@@ -1,0 +1,80 @@
+/* App.css - Global styles for the application */
+
+/* Basic styling for the body element */
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  font-family: 'Be Vietnam Pro', sans-serif; /* Set custom font family */
+  height: 100%; /* Ensure the body takes full height */
+}
+
+/* Ensure the html element takes full height */
+html {
+  height: 100%;
+}
+
+/* Ensure the root element takes full height */
+#root {
+  height: 100%;
+}
+
+/* Main App container styling */
+.App {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Arrange children in a column */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Content area styling */
+.content {
+  flex-grow: 1; /* Allow the content area to grow and fill available space */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Arrange children in a column */
+  overflow: hidden; /* Hide overflow content */
+}
+
+/* Map container styling */
+.map-container {
+  flex-grow: 1; /* Allow the map container to grow and fill available space */
+  position: relative; /* Position relative to parent */
+}
+
+/* Styling adjustments for overall UI components */
+.mapboxgl-ctrl-geocoder {
+  position: absolute; /* Position absolutely within the map container */
+  bottom: 100px; /* Position 100px from the bottom */
+  right: 50px; /* Position 50px from the right */
+  z-index: 1; /* Ensure it stays above other content */
+}
+
+/* Footer menu styling */
+.footer-menu {
+  position: fixed; /* Fix position to the bottom of the viewport */
+  bottom: 0; /* Position at the very bottom */
+  width: 100%; /* Full width of the viewport */
+  background-color: #ffffff; /* White background color */
+  color: #7e7e7e; /* Gray text color for readability */
+  text-align: left; /* Align text to the left */
+  padding: 10px 20px; /* Padding for spacing */
+  height: 40px; /* Set a fixed height */
+  z-index: 1000; /* Ensure it stays on top of other content */
+  border-top: 1px solid #848484; /* Add a top border */
+}
+
+/* Footer menu link styling */
+.footer-menu a {
+  padding: 5px; /* Padding to increase clickable area */
+  text-decoration: underline; /* Underline to indicate links */
+  font-size: 12px; /* Smaller font size */
+  color: #7e7e7e; /* Gray color for links */
+  display: inline; /* Inline display */
+}
+
+/* Divider styling within the footer menu */
+.footer-menu .divider {
+  padding: 0 5px; /* Horizontal padding for spacing */
+  text-decoration: none; /* No text decoration */
+  font-size: 12px; /* Match font size with links */
+  color: #7e7e7e; /* Gray color to match the text */
+  display: inline; /* Inline display */
+}

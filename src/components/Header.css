@@ -1,0 +1,19 @@
+/* Header.css - Styles for the header component */
+
+/* Styling for the header container */
+.header {
+    background-color: #ffffff; /* White background color */
+    padding: 20px; /* Padding for spacing */
+    text-align: left; /* Align text to the left */
+    position: relative; /* Position relative to parent */
+    z-index: 10; /* Ensure it stays above other content */
+    border-bottom: 1px solid #dcdcdc; /* Light gray border at the bottom */
+}
+
+/* Styling for the h1 element within the header */
+.header h1 {
+    font-size: 24px; /* Font size for the header text */
+    color: #333; /* Dark gray color for the text */
+    margin: 0; /* Remove default margin */
+    padding-left: 20px; /* Padding on the left for spacing */
+}  
