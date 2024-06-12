@@ -41,6 +41,12 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
         >
         Gender
         </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
+        onClick={() => handleClick('Race')}
+        >
+        Race
+        </button>
     </div>
     );
 }

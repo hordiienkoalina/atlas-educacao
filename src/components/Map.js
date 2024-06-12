@@ -146,8 +146,9 @@ class Map extends Component {
       'Q_percentile': 'Quality',
       'H_percentile': 'Quality-Adjusted Access',
       'P_percentile': 'Population',
-      'avg_monthly_earnings': 'Income',
-      'pct_men': 'Gender',
+      'avg_monthly_earnings_percentile': 'Income',
+      'pct_men_percentile': 'Gender',
+      'majority_race':'Race'
     };
     const layerName = layerNameMap[activeVariable];
 
@@ -335,16 +336,16 @@ class Map extends Component {
       Q_percentile: ['#fff9f4', '#fcd2d0', '#f98ab7', '#d41ac0', '#49006a'],
       H_percentile: ['#fefddc', '#a9c689', '#669409', '#11692b', '#263021'],
       P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
-      avg_monthly_earnings: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
-      pct_men: ['#e7f1fa', '#b2d2e8', '#5fa6d1', '#2877b8', '#083d7f'],
+      avg_monthly_earnings_percentile: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
+      pct_men_percentile: ['#d41ac0', '#f98ab7', '#fff9f4', '#2877b8', '#083d7f'],
     };
     const colorStops = {
       A_percentile: [0, 0.25, 0.5, 0.75, 1],
       Q_percentile: [0, 0.25, 0.5, 0.75, 1],
       H_percentile: [0, 0.25, 0.5, 0.75, 1],
       P_percentile: [0, 0.25, 0.5, 0.75, 1],
-      avg_monthly_earnings: [0, 300, 700, 1000, 1500],
-      pct_men: [0, 0.25, 0.5, 0.75, 1],
+      avg_monthly_earnings_percentile: [0, 0.25, 0.5, 0.75, 1],
+      pct_men_percentile: [0, 0.25, 0.5, 0.75, 1],
     };
     let colorScales = {}; // Object to hold the color scales
     Object.keys(colorValues).forEach((key) => {
@@ -532,8 +533,28 @@ class Map extends Component {
 
     Object.keys(layerTypes).forEach((layerId) => {
       if (map.getLayer(layerId)) {
+        console.log(activeVariable)
         const colorScale = colorScales[activeVariable];
-        if (colorScale) {
+        if (activeVariable == 'majority_race') {
+          console.log('Setting color scale for majority race layer'); // Add this log
+          map.setPaintProperty(layerId, layerTypes[layerId], [
+            'match',
+            ['get', 'majority_race'],
+            'n_people_15to17_white',
+            '#3babfb',
+            'n_people_15to17_black',
+            '#7ce35c',
+            'n_people_15to17_indigenous',
+            '#c9d662',
+            'n_people_15to17_asian',
+            '#366d7b',
+            'n_people_15to17_parda',
+            '#cd5468',
+            /* other */ '#ccc'
+        ]
+);
+        }
+        else if (colorScale) {
           console.log(`Setting color scale for layer ${layerId}`); // Add this log
           map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
         } else {
@@ -550,8 +571,9 @@ class Map extends Component {
       Quality: 'Q_percentile',
       'Access-Quality': 'H_percentile',
       Population: 'P_percentile',
-      Income: 'avg_monthly_earnings', 
-      Gender: 'pct_men',
+      Income: 'avg_monthly_earnings_percentile', 
+      Gender: 'pct_men_percentile',
+      Race: 'majority_race',
     };
     console.log('Button clicked:', type); // Add this log
     console.log('Setting activeVariable to:', variableMap[type]); // Add this log
