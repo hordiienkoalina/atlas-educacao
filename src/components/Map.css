@@ -36,6 +36,8 @@
     padding: 10px; /* Padding for spacing */
     border-radius: 5px; /* Rounded corners */
     font-size: 14px; /* Set font size */
+    width: fit-content;
+    padding-right: 15px;
 }
 
 /* Hide the default popup arrow */
@@ -59,6 +61,8 @@
 .popup-container {
     display: flex; /* Use flexbox for layout */
     align-items: flex-start; /* Align items to the start */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: auto;
 }
 
 /* Temporary fix for search bar resizing on narrow window sizes */
