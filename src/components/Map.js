@@ -43,6 +43,10 @@ class Map extends Component {
         this.initializeMapLayers(); // Initialize map layers and sources
         this.addMapControls(map); // Add navigation and geocoder controls
         this.addMapClickHandler(map); // Add click handlers for map layers
+
+        console.log('Map has loaded.');
+        console.log('Current map style:', map.getStyle());
+        console.log('Current zoom level:', map.getZoom());
       });
     });
   }
@@ -103,7 +107,7 @@ class Map extends Component {
     const cityName = properties.city_name || properties.name_muni || properties.code_muni;
     const censusTract = properties.sector_id;
     const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
-    const population = this.formatNumber(properties.n_people);
+    const population = this.formatNumber(properties.n_people_15to17);
 
     // Handle case where data is unavailable
     const value = properties[activeVariable];
@@ -116,8 +120,8 @@ class Map extends Component {
         if (cityName) popupContent += `<p>${cityName}</p>`;
         if (stateName) popupContent += `<p>${stateName} (${stateCode})</p>`;
         if (censusTract) popupContent += `<p>Census Tract: ${censusTract}</p>`;
-        if (population) popupContent += `<p>Population: ${population}</p>`;
-        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Earnings: ${avgMonthlyEarnings}</p>`;
+        if (population) popupContent += `<p># of Schoolchildren: ${population}</p>`;
+        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Income: R$${avgMonthlyEarnings}</p>`;
         popupContent += `</div></div>`;
 
         if (this.state.popup) {
@@ -186,8 +190,8 @@ class Map extends Component {
     if (censusTract) popupContent += `<p style="margin: 0; line-height: 1.2; color: gray; font-variant: small-caps; font-weight: bold;">tract ${censusTract}</p>`;
     const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null].filter(Boolean).join(', ');
     if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
-    if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Population:</strong> ${population}</p>`;
-    if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Earnings:</strong> ${avgMonthlyEarnings}</p>`;
+    if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong># of Schoolchildren:</strong> ${population}</p>`;
+    if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Income:</strong> R$${avgMonthlyEarnings}</p>`;
     popupContent += `</div></div>`;
 
 
@@ -215,7 +219,10 @@ class Map extends Component {
 
   // Method to format numbers with commas
   formatNumber = (num) => {
-    return num ? num.toLocaleString() : null;
+    if (num == null) {
+        return 'Data Unavailable';
+    }
+    return Math.round(num).toLocaleString();
   };
 
   // Method to get color for a value based on color scale
@@ -475,11 +482,11 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data',
         minzoom: this.zoomThreshold + 3,
-        maxzoom: 13, // Adjust as necessary
+        maxzoom: 12,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
-          'fill-opacity': 0.2,
+          'fill-opacity': 0.7,
         },
       },
       'brazil-municipality-layer'
@@ -535,7 +542,7 @@ class Map extends Component {
       if (map.getLayer(layerId)) {
         console.log(activeVariable)
         const colorScale = colorScales[activeVariable];
-        if (activeVariable == 'majority_race') {
+        if (activeVariable === 'majority_race') {
           console.log('Setting color scale for majority race layer'); // Add this log
           map.setPaintProperty(layerId, layerTypes[layerId], [
             'match',
