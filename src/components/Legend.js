@@ -1,32 +1,22 @@
 import React from 'react';
+import './Legend.css';
 
-function Legend({ colors = [], labels = [] }) {
-    // Return null if colors or labels are not provided
-    if (!colors || !labels) {
-        return null; // or some fallback UI
-    }
+const Legend = ({ colors, labels }) => {
+    // Ensure colors is defined and is an array
+    const colorValues = Array.isArray(colors) ? colors.filter(value => typeof value === 'string' && value.startsWith('#')) : [];
+    const gradient = `linear-gradient(to right, ${colorValues.join(', ')})`;
+    console.log('Generated gradient:', gradient); // Debug log
 
     return (
-        // Legend container with class "legend"
-        <div className="legend">
-            {/* Container for the legend scale */}
-            <div className="legend-scale">
-                <ul className="legend-labels">
-                    {/* Map through the colors array and create a list item for each color */}
-                    {colors.map((color, index) => (
-                        <li key={index} style={{ backgroundColor: color, width: '20px', height: '20px' }}></li>
-                    ))}
-                </ul>
-            </div>
-            {/* Container for the legend info */}
-            <div className="legend-info">
-                {/* Map through the labels array and create a paragraph for each label */}
+        <div className="legend-container">
+            <div className="legend-scale" style={{ background: gradient }} />
+            <div className="legend-labels">
                 {labels.map((label, index) => (
-                    <p key={index}>{label}</p>
+                    <span key={index}>{label}</span>
                 ))}
             </div>
         </div>
     );
-}
+};
 
-export default Legend; // Export the Legend component as the default export
+export default Legend;
