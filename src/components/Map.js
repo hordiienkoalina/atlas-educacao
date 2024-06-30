@@ -14,14 +14,14 @@ class Map extends Component {
   constructor(props) {
     super(props); // Call the constructor of the parent class (Component)
     this.state = {
-      map: null, // Map instance
-      activeVariable: 'A_percentile', // Currently active data layer
-      colorScales: this.initializeColorScales(), // Color scales for different data layers
-      colors: [], // Colors for legend
-      labels: [], // Labels for legend
-      selectedFeature: null, // Currently selected feature on the map
-      popup: null, // Current popup on the map
-    };
+      map: null,
+      activeVariable: 'A_percentile',
+      colorScales: this.initializeColorScales(),
+      colors: this.initializeColorScales()['A_percentile'], // Set initial color scale
+      labels: ['Scarce', 'Adequate'], // Default labels
+      selectedFeature: null,
+      popup: null,
+    };    
     this.mapContainer = React.createRef(); // Reference to the map container element
     this.zoomThreshold = 5; // Zoom level threshold for switching layers
   }
@@ -345,7 +345,9 @@ class Map extends Component {
       P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
       avg_monthly_earnings_percentile: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
       pct_men_percentile: ['#d41ac0', '#f98ab7', '#fff9f4', '#2877b8', '#083d7f'],
+      majority_race: ['#3babfb', '#7ce35c', '#c9d662', '#366d7b', '#cd5468'],
     };
+
     const colorStops = {
       A_percentile: [0, 0.25, 0.5, 0.75, 1],
       Q_percentile: [0, 0.25, 0.5, 0.75, 1],
@@ -353,7 +355,9 @@ class Map extends Component {
       P_percentile: [0, 0.25, 0.5, 0.75, 1],
       avg_monthly_earnings_percentile: [0, 0.25, 0.5, 0.75, 1],
       pct_men_percentile: [0, 0.25, 0.5, 0.75, 1],
+      majority_race: [0, 0.25, 0.5, 0.75, 1],
     };
+    
     let colorScales = {}; // Object to hold the color scales
     Object.keys(colorValues).forEach((key) => {
       colorScales[key] = this.createColorScale(key, colorValues[key], colorStops[key]);
@@ -571,20 +575,35 @@ class Map extends Component {
     });
   };
 
-  // Method to handle button click events
   handleButtonClick = (type) => {
     const variableMap = {
       Access: 'A_percentile',
       Quality: 'Q_percentile',
       'Access-Quality': 'H_percentile',
       Population: 'P_percentile',
-      Income: 'avg_monthly_earnings_percentile', 
+      Income: 'avg_monthly_earnings_percentile',
       Gender: 'pct_men_percentile',
       Race: 'majority_race',
     };
-    console.log('Button clicked:', type); // Add this log
-    console.log('Setting activeVariable to:', variableMap[type]); // Add this log
-    this.setState({ activeVariable: variableMap[type] });
+    const newActiveVariable = variableMap[type];
+  
+    // Define labels based on the active variable
+    const labelsMap = {
+      'A_percentile': ['Scarce', 'Adequate'],
+      'Q_percentile': ['Poor', 'High'],
+      'H_percentile': ['Low', 'High'],
+      'P_percentile': ['Sparse', 'Dense'],
+      'avg_monthly_earnings_percentile': ['Low', 'High'],
+      'pct_men_percentile': ['Female Maj.', 'Male Maj.'],
+      'majority_race': ['White', 'Black', 'Indigenous', 'Asian', 'Parda'],
+    };
+    const newLabels = labelsMap[newActiveVariable];
+  
+    this.setState({
+      activeVariable: newActiveVariable,
+      colors: this.initializeColorScales()[newActiveVariable], // Update colors
+      labels: newLabels, // Update labels
+    });
     this.props.onLayerChange(type); // Pass to parent component
   };
 
@@ -595,10 +614,10 @@ class Map extends Component {
       <div className="map-wrapper">
         <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} /> {/* Adjust height */}
         <OverlayButtons onButtonClick={this.handleButtonClick} onLayerChange={this.props.onLayerChange} />
-        <Legend colors={colors} labels={labels} />
+        <Legend colors={colors} labels={labels} /> {/* Render Legend component */}
       </div>
     );
   }
-}
+}  
 
 export default Map;
