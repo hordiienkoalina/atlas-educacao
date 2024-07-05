@@ -19,9 +19,15 @@ def load_and_process_data(file_path, geom_type, output_directory):
     df = pd.read_csv(file_path)
     print(f"Data loaded for {geom_type}:\n{df}")
 
+    # Reduce precision of all columns to 4 decimal places
+    df = df.round(4)
+
     # Convert WKT format to geometry
     df['geometry'] = df['geometry'].apply(wkt.loads)
     print(f"Geometry converted for {geom_type}.")
+
+    # Reduce precision of geometry
+    df['geometry'] = df['geometry'].apply(lambda geom: ops.transform(lambda x, y, z=None: (round(x, 4), round(y, 4)), geom))
 
     # Check if geometry needs reorientation (applicable for polygon types)
     if geom_type in ['state', 'municipality', 'microregion', 'polygons']:
