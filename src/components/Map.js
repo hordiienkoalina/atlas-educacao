@@ -486,7 +486,7 @@ class Map extends Component {
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
-          'fill-opacity': 0.7,
+          'fill-opacity': 0.2,
         },
       },
       'brazil-municipality-layer'
@@ -524,52 +524,60 @@ class Map extends Component {
   }
 
   // Method to update map layers
-  updateMapLayers = () => {
-    const { map, colorScales, activeVariable } = this.state;
-    if (!map) return;
+// Method to update map layers
+updateMapLayers = () => {
+  const { map, colorScales, activeVariable } = this.state;
+  if (!map) return;
 
-    console.log('Updating map layers for activeVariable:', activeVariable); // Add this log
-    console.log('Color scale being applied:', colorScales[activeVariable]); // Add this log
+  console.log('Updating map layers for activeVariable:', activeVariable); // Add this log
+  console.log('Color scale being applied:', colorScales[activeVariable]); // Add this log
 
-    const layerTypes = {
-      'brazil-microregion-layer': 'fill-color',
-      'brazil-municipality-layer': 'fill-color',
-      'brazil-point-layer': 'circle-color',
-      'brazil-polygon-layer': 'fill-color',
-    };
+  const layerTypes = {
+    'brazil-microregion-layer': 'fill-color',
+    'brazil-municipality-layer': 'fill-color',
+    'brazil-point-layer': 'circle-color',
+    'brazil-polygon-layer': 'fill-color',
+  };
 
-    Object.keys(layerTypes).forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        console.log(activeVariable)
-        const colorScale = colorScales[activeVariable];
-        if (activeVariable === 'majority_race') {
-          console.log('Setting color scale for majority race layer'); // Add this log
-          map.setPaintProperty(layerId, layerTypes[layerId], [
+  const colorMap = {
+    'n_people_15to17_white': '#08519c',
+    'n_people_15to17_black': '#006d2c',
+    'n_people_15to17_indigenous': '#bea40d',
+    'n_people_15to17_asian': '#62367b',
+    'n_people_15to17_parda': '#a50f15',
+  };
+
+  Object.keys(layerTypes).forEach((layerId) => {
+    if (map.getLayer(layerId)) {
+      const colorScale = colorScales[activeVariable];
+      if (activeVariable === 'majority_race') {
+        console.log('Setting color scale for majority race layer'); // Add this log
+        map.setPaintProperty(layerId, layerTypes[layerId], [
+          'interpolate',
+          ['linear'],
+          ['get', 'majority_percentage'],
+          0, '#ffffff',
+          1, [
             'match',
             ['get', 'majority_race'],
-            'n_people_15to17_white',
-            '#3babfb',
-            'n_people_15to17_black',
-            '#7ce35c',
-            'n_people_15to17_indigenous',
-            '#c9d662',
-            'n_people_15to17_asian',
-            '#366d7b',
-            'n_people_15to17_parda',
-            '#cd5468',
-            /* other */ '#ccc'
-        ]
-);
-        }
-        else if (colorScale) {
-          console.log(`Setting color scale for layer ${layerId}`); // Add this log
-          map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
-        } else {
-          console.error(`Color scale for ${activeVariable} is not defined`);
-        }
+            'n_people_15to17_white', colorMap['n_people_15to17_white'],
+            'n_people_15to17_black', colorMap['n_people_15to17_black'],
+            'n_people_15to17_indigenous', colorMap['n_people_15to17_indigenous'],
+            'n_people_15to17_asian', colorMap['n_people_15to17_asian'],
+            'n_people_15to17_parda', colorMap['n_people_15to17_parda'],
+            '#ccc'
+          ]
+        ]);
       }
-    });
-  };
+      else if (colorScale) {
+        console.log(`Setting color scale for layer ${layerId}`); // Add this log
+        map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
+      } else {
+        console.error(`Color scale for ${activeVariable} is not defined`);
+      }
+    }
+  });
+};
 
   // Method to handle button click events
   handleButtonClick = (type) => {

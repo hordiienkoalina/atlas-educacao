@@ -44,7 +44,7 @@ def main(args):
     # Columns to retain
     cols_to_keep = [ 
         'geometry', 'sector_id', 'name_state', 'abbrev_state', 'name_muni', 'neighborhood_name', 'n_people_15to17',
-        'pct_black', 'pct_white', 'pct_indigenous', 'pct_pardos', 'pct_asian', 'pct_men',  'majority_race',
+        'pct_black', 'pct_white', 'pct_indigenous', 'pct_pardos', 'pct_asian', 'pct_men',  'majority_race', 'majority_percentage',
         'avg_monthly_earnings', 'avg_monthly_earnings_dollars', 'A', 'Q', 'H',
         'A_percentile', 'Q_percentile', 'H_percentile', 
         'avg_monthly_earnings_percentile', 'pct_men_percentile',
