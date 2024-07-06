@@ -12,15 +12,12 @@ function Footer() {
             <span className="divider">|</span> {/* Divider between links */}
 
             {/* Link to the Methodology page */}
-            <a href="pages/methodology.html">Methodology</a>
+            <a href="https://drive.google.com/file/d/1oG0_7_CYMs5e0WlEUKyfWJsGK--S9mi2/view?usp=sharing" target="_blank" rel="noopener noreferrer">Methodology</a>
             <span className="divider">|</span> {/* Divider between links */}
 
             {/* Link to the Data Download */}
-            <a href="pages/data.html">Download Data</a>
-            <span className="divider">|</span> {/* Divider between links */}
+            <a href="https://github.com/hordiienkoalina/access-to-education/tree/main/public/data" target="_blank" rel="noopener noreferrer">Download Data</a>
 
-            {/* Link to the Map Export */}
-            <a href="pages/export.html">Export Map</a>
         </footer>
     );
 }

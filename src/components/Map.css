@@ -66,8 +66,11 @@
 }
 
 /* Temporary fix for search bar resizing on narrow window sizes */
-@media (max-width: 650px) {
+@media (max-width: 820px) {
     .mapboxgl-ctrl-geocoder {
         display: none !important; /* Hide the geocoder control on narrow screens */
     }
-}  
+    .legend-container {
+        display: none !important; /* Hide the legend on narrow screens */
+    }
+}
