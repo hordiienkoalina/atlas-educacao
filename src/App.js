@@ -7,7 +7,7 @@ import './App.css';
 
 const App = () => {
   // State to manage the selected map layer
-  const [selectedLayer, setSelectedLayer] = useState('Access');
+  const [selectedLayer, setSelectedLayer] = useState('Access-Quality');
 
   // Handler for changing the map layer
   const handleLayerChange = (layer) => {
@@ -16,12 +16,12 @@ const App = () => {
 
   // Descriptions for each layer type
   const layerDescriptions = {
-    'Access': 'Spatial access to public high-schools. Access is calculated considering supply and demand of schools, and family preferences around school distance and quality.',
-    'Quality': 'Average school quality measured by the IDEB, weighed by the access between the school and each student.',
-    'Access-Quality': 'A combination of school quality and spatial access, measuring the relative access to quality education.',
-    'Income': 'Average monthly hoursehold earnings in dollars.',
-    'Gender': 'Percentage of the population that is male.',
-    'Race': 'The majority race.',
+    'Access': 'The spatial access to public high-schools, considering supply and demand of schools and family preferences.',
+    'Quality': 'The quality of each school based on test scores and grade progression ratios.',
+    'Access-Quality': 'The spatial access to high-quality public high-schools, considering supply and demand of schools, school quality, and family preferences.',
+    'Income': 'The monthly household earnings in dollars.',
+    'Gender': 'The gender distribution of the population',
+    'Race': 'The racial distribution of the population',
   };
 
   return (
