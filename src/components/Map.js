@@ -15,9 +15,9 @@ class Map extends Component {
     super(props); // Call the constructor of the parent class (Component)
     this.state = {
       map: null,
-      activeVariable: 'A_percentile',
+      activeVariable: 'H_percentile',
       colorScales: this.initializeColorScales(),
-      colors: this.initializeColorScales()['A_percentile'], // Set initial color scale
+      colors: this.initializeColorScales()['H_percentile'], // Set initial color scale
       labels: ['Scarce', 'Adequate'], // Default labels
       selectedFeature: null,
       popup: null,
@@ -338,12 +338,12 @@ class Map extends Component {
   // Method to initialize color scales for different variables
   initializeColorScales = () => {
     const colorValues = {
-      A_percentile: ['#f8fccb', '#b7e3b6', '#40b5c4', '#2567ad', '#152774'],
-      Q_percentile: ['#fff9f4', '#fcd2d0', '#f98ab7', '#d41ac0', '#49006a'],
-      H_percentile: ['#fefddc', '#a9c689', '#669409', '#11692b', '#263021'],
+      H_percentile: ['#e8d893', '#b8d993', '#40b5c4', '#2567ad', '#152774'],
+      Q_percentile: ['#f9b9c3', '#ee89ae', '#d41ac0', '#78106d', '#49006a'],
+      A_percentile: ['#ece99d', '#b4c689', '#87b034', '#11692b', '#263021'],
       P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
       avg_monthly_earnings_percentile: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
-      pct_men_percentile: ['#d41ac0', '#f98ab7', '#fff9f4', '#2877b8', '#083d7f'],
+      pct_men_percentile: ['#d41ac0', '#e1a7be', '#fbf4ff', '#8caac2', '#083d7f'],
       majority_race: ['#3babfb', '#7ce35c', '#c9d662', '#366d7b', '#cd5468'],
     };
 
@@ -596,12 +596,12 @@ updateMapLayers = () => {
   
     // Define labels based on the active variable
     const labelsMap = {
-      'A_percentile': ['Scarce', 'Adequate'],
-      'Q_percentile': ['Poor', 'High'],
-      'H_percentile': ['Low', 'High'],
+      'A_percentile': ['Poor', 'Adequate'],
+      'Q_percentile': ['Poor', 'Adequate'],
+      'H_percentile': ['Poor', 'Adequate'],
       'P_percentile': ['Sparse', 'Dense'],
       'avg_monthly_earnings_percentile': ['Low', 'High'],
-      'pct_men_percentile': ['Female Maj.', 'Male Maj.'],
+      'pct_men_percentile': ['Female', 'Male'],
       'majority_race': ['White', 'Black', 'Indigenous', 'Asian', 'Parda'],
     };
     const newLabels = labelsMap[newActiveVariable];
