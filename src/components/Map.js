@@ -79,18 +79,22 @@ class Map extends Component {
   // Method to add click handler for the map
   addMapClickHandler = (map) => {
     map.on('click', 'brazil-microregion-layer', (e) => {
+      console.log('Microregion layer clicked');
       this.handleMapClick(e); // Handle click event for microregion layer
     });
 
     map.on('click', 'brazil-municipality-layer', (e) => {
+      console.log('Municipality layer clicked');
       this.handleMapClick(e); // Handle click event for municipality layer
     });
 
     map.on('click', 'brazil-point-layer', (e) => {
+      console.log('Point layer clicked');
       this.handleMapClick(e); // Handle click event for point layer
     });
 
     map.on('click', 'brazil-polygon-layer', (e) => {
+      console.log('Polygon layer clicked');
       this.handleMapClick(e); // Handle click event for polygon layer
     });
   };
