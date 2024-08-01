@@ -10,21 +10,21 @@
 }
 
 .subheader h2 {
-    font-size: 28px; /* Font size for the subheader title */
+    font-size: 20px; /* Font size for the subheader title */
     font-family: "Be Vietnam Pro", sans-serif;
-    color: #000000; /* Dark gray color for the title */
+    color: #333; /* Dark gray color for the title */
     margin: 0; /* Remove default margin */
     padding-left: 35px; /* Left padding for the title */
-    padding-bottom: 0; /* Bottom padding for the title */
-    padding-top: 5px; /* Top padding for the title */
+    padding-bottom: 5px; /* Bottom padding for the title */
+    padding-top: 15px; /* Top padding for the title */
 }
 
 .subheader p {
-    font-size: 16px; /* Font size for the description */
+    font-size: 15px; /* Font size for the description */
     font-family: "Be Vietnam Pro", sans-serif;
-    color: #000000; /* Gray color for the description */
+    color: #333; /* Gray color for the description */
     margin: 0; /* Remove default margin */
     padding-left: 35px; /* Left padding for the description */
     padding-top: 5px; /* Top padding for the description */
-    padding-bottom: 10px; /* Bottom padding for the description */
+    padding-bottom: 15px; /* Bottom padding for the description */
 }

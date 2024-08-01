@@ -110,9 +110,6 @@ class Map extends Component {
     let popupContent = `<div class="popup-container"><div style="flex: 1;">`;
   
     if (activeVariable === 'majority_race') {
-      popupContent += `<h3>Racial Composition</h3>`; // Add the title here
-      popupContent += `<div class="line-divider"></div>`;
-  
       const races = [
         { name: 'White', percentage: properties.pct_white, colorClass: 'progress-bar-white' },
         { name: 'Black', percentage: properties.pct_black, colorClass: 'progress-bar-black' },
@@ -121,29 +118,48 @@ class Map extends Component {
         { name: 'Parda', percentage: properties.pct_pardos, colorClass: 'progress-bar-pardos' }
       ];
   
-      // Sort races by percentage in descending order
       races.sort((a, b) => (b.percentage || 0) - (a.percentage || 0));
   
-      // Add progress bars for each race
       races.forEach(race => {
         const percentage = race.percentage !== undefined ? (race.percentage * 100).toFixed(1) : 'Data Unavailable';
         popupContent += `
-          <p style="margin: 0; line-height: 2; color: #000;"><strong>% ${race.name}:</strong> ${percentage}%</p>
+          <p style="margin: 0; line-height: 2; color: #000;">${percentage}%<strong> ${race.name}</strong> </p>
           <div class="progress-container">
             <div class="progress-bar ${race.colorClass}" style="width: ${race.percentage * 100}%;"></div>
           </div>
         `;
       });
-    } else {
-      // Handle other active variables (non-race)
-      const stateName = properties.name_state;
-      const stateCode = properties.state_id || properties.abbrev_state;
-      const cityName = properties.city_name || properties.name_muni || properties.code_muni;
-      const censusTract = properties.sector_id;
-      const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
-      const population = this.formatNumber(properties.n_people_15to17);
+
+      popupContent += `<div style="height: 5px;"></div>
+      <div class="line-divider"></div>`;
+
+    } else if (activeVariable === 'pct_men_percentile') {
+      const malePercentage = properties.pct_men !== undefined ? (properties.pct_men * 100).toFixed(1) : 'Data Unavailable';
+      const femalePercentage = 1 - properties.pct_men !== undefined ? ([1 - properties.pct_men] * 100).toFixed(1) : 'Data Unavailable';
   
-      // Handle case where data is unavailable
+      popupContent += `
+        <p style="margin: 0; line-height: 2; color: #000;">${malePercentage}%<strong> Male</strong></p>
+        <div class="progress-container">
+          <div class="progress-bar progress-bar-male" style="width: ${properties.pct_men * 100}%;"></div>
+        </div>
+        <p style="margin: 0; line-height: 2; color: #000;">${femalePercentage}%<strong> Female</strong> </p>
+        <div class="progress-container">
+          <div class="progress-bar progress-bar-female" style="width: ${[1 - properties.pct_men] * 100}%;"></div>
+        </div>
+        <div style="height: 5px;"></div>
+        <div class="line-divider"></div>
+      `;
+    }
+  
+    const stateName = properties.name_state;
+    const stateCode = properties.state_id || properties.abbrev_state;
+    const cityName = properties.city_name || properties.name_muni || properties.code_muni;
+    const censusTract = properties.sector_id;
+    const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
+    const avgMonthlyEarningsDollars = this.formatNumber(properties.avg_monthly_earnings_dollars);
+    const population = this.formatNumber(properties.n_people_15to17);
+  
+    if (activeVariable !== 'pct_men_percentile' && activeVariable !== 'majority_race') {
       const value = properties[activeVariable];
       if (value === undefined || isNaN(value)) {
         popupContent += `<strong>Data Unavailable</strong>`;
@@ -151,14 +167,14 @@ class Map extends Component {
         if (stateName) popupContent += `<p>${stateName} (${stateCode})</p>`;
         if (censusTract) popupContent += `<p>Census Tract: ${censusTract}</p>`;
         if (population) popupContent += `<p># of Schoolchildren: ${population}</p>`;
-        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Income: R$${avgMonthlyEarnings}</p>`;
+        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Income: R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;
       } else {
         const percentileValue = properties[activeVariable];
-        const percentage = Math.round(percentileValue * 100); // Convert to percentage
+        const percentage = Math.round(percentileValue * 100);
         const layerNameMap = {
           'A_percentile': 'Access',
           'Q_percentile': 'Quality',
-          'H_percentile': 'Quality-Adjusted Access',
+          'H_percentile': 'Access-Quality',
           'P_percentile': 'Population',
           'avg_monthly_earnings_percentile': 'Income',
           'pct_men_percentile': 'Gender',
@@ -168,13 +184,13 @@ class Map extends Component {
         const colorValue = this.getColorForValue(colorScales[activeVariable], percentileValue);
   
         const formatPercentileRank = (rank) => {
-          if (rank > 10 && rank < 20) return `${rank}th`; // Handle 'teens' cases
+          if (rank > 10 && rank < 20) return `${rank}th`;
           const lastDigit = rank % 10;
           switch (lastDigit) {
-            case 1: return `${rank}st`; // 1st
-            case 2: return `${rank}nd`; // 2nd
-            case 3: return `${rank}rd`; // 3rd
-            default: return `${rank}th`; // Default case
+            case 1: return `${rank}st`;
+            case 2: return `${rank}nd`;
+            case 3: return `${rank}rd`;
+            default: return `${rank}th`;
           }
         };
   
@@ -182,36 +198,35 @@ class Map extends Component {
   
         popupContent += `<span class="color-box" style="background-color: ${colorValue};"></span>`;
         popupContent += `<strong class="percentile-text">${percentileRank}</strong> <span class="percentile-text">${layerName} Percentile</span>`;
-        popupContent += `<div class="line-divider"></div>`;  // Add this line to insert the grey line
-        if (censusTract) popupContent += `<p style="margin: 0; line-height: 1.2; color: gray; font-variant: small-caps; font-weight: bold;">tract ${censusTract}</p>`;
-        const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null].filter(Boolean).join(', ');
-        if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
-        if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong># of Schoolchildren:</strong> ${population}</p>`;
-        if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Income:</strong> R$${avgMonthlyEarnings}</p>`;
-
+        popupContent += `<div class="line-divider"></div>`;
       }
     }
   
+    if (censusTract) popupContent += `<p style="margin: 0px; line-height: 2;">Tract <strong>${censusTract}</strong></p>`;
+    const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null]. filter(Boolean).join(', ');
+    if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
+    if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong># of Schoolchildren:</strong> ${population}</p>`;
+    if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Income:</strong> R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;
+  
     popupContent += `</div></div>`;
   
-    // Remove the previous popup if it exists
     if (this.state.popup) {
-      this.state.popup.remove(); // Remove the existing popup
+      this.state.popup.remove();
     }
   
-    const newPopup = new mapboxgl.Popup({ closeButton: false }) // Create a new popup
-      .setLngLat(coordinates) // Set the coordinates of the popup
-      .setHTML(popupContent) // Set the HTML content of the popup
-      .addTo(this.state.map); // Add the popup to the map
+    const newPopup = new mapboxgl.Popup({ closeButton: false })
+      .setLngLat(coordinates)
+      .setHTML(popupContent)
+      .addTo(this.state.map);
   
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
-        this.removeHighlight(); // Remove the highlight from the feature
-        newPopup.remove(); // Remove the popup
+        this.removeHighlight();
+        newPopup.remove();
       });
     } else {
       this.setState({ selectedFeature: e.features[0], popup: newPopup }, () => {
-        this.highlightFeature(); // Highlight the selected feature
+        this.highlightFeature();
       });
     }
   };  

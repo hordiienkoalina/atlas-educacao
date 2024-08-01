@@ -19,9 +19,9 @@ const App = () => {
     'Access': 'The spatial access to public high-schools, considering supply and demand of schools and family preferences.',
     'Quality': 'The quality of each school based on test scores and grade progression ratios.',
     'Access-Quality': 'The spatial access to high-quality public high-schools, considering supply and demand of schools, school quality, and family preferences.',
-    'Income': 'The monthly household earnings in dollars.',
-    'Gender': 'The gender distribution of the population',
-    'Race': 'The racial distribution of the population',
+    'Income': 'The monthly household earnings.',
+    'Gender': 'The gender distribution of the population.',
+    'Race': 'The racial distribution of the population.',
   };
 
   return (
