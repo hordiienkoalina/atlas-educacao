@@ -500,7 +500,6 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data',
         minzoom: this.zoomThreshold + 3,
-        maxzoom: 12,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
