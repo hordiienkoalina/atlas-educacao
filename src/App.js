@@ -16,9 +16,9 @@ const App = () => {
 
   // Descriptions for each layer type
   const layerDescriptions = {
-    'Access': 'The spatial access to public high-schools, considering supply and demand of schools and family preferences.',
+    'Access': 'The spatial access to public high schools, considering supply and demand of schools and student preferences.',
     'Quality': 'The quality of each school based on test scores and grade progression ratios.',
-    'Access-Quality': 'The spatial access to high-quality public high-schools, considering supply and demand of schools, school quality, and family preferences.',
+    'Access-Quality': 'The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.',
     'Income': 'The monthly household earnings.',
     'Gender': 'The gender distribution of the population.',
     'Race': 'The racial distribution of the population.',
