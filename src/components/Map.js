@@ -162,12 +162,8 @@ class Map extends Component {
     if (activeVariable !== 'pct_men_percentile' && activeVariable !== 'majority_race') {
       const value = properties[activeVariable];
       if (value === undefined || isNaN(value)) {
-        popupContent += `<strong>Data Unavailable</strong>`;
-        if (cityName) popupContent += `<p>${cityName}</p>`;
-        if (stateName) popupContent += `<p>${stateName} (${stateCode})</p>`;
-        if (censusTract) popupContent += `<p>Census Tract: ${censusTract}</p>`;
-        if (population) popupContent += `<p># of Schoolchildren: ${population}</p>`;
-        if (avgMonthlyEarnings) popupContent += `<p>Avg Monthly Income: R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;
+        popupContent += `<strong style="font-size: 16px; line-height: 2">Data Unavailable</strong>`;
+        popupContent += `<div class="line-divider"></div>`;
       } else {
         const percentileValue = properties[activeVariable];
         const percentage = Math.round(percentileValue * 100);
