@@ -203,7 +203,7 @@ class Map extends Component {
     }
   
     if (censusTract) popupContent += `<p style="margin: 0px; line-height: 2;">Tract <strong>${censusTract}</strong></p>`;
-    const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null]. filter(Boolean).join(', ');
+    const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null].filter(Boolean).join(', ');
     if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
     if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong># of Schoolchildren:</strong> ${population}</p>`;
     if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>Avg Monthly Income:</strong> R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;

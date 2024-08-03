@@ -12,7 +12,7 @@ function Footer() {
             <span className="divider">|</span> {/* Divider between links */}
 
             {/* Link to the Methodology page */}
-            <a href="https://drive.google.com/file/d/1oG0_7_CYMs5e0WlEUKyfWJsGK--S9mi2/view?usp=sharing" target="_blank" rel="noopener noreferrer">Methodology</a>
+            <a href="https://drive.google.com/file/d/1XcylVaGVecnlIRGluxcbrwDkYOeJ9owh/view?usp=sharing" target="_blank" rel="noopener noreferrer">Methodology</a>
             <span className="divider">|</span> {/* Divider between links */}
 
             {/* Link to the Data Download */}
