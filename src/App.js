@@ -1,50 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Map from './components/Map';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Subheader from './components/Subheader';
+import Popup from './components/Popup'; // Import the Popup component
 import './App.css';
 
 const App = () => {
-  // State to manage the selected map layer
-  const [selectedLayer, setSelectedLayer] = useState('Access');
+  const [selectedLayer, setSelectedLayer] = useState('Access-Quality');
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // State for the popup visibility
 
-  // Handler for changing the map layer
   const handleLayerChange = (layer) => {
-    setSelectedLayer(layer); // Update the selected layer state
+    setSelectedLayer(layer);
   };
 
-  // Descriptions for each layer type
-  const layerDescriptions = {
-    'Access': 'Description of the Access layer currently being shown.',
-    'Quality': 'Description of the Quality layer currently being shown.',
-    'Access-Quality': 'Description of the Quality-Adjusted Access layer currently being shown.',
-    'Population': 'Description of the Population layer currently being shown.'
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
   };
+
+  const layerDescriptions = {
+    'Access': 'The spatial access to public high schools, considering supply and demand of schools and student preferences.',
+    'Quality': 'The quality of each school based on test scores and grade progression ratios.',
+    'Access-Quality': 'The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.',
+    'Income': 'The monthly household earnings.',
+    'Gender': 'The gender distribution of the population.',
+    'Race': 'The racial distribution of the population.',
+  };
+
+  useEffect(() => {
+    // Check local storage to determine if popup should be shown
+    if (!localStorage.getItem('popupClosed')) {
+      setIsPopupVisible(true);
+    }
+  }, []);
 
   return (
     <div className="App">
-      {/* Header component */}
       <Header />
-
-      {/* Main content area */}
       <div className="content">
-        {/* Subheader with dynamic title and description based on selected layer */}
         <Subheader 
-          title={`Currently Showing: ${selectedLayer}`} 
+          title={`${selectedLayer}`} 
           description={layerDescriptions[selectedLayer] || 'No description available.'} 
         />
-
-        {/* Container for the map component */}
         <div className="map-container">
-          <Map onLayerChange={handleLayerChange} /> {/* Map component with layer change handler */}
+          <Map onLayerChange={handleLayerChange} />
         </div>
       </div>
-
-      {/* Footer component */}
       <Footer />
+      {isPopupVisible && <Popup onClose={handleClosePopup} />} {/* Conditionally render the popup */}
     </div>
   );
 };
 
-export default App; // Export the App component as the default export
+export default App;

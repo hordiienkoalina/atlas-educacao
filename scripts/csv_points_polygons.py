@@ -42,12 +42,12 @@ def main(args):
     df = load_and_clean_data(args.input_filepath)
 
     # Columns to retain
-    cols_to_keep = [
-        'geometry', 'sector_id', 'state', 'state_abbrev', 'city_name', 'neighborhood_name',
-        'pct_black', 'pct_white', 'pct_indigenous', 'pct_pardos', 'pct_asian', 'pct_men', 
-        'avg_monthly_earnings', 'fpl_below', 'A', 'Q', 'H',
+    cols_to_keep = [ 
+        'geometry', 'sector_id', 'name_state', 'abbrev_state', 'name_muni', 'neighborhood_name', 'n_people_15to17',
+        'pct_black', 'pct_white', 'pct_indigenous', 'pct_pardos', 'pct_asian', 'pct_men',  'majority_race', 'majority_percentage',
+        'avg_monthly_earnings', 'avg_monthly_earnings_dollars', 'A', 'Q', 'H',
         'A_percentile', 'Q_percentile', 'H_percentile', 
-        'A_normalized', 'H_normalized'
+        'avg_monthly_earnings_percentile', 'pct_men_percentile',
     ]
 
     # Define output file paths

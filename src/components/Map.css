@@ -36,6 +36,8 @@
     padding: 10px; /* Padding for spacing */
     border-radius: 5px; /* Rounded corners */
     font-size: 14px; /* Set font size */
+    width: fit-content;
+    padding-right: 15px;
 }
 
 /* Hide the default popup arrow */
@@ -50,20 +52,86 @@
     height: 15px; /* Set height */
     flex-shrink: 0; /* Prevent shrinking */
     margin-right: 7.5px; /* Margin for spacing */
+    margin-bottom: 7.5px;
     border: 1px solid #747474; /* Border color */
     border-radius: 2px; /* Rounded corners */
     vertical-align: top; /* Align to the top */
+}
+
+.percentile-text {
+    font-size: 16px;
+}
+
+.line-divider {
+    border-top: 0.5px solid grey;
+    margin: 5px 0px 10px 5px;
 }
 
 /* Styling for the popup container */
 .popup-container {
     display: flex; /* Use flexbox for layout */
     align-items: flex-start; /* Align items to the start */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: auto;
+}
+
+.popup-container h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}  
+
+/* Progress bar container */
+.progress-container {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+
+/* Progress bar itself */
+.progress-bar {
+height: 7px;
+border-radius: 2px;
+transition: width 0.3s ease;
+}
+
+.progress-bar-white {
+background-color: #3babfb; /* Blue color */
+}
+
+.progress-bar-black {
+background-color: #7ce35c; /* Green color */
+}
+
+.progress-bar-indigenous {
+background-color: #c9d662; /* Yellow color */
+}
+
+.progress-bar-asian {
+background-color: #366d7b; /* Dark green color */
+}
+
+.progress-bar-pardos {
+background-color: #cd5468; /* Red color */
+}  
+
+.progress-bar-male {
+background-color: #083d7f; /* Blue color */
+}
+
+.progress-bar-female {
+background-color: #d41ac0; /* Pink color */
 }
 
 /* Temporary fix for search bar resizing on narrow window sizes */
-@media (max-width: 650px) {
+@media (max-width: 820px) {
     .mapboxgl-ctrl-geocoder {
         display: none !important; /* Hide the geocoder control on narrow screens */
     }
-}  
+    .legend-container {
+        display: none !important; /* Hide the legend on narrow screens */
+    }
+}

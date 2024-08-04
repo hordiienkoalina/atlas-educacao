@@ -19,9 +19,15 @@ def load_and_process_data(file_path, geom_type, output_directory):
     df = pd.read_csv(file_path)
     print(f"Data loaded for {geom_type}:\n{df}")
 
+    # Reduce precision of all columns to 4 decimal places
+    df = df.round(4)
+
     # Convert WKT format to geometry
     df['geometry'] = df['geometry'].apply(wkt.loads)
     print(f"Geometry converted for {geom_type}.")
+
+    # Reduce precision of geometry
+    df['geometry'] = df['geometry'].apply(lambda geom: ops.transform(lambda x, y, z=None: (round(x, 4), round(y, 4)), geom))
 
     # Check if geometry needs reorientation (applicable for polygon types)
     if geom_type in ['state', 'municipality', 'microregion', 'polygons']:
@@ -49,17 +55,28 @@ def main():
     Main function to process geographic data for various types including points based on user input.
     """
     parser = argparse.ArgumentParser(description="Process geographic data into GeoJSON format.")
-    parser.add_argument('csv_path', type=str, help='Path to the CSV file containing the geographic data.')
-    parser.add_argument('geom_type', type=str, choices=['state', 'municipality', 'microregion', 'points', 'polygons'], help='Type of geography data to process.')
+    parser.add_argument('base_path', type=str, help='Path to the folder containing the geographic csv files.')
+    #parser.add_argument('csv_path', type=str, help='Path to the CSV file containing the geographic data.')
+    #parser.add_argument('geom_type', type=str, choices=['state', 'municipality', 'microregion', 'points', 'polygons'], help='Type of geography data to process.')
     parser.add_argument('--output_dir', type=str, default='public/data', help='Output directory to save GeoJSON files.')
 
     args = parser.parse_args()
 
-    output_path = load_and_process_data(args.csv_path, args.geom_type, args.output_dir)
-    if output_path:
-        print(f"Processed {args.geom_type} data successfully. Output at {output_path}")
-    else:
-        print(f"Processing failed for {args.geom_type}.")
+    for level in ['state', 'microregion', 'municipality']:
+        csv_path = f"{args.base_path}/{level}_access_df.csv"
+        output_path = load_and_process_data(csv_path, level, args.output_dir)
+        if output_path:
+            print(f"Processed {level} data successfully. Output at {output_path}")
+        else:
+            print(f"Processing failed for {level}.")
+    
+    for data_type in ['points', 'polygons']:
+        csv_path = f"{args.base_path}/access_df_{data_type}.csv"
+        output_path = load_and_process_data(csv_path, data_type, args.output_dir)
+        if output_path:
+            print(f"Processed {data_type} data successfully. Output at {output_path}")
+        else:
+            print(f"Processing failed for {data_type}.")
 
 if __name__ == "__main__":
     main()
