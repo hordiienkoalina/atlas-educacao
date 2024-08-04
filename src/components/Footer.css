@@ -24,7 +24,7 @@
     text-decoration: underline; /* Underline to indicate they are clickable */
     padding: 5px; /* Padding to increase the clickable area */
     font-size: 12px; /* Smaller font size for subtlety */
-    margin-right: 10px; /* Right margin for spacing between links */
+    margin: 5px;
     white-space: nowrap; /* Prevent text from wrapping */
 }
 

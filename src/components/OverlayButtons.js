@@ -2,7 +2,7 @@ import React, { useState } from 'react'; // Import React library and useState ho
 import './OverlayButtons.css'; // Import CSS for overlay buttons
 
 function OverlayButtons({ onButtonClick, onLayerChange }) {
-    const [activeButton, setActiveButton] = useState('Access'); // Initialize state for the active button
+    const [activeButton, setActiveButton] = useState('Access-Quality'); // Initialize state for the active button
 
     const handleClick = (type) => {
         setActiveButton(type); // Update the active button state
@@ -12,10 +12,10 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
     return (
     <div className="overlay-buttons">
         <button 
-        className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
-        onClick={() => handleClick('Access')}
+        className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
+        onClick={() => handleClick('Access-Quality')}
         >
-        Access
+        Access-Quality
         </button>
         <button 
         className={`overlay-button ${activeButton === 'Quality' ? 'active' : ''}`} 
@@ -24,10 +24,10 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
         Quality
         </button>
         <button 
-        className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
-        onClick={() => handleClick('Access-Quality')}
+        className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
+        onClick={() => handleClick('Access')}
         >
-        Access-Quality
+        Access
         </button>
         <button 
         className={`overlay-button ${activeButton === 'Income' ? 'active' : ''}`} 
@@ -40,6 +40,12 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
         onClick={() => handleClick('Gender')}
         >
         Gender
+        </button>
+        <button 
+        className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
+        onClick={() => handleClick('Race')}
+        >
+        Race
         </button>
     </div>
     );
