@@ -18,8 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
-    "predeploy": "npm run build && git lfs install && git lfs track '*.csv' '*.geojson' && git add .gitattributes && git add build/ && git commit -m 'Preparing LFS files for deployment'",
-    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "git lfs install && git lfs pull && gh-pages -d build",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts eject"
