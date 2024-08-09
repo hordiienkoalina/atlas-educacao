@@ -13,7 +13,8 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v3
       with:
-        lfs: true  # Enable LFS
+        lfs: true
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
