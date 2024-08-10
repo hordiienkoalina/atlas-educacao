@@ -402,23 +402,23 @@ class Map extends Component {
   addMapSourcesAndLayers = (map) => {
     map.addSource('brazil-state-data', {
       type: 'geojson',
-      data: '/data/access_data_state.geojson',
+      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_state.geojson',
     });
     map.addSource('brazil-microregion-data', {
       type: 'geojson',
-      data: '/data/access_data_microregion.geojson',
+      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_microregion.geojson',
     });
     map.addSource('brazil-municipality-data', {
       type: 'geojson',
-      data: '/data/access_data_municipality.geojson',
+      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_municipality.geojson',
     });
     map.addSource('brazil-point-data', {
       type: 'geojson',
-      data: '/data/access_data_points.geojson',
+      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_points.geojson',
     });
     map.addSource('brazil-polygon-data', {
       type: 'geojson',
-      data: '/data/access_data_polygons.geojson',
+      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_polygons.geojson',
     });
 
     this.setupMapLayers(map); // Setup map layers
