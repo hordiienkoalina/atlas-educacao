@@ -16,7 +16,7 @@ function Footer() {
             <span className="divider">|</span> {/* Divider between links */}
 
             {/* Link to the Data Download */}
-            <a href="https://github.com/hordiienkoalina/access-to-education/tree/main/public/data" target="_blank" rel="noopener noreferrer">Download Data</a>
+            <a href="https://drive.google.com/drive/folders/1mLUgjvGivuuT-pvkGqEP_5QEk8fQOyJq?usp=sharing" target="_blank" rel="noopener noreferrer">Download Data</a>
 
         </footer>
     );
