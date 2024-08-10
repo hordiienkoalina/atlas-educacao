@@ -1,0 +1,8 @@
+[
+{
+    "origin": ["http://localhost:3000", "http://192.168.1.92:3000/", "https://hordiienkoalina.github.io/access-to-education/", "https://atlaseducacao.com/"],
+    "responseHeader": ["Content-Type"],
+    "method": ["GET", "HEAD"],
+    "maxAgeSeconds": 3600
+}
+]
