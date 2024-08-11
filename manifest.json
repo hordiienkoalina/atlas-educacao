@@ -1,0 +1,20 @@
+{
+  "short_name": "AtlasEdu",
+  "name": "Atlas Educação",
+  "icons": [
+    {
+      "src": "brazil64.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "brazil160.png",
+      "type": "image/png",
+      "sizes": "160x160"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff" 
+}
