@@ -35,6 +35,7 @@ class Map extends Component {
       zoom: 7, // Initial zoom level
       minZoom: 5, // Minimum zoom level
       maxZoom: 12, // Maximum zoom level
+      maxBounds: [[-74.5, -33.5], [-34.5, 5.5]], // Restrict map to Brazil
     });
 
     // Event listener for when the map has loaded
@@ -447,7 +448,7 @@ class Map extends Component {
         id: 'brazil-microregion-layer',
         type: 'fill',
         source: 'brazil-microregion-data',
-        minzoom: this.zoomThreshold,
+        minzoom: this.zoomThreshold - 1,
         maxzoom: this.zoomThreshold + 1,
         layout: {},
         paint: {
@@ -463,7 +464,7 @@ class Map extends Component {
         id: 'brazil-municipality-layer',
         type: 'fill',
         source: 'brazil-municipality-data',
-        minzoom: this.zoomThreshold + 1,
+        minzoom: this.zoomThreshold,
         maxzoom: this.zoomThreshold + 3,
         layout: {},
         paint: {
