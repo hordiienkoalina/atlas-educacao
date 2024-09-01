@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b main -d build --cname atlaseducacao.com",
+    "deploy": "gh-pages -d build --cname atlaseducacao.com",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts eject"
