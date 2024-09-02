@@ -94,7 +94,12 @@ class Map extends Component {
       this.handleMapClick(e); // Handle click event for point layer
     });
 
-    map.on('click', 'brazil-polygon-layer', (e) => {
+    map.on('click', 'brazil-polygon-layer-1', (e) => {
+      console.log('Polygon layer clicked');
+      this.handleMapClick(e); // Handle click event for polygon layer
+    });
+
+    map.on('click', 'brazil-polygon-layer-2', (e) => {
       console.log('Polygon layer clicked');
       this.handleMapClick(e); // Handle click event for polygon layer
     });
@@ -396,30 +401,35 @@ class Map extends Component {
   // Method to initialize map layers
   initializeMapLayers = () => {
     const map = this.state.map;
+    mapboxgl.clearStorage()
     this.addMapSourcesAndLayers(map); // Add map sources and layers
   };
 
   // Method to add sources and layers to the map
   addMapSourcesAndLayers = (map) => {
     map.addSource('brazil-state-data', {
-      type: 'geojson',
-      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_state.geojson',
+      type: 'vector',
+      url: 'mapbox://felipehlvo.access-data-state-source',
     });
     map.addSource('brazil-microregion-data', {
-      type: 'geojson',
-      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_microregion.geojson',
+      type: 'vector',
+      url: 'mapbox://felipehlvo.bdpj1vs3',
     });
     map.addSource('brazil-municipality-data', {
-      type: 'geojson',
-      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_municipality.geojson',
+      type: 'vector',
+      url: 'mapbox://felipehlvo.8teeogrv',
     });
     map.addSource('brazil-point-data', {
-      type: 'geojson',
-      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_points.geojson',
+      type: 'vector',
+      url: 'mapbox://felipehlvo.0ix28ugv',
     });
-    map.addSource('brazil-polygon-data', {
-      type: 'geojson',
-      data: 'https://storage.googleapis.com/atlas-educacao-data/access_data_polygons.geojson',
+    map.addSource('brazil-polygon-data-1', {
+      type: 'vector',
+      url: 'mapbox://felipehlvo.37gudv8r',
+    })
+    map.addSource('brazil-polygon-data-2', {
+      type: 'vector',
+      url: 'mapbox://felipehlvo.20fz2p7e',
     });
 
     this.setupMapLayers(map); // Setup map layers
@@ -434,6 +444,7 @@ class Map extends Component {
         id: 'brazil-state-border',
         type: 'line',
         source: 'brazil-state-data',
+        'source-layer': 'state-layer-tileset',
         layout: {},
         paint: {
           'line-color': '#000000',
@@ -448,6 +459,7 @@ class Map extends Component {
         id: 'brazil-microregion-layer',
         type: 'fill',
         source: 'brazil-microregion-data',
+        'source-layer': 'access_data_microregion-85x9oi',
         minzoom: this.zoomThreshold - 1,
         maxzoom: this.zoomThreshold + 1,
         layout: {},
@@ -464,6 +476,7 @@ class Map extends Component {
         id: 'brazil-municipality-layer',
         type: 'fill',
         source: 'brazil-municipality-data',
+        'source-layer': 'access_data_municipality-9h9prk',
         minzoom: this.zoomThreshold,
         maxzoom: this.zoomThreshold + 3,
         layout: {},
@@ -480,6 +493,7 @@ class Map extends Component {
         id: 'brazil-point-layer',
         type: 'circle',
         source: 'brazil-point-data',
+        'source-layer': 'access_data_points-4ck2j5',
         minzoom: this.zoomThreshold + 3,
         paint: {
           'circle-color': colorScales[activeVariable],
@@ -493,9 +507,26 @@ class Map extends Component {
 
     map.addLayer(
       {
-        id: 'brazil-polygon-layer',
+        id: 'brazil-polygon-layer-1',
         type: 'fill',
-        source: 'brazil-polygon-data',
+        source: 'brazil-polygon-data-1',
+        'source-layer': 'access_data_polygons_1-0bkwx1',
+        minzoom: this.zoomThreshold + 3,
+        layout: {},
+        paint: {
+          'fill-color': colorScales[activeVariable],
+          'fill-opacity': 0.2,
+        },
+      },
+      'brazil-municipality-layer'
+    );
+
+    map.addLayer(
+      {
+        id: 'brazil-polygon-layer-2',
+        type: 'fill',
+        source: 'brazil-polygon-data-2',
+        'source-layer': 'access_data_polygons_2-92243f',
         minzoom: this.zoomThreshold + 3,
         layout: {},
         paint: {
@@ -550,7 +581,8 @@ updateMapLayers = () => {
     'brazil-microregion-layer': 'fill-color',
     'brazil-municipality-layer': 'fill-color',
     'brazil-point-layer': 'circle-color',
-    'brazil-polygon-layer': 'fill-color',
+    'brazil-polygon-layer-1': 'fill-color',
+    'brazil-polygon-layer-2': 'fill-color',
   };
 
   const colorMap = {
