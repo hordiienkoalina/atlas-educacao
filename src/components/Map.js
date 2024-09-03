@@ -31,8 +31,8 @@ class Map extends Component {
     const map = new mapboxgl.Map({
       container: this.mapContainer.current, // HTML container ID
       style: 'mapbox://styles/felipehlvo/cltz1z7gn00pw01qu2xm23yjs', // Map style
-      center: [-46.63, -23.6], // Initial map center coordinates
-      zoom: 7, // Initial zoom level
+      center: [-46.63, -23.65], // Initial map center coordinates
+      zoom: 10, // Initial zoom level
       minZoom: 5, // Minimum zoom level
       maxZoom: 12, // Maximum zoom level
       maxBounds: [[-74.5, -33.5], [-34.5, 5.5]], // Restrict map to Brazil
@@ -401,7 +401,6 @@ class Map extends Component {
   // Method to initialize map layers
   initializeMapLayers = () => {
     const map = this.state.map;
-    mapboxgl.clearStorage()
     this.addMapSourcesAndLayers(map); // Add map sources and layers
   };
 
@@ -494,7 +493,7 @@ class Map extends Component {
         type: 'circle',
         source: 'brazil-point-data',
         'source-layer': 'access_data_points-4ck2j5',
-        minzoom: this.zoomThreshold + 3,
+        minzoom: this.zoomThreshold + 2,
         paint: {
           'circle-color': colorScales[activeVariable],
           'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 1.5, 13, 5],
@@ -511,7 +510,7 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data-1',
         'source-layer': 'access_data_polygons_1-0bkwx1',
-        minzoom: this.zoomThreshold + 3,
+        minzoom: this.zoomThreshold + 2,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
@@ -527,7 +526,7 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data-2',
         'source-layer': 'access_data_polygons_2-92243f',
-        minzoom: this.zoomThreshold + 3,
+        minzoom: this.zoomThreshold + 2,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
