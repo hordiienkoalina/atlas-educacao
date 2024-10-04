@@ -28,6 +28,7 @@
     max-height: 36px !important; /* Ensure it does not exceed this height */
     min-height: 36px !important; /* Ensure it does not shrink below this height */
     font-size: 14px; /* Set font size */
+    width: 300px !important;/* Set a fixed width */
 }
 
 /* Styling for the map popup content */
