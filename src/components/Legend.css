@@ -39,6 +39,6 @@
 /* Temporary fix for search bar resizing on narrow window sizes */
 @media (max-width: 548px) {
     .legend-container {
-        bottom: 140px; ; /* Hide the legend on narrow screens */
+        bottom: 150px; ; /* Hide the legend on narrow screens */
     }
 }
