@@ -1,0 +1,64 @@
+{
+    "Access": "Acesso",
+    "Quality": "Qualidade",
+    "Access-Quality": "Acesso-Qualidade",
+    "Income": "Renda",
+    "Gender": "Gênero",
+    "Race": "Raça",
+    "noDescriptionAvailable": "Nenhuma descrição disponível.",
+    "layerDescriptions": {
+      "Access": "O acesso espacial às escolas secundárias públicas, considerando a oferta e a demanda de escolas e as preferências dos estudantes.",
+      "Quality": "A qualidade de cada escola com base nos resultados das provas e nos índices de progressão de série.",
+      "AccessQuality": "O acesso espacial a escolas secundárias públicas de alta qualidade, considerando a oferta e a demanda de escolas, as preferências dos estudantes e a qualidade das escolas.",
+      "Income": "A renda mensal familiar.",
+      "Gender": "A distribuição de gênero da população.",
+      "Race": "A distribuição racial da população."
+    },
+    "popup": {
+        "welcomeTitle": "Bem-vindo ao Atlas Educação",
+        "description1": "O acesso à educação é comumente associado ao custo e à proximidade de uma escola. Embora esses sejam fatores cruciais, outros elementos como disponibilidade de recursos, capacidade da sala de aula e qualidade do ensino são igualmente fundamentais.",
+        "description2": "O Atlas Educação utiliza o Censo Demográfico e o Censo Escolar para destacar quais áreas têm acesso inadequado ao ensino público secundário. Use o mapa para explorar todos os bairros do Brasil e ver quais têm mais e menos acesso a escolas públicas de ensino médio de alta qualidade.",
+        "dontShowAgain": "Não mostrar novamente"
+      },
+    "overlayButtons": {
+        "accessQuality": "Acesso-Qualidade",
+        "quality": "Qualidade",
+        "access": "Acesso",
+        "income": "Renda",
+        "gender": "Gênero",
+        "race": "Raça"
+      },
+    "header": {
+        "title": "Atlas Educação"
+      },
+    "footer": {
+        "methodology": "Metodologia",
+        "downloadData": "Download Dados"
+      },
+    "search": {
+    "placeholder": "Buscar um lugar"
+  },
+  "race": {
+    "white": "Branco",
+    "black": "Preto",
+    "indigenous": "Indígena",
+    "asian": "Asiático",
+    "parda": "Pardo"
+  },
+  "gender": {
+    "male": "Masculino",
+    "female": "Feminino"
+  },
+  "details": {
+    "state": "Estado",
+    "city": "Cidade",
+    "censusTract": "Setor Censitário",
+    "avgMonthlyEarnings": "Renda Mensal Média",
+    "population": "População"
+  },
+  "percentile": "Percentil",
+  "legend": {
+    "title": "Título da Legenda"
+  },
+  "dataUnavailable": "Dados Indisponíveis"
+  }
