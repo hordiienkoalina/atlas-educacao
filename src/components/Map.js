@@ -92,18 +92,18 @@ class Map extends Component {
       this.handleMapClick(e); // Handle click event for municipality layer
     });
 
-    map.on('click', 'brazil-point-layer', (e) => {
-      console.log('Point layer clicked');
-      this.handleMapClick(e); // Handle click event for point layer
-    });
+    // map.on('click', 'brazil-point-layer', (e) => {
+    //   console.log('Point layer clicked');
+    //   this.handleMapClick(e); // Handle click event for point layer
+    // });
 
     map.on('click', 'brazil-polygon-layer-1', (e) => {
-      console.log('Polygon layer clicked');
+      console.log('Polygon layer 1 clicked');
       this.handleMapClick(e); // Handle click event for polygon layer
     });
 
     map.on('click', 'brazil-polygon-layer-2', (e) => {
-      console.log('Polygon layer clicked');
+      console.log('Polygon layer 2 clicked');
       this.handleMapClick(e); // Handle click event for polygon layer
     });
   };
@@ -216,14 +216,21 @@ class Map extends Component {
   
     popupContent += `</div></div>`;
   
+        // Create a new Popup instance
+        const newPopup = new mapboxgl.Popup({ closeButton: true })
+        .setLngLat(coordinates)
+        .setHTML(popupContent);
+
+    // Remove the previous popup if it exists
     if (this.state.popup) {
-      this.state.popup.remove();
+        this.state.popup.remove();
     }
-  
-    const newPopup = new mapboxgl.Popup({ closeButton: false })
-      .setLngLat(coordinates)
-      .setHTML(popupContent)
-      .addTo(this.state.map);
+
+    // Add the new popup to the map
+    newPopup.addTo(this.state.map);
+
+    // Update the state with the new popup
+    this.setState({ popup: newPopup, selectedFeature: e.features[0] });
   
     if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
       this.setState({ selectedFeature: null, popup: null }, () => {
