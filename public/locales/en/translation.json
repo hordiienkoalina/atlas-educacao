@@ -34,5 +34,33 @@
     "footer": {
     "methodology": "Methodology",
     "downloadData": "Download Data"
-  }
+  },
+  "map":{
+    "search": "Search",
+    "percentileTemplate": "{{layerName}} Percentile",
+    "schoolChildren": "# of Schoolchildren",
+    "monthlyIncome": "Avg Monthly Income",
+    "tract": "Tract",
+    "labels": {
+        "poor": "Poor",
+        "adequate": "Adequate",
+        "scarce": "Scarce",
+        "dense": "Dense",
+        "low": "Low",
+        "high": "High",
+        "female": "Female",
+        "male": "Male",
+        "white": "White",
+        "black": "Black",
+        "indigenous": "Indigenous",
+        "asian": "Asian",
+        "parda": "Parda"
+      },
+    "numbering": {
+        "th":"th",
+        "st":"st",
+        "nd":"nd",
+        "rd":"rd"
+    }
+}
   }

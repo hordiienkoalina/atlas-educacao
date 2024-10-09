@@ -49,10 +49,6 @@ const App = () => {
     <div className="App">
       <Header />
       <div className="content">
-        <div>
-          <button onClick={() => changeLanguage('en')}>English</button>
-          <button onClick={() => changeLanguage('pt')}>Português</button>
-        </div>
         <Subheader 
           title={t(selectedLayer)} 
           description={layerDescriptions[selectedLayer] || t('noDescriptionAvailable')} 
