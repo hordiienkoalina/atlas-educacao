@@ -35,10 +35,6 @@ const App = () => {
     }
   }, []);
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('i18nextLng', lng); // Save user's choice
-  };
 
   useEffect(() => {
     const browserLanguage = i18n.language; // The detected language

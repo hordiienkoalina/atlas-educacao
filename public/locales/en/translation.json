@@ -36,9 +36,9 @@
     "downloadData": "Download Data"
   },
   "map":{
-    "search": "Search",
+    "search": "Search for address or place..",
     "percentileTemplate": "{{layerName}} Percentile",
-    "schoolChildren": "# of Schoolchildren",
+    "schoolChildren": "Number of Schoolchildren",
     "monthlyIncome": "Avg Monthly Income",
     "tract": "Tract",
     "labels": {

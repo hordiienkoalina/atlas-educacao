@@ -36,10 +36,10 @@
     "downloadData": "Baixar Dados"
   },
   "map": {
-    "search": "Pesquisar",
+    "search": "Pesquisar por endereço ou lugar...",
     "percentileTemplate": "Percentil de {{layerName}}",
     "accessQuality": "Acesso-Qualidade",
-    "schoolChildren": "# de Alunos",
+    "schoolChildren": "Número de Alunos",
     "monthlyIncome": "Renda Mensal Média",
     "tract": "Setor",
     "labels": {
