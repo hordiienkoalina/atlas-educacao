@@ -26,17 +26,17 @@ const InfoSection = () => {
         <div className="info-popup-overlay" onClick={toggleInfo}>
           <div className="info-popup" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={toggleInfo}>×</button>
-            <h2 className="info-title">{t('info.title')}</h2>
-            <h4>{t('info.dotRepresentation.question')}</h4>
+            <h1 className="info-title">{t('info.title')} </h1>
+            <h3>{t('info.dotRepresentation.question')}</h3>
             <p>{t('info.dotRepresentation.answer')}</p>
             
-            <h4>{t('info.colorRepresentation.question')}</h4>
+            <h3>{t('info.colorRepresentation.question')}</h3>
             <p>{t('info.colorRepresentation.answer')}</p>
             
-            <h4>{t('info.scarcityAdequacy.question')}</h4>
+            <h3>{t('info.scarcityAdequacy.question')}</h3>
             <p>{t('info.scarcityAdequacy.answer')}</p>
             
-            <h4>{t('info.pardaRace.question')}</h4>
+            <h3>{t('info.pardaRace.question')}</h3>
             <p>{t('info.pardaRace.answer')}</p>
           </div>
         </div>

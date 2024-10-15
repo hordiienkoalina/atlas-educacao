@@ -1,9 +1,9 @@
 .info-button {
     position: fixed;
     right: 1rem;
-    top: 10%;
+    top: 11%;
     z-index: 10001;
-    background-color: #e7eff7;
+    background-color: #ddeeff;
     color: rgb(83, 83, 83);
     padding: 0.5rem;
     border-radius: 50%;
@@ -38,6 +38,10 @@
   position: relative;
 }
 
+.info-popup h1 {
+  text-align: center;
+}
+
 .close-button {
   position: absolute;
   top: 0.5rem;
@@ -53,3 +57,4 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+

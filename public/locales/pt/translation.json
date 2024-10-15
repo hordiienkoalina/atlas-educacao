@@ -35,6 +35,9 @@
     "methodology": "Metodologia",
     "downloadData": "Baixar Dados"
   },
+  "info": {
+    "title": "FAQ"
+  },
   "map": {
     "search": "Pesquisar por endereço ou lugar...",
     "percentileTemplate": "Percentil de {{layerName}}",
