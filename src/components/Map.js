@@ -217,7 +217,7 @@ class Map extends Component {
     popupContent += `</div></div>`;
   
         // Create a new Popup instance
-        const newPopup = new mapboxgl.Popup({ closeButton: true })
+        const newPopup = new mapboxgl.Popup({ closeButton: true, offset: [0, -25]})
         .setLngLat(coordinates)
         .setHTML(popupContent);
 
@@ -488,7 +488,7 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-municipality-data',
         'source-layer': 'access_data_municipality-9h9prk',
-        minzoom: this.zoomThreshold,
+        minzoom: this.zoomThreshold + 1,
         maxzoom: this.zoomThreshold + 3,
         layout: {},
         paint: {
@@ -505,7 +505,7 @@ class Map extends Component {
         type: 'circle',
         source: 'brazil-point-data',
         'source-layer': 'access_data_points-4ck2j5',
-        minzoom: this.zoomThreshold + 2,
+        minzoom: this.zoomThreshold + 3,
         paint: {
           'circle-color': colorScales[activeVariable],
           'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 1.5, 13, 5],
@@ -522,7 +522,7 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data-1',
         'source-layer': 'access_data_polygons_1-0bkwx1',
-        minzoom: this.zoomThreshold + 2,
+        minzoom: this.zoomThreshold + 3,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
@@ -538,7 +538,7 @@ class Map extends Component {
         type: 'fill',
         source: 'brazil-polygon-data-2',
         'source-layer': 'access_data_polygons_2-92243f',
-        minzoom: this.zoomThreshold + 2,
+        minzoom: this.zoomThreshold + 3,
         layout: {},
         paint: {
           'fill-color': colorScales[activeVariable],
