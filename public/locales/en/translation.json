@@ -35,6 +35,26 @@
     "methodology": "Methodology",
     "downloadData": "Download Data"
   },
+  "info":{
+    "toggleInfoPopup": "Toggle info popup",
+    "title": "FAQ",
+    "dotRepresentation": {
+      "question": "What does each dot represent?",
+      "answer": "Each dot represents the likely location of a group of 10 children in high-school age according to the 2010 Brazilian Census. The precise location of the dots is randomized within each census tract."
+    },
+    "colorRepresentation": {
+      "question": "What do the colors represent?",
+      "answer": "The colors show the metric's percentile relative to other regions in the state (metrics are scaled to each state to reflect how public high school policy and management is done at the state level in Brazil). In other words, within each state we rank all regions by each metric and assign the color based on the position within that rank. For this reason, a comparison between states is misleading since they are on different scales."
+    },
+    "scarcityAdequacy": {
+      "question": "What is considered 'scarce' and what is considered 'adequate'?",
+      "answer": "The choice of scarce and adequate is arbitrary. TO BE CONTINUED"
+    },
+    "pardaRace": {
+      "question": "What is the race 'parda'?",
+      "answer": "Pardo is an ethnic and skin color category used by the Brazilian Institute of Geography and Statistics (IBGE) in the Brazilian censuses. The word pardo is used to refer to Brazilians with varied ethnic ancestries. IBGE defines the pardo category as 'For a person who declares themselves to be pardo or who identifies as having a mixture of two or more color or race options, including white, black, parda and indigenous.'"
+    }
+  },
   "map":{
     "search": "Search for address or place..",
     "percentileTemplate": "{{layerName}} Percentile",

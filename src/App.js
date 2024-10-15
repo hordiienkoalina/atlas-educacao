@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Subheader from './components/Subheader';
 import Popup from './components/Popup';
+import InfoSection from './components/InfoSection';
 import './App.css';
 
 const App = () => {
@@ -35,10 +36,9 @@ const App = () => {
     }
   }, []);
 
-
   useEffect(() => {
-    const browserLanguage = i18n.language; // The detected language
-    console.log("Detected language: ", browserLanguage); // This will log the detected language (for debug purposes)
+    const browserLanguage = i18n.language;
+    console.log("Detected language: ", browserLanguage);
   }, [i18n.language]);
 
   return (
@@ -55,6 +55,7 @@ const App = () => {
       </div>
       <Footer />
       {isPopupVisible && <Popup onClose={handleClosePopup} />}
+      <InfoSection content={t('infoSectionContent')} />
     </div>
   );
 };
