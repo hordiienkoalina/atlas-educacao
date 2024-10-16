@@ -62,9 +62,9 @@
     "monthlyIncome": "Avg Monthly Income",
     "tract": "Tract",
     "labels": {
-        "poor": "Poor",
-        "adequate": "Adequate",
-        "scarce": "Scarce",
+        "poor": "Worst",
+        "adequate": "Best",
+        "scarce": "Worst",
         "dense": "Dense",
         "low": "Low",
         "high": "High",

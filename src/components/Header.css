@@ -2,7 +2,7 @@
 
 /* Styling for the header container */
 .header {
-    background-color: #ffffff; /* White background color */
+    background-color: hsl(0, 0%, 100%); /* White background color */
     padding: 15px; /* Padding for spacing */
     text-align: left; /* Align text to the left */
     position: relative; /* Position relative to parent */

@@ -46,9 +46,9 @@
     "monthlyIncome": "Renda Mensal Média",
     "tract": "Setor",
     "labels": {
-      "poor": "Baixo",
-      "adequate": "Adequado",
-      "scarce": "Escasso",
+      "poor": "Pior",
+      "adequate": "Melhor",
+      "scarce": "Pior",
       "dense": "Denso",
       "low": "Baixo",
       "high": "Alto",
