@@ -33,9 +33,6 @@ const InfoSection = () => {
             <h3>{t('info.colorRepresentation.question')}</h3>
             <p>{t('info.colorRepresentation.answer')}</p>
             
-            <h3>{t('info.scarcityAdequacy.question')}</h3>
-            <p>{t('info.scarcityAdequacy.answer')}</p>
-            
             <h3>{t('info.pardaRace.question')}</h3>
             <p>{t('info.pardaRace.answer')}</p>
           </div>

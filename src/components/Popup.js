@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next'; // Import i18n translation hook
+import { useTranslation } from 'react-i18next';
 import './Popup.css';
 
 const Popup = ({ onClose }) => {
-  const { t } = useTranslation(); // Initialize translation hook
+  const { t } = useTranslation();
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -21,16 +21,19 @@ const Popup = ({ onClose }) => {
     <div className="popup-overlay">
       <div className="popup-content">
         <button className="popup-close" onClick={handleClose}>&times;</button>
-        <h2>{t('popup.welcomeTitle')}</h2> {/* Translation for title */}
-        <p>{t('popup.description1')}</p> {/* Translation for first paragraph */}
-        <p>{t('popup.description2')}</p> {/* Translation for second paragraph */}
+        <h2>{t('popup.welcomeTitle')}</h2>
+        <p>{t('popup.description1')}</p>
+        <p className="description-with-circle">
+          <span className="dot"></span>
+          {t('popup.description2')}
+        </p>
         <div>
           <input
             type="checkbox"
             id="dont-show-again"
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="dont-show-again">{t('popup.dontShowAgain')}</label> {/* Translation for checkbox label */}
+          <label htmlFor="dont-show-again">{t('popup.dontShowAgain')}</label>
         </div>
       </div>
     </div>
