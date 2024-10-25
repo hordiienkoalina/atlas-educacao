@@ -69,7 +69,7 @@
     margin-bottom: 7.5px;
     border: 1px solid #747474; /* Border color */
     border-radius: 2px; /* Rounded corners */
-    vertical-align: top; /* Align to the top */
+    vertical-align: middle; /* Align to the top */
 }
 
 .percentile-text {

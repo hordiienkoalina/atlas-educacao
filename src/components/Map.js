@@ -9,7 +9,6 @@ import './Map.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { withTranslation } from 'react-i18next';
 
-
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN; // Set the Mapbox access token
 
 class Map extends Component {
@@ -23,7 +22,8 @@ class Map extends Component {
       labels: [this.props.t('map.labels.scarce'), this.props.t('map.labels.adequate')], // Default labels
       selectedFeature: null,
       popup: null,
-    };    
+      selectedCoordinates: null, // Add selectedCoordinates to state
+    };
     this.mapContainer = React.createRef(); // Reference to the map container element
     this.zoomThreshold = 5; // Zoom level threshold for switching layers
   }
@@ -108,30 +108,67 @@ class Map extends Component {
     });
   };
 
+  // Modify handleMapClick to use generatePopupContent and store selectedCoordinates
   handleMapClick = (e) => {
-    const { activeVariable, colorScales } = this.state;
     const coordinates = e.lngLat;
-    const properties = e.features[0].properties;
+    const feature = e.features[0];
+
+    const popupContent = this.generatePopupContent(feature);
+
+    // Create a new Popup instance
+    const newPopup = new mapboxgl.Popup({ closeButton: true })
+      .setLngLat(coordinates)
+      .setHTML(popupContent);
+
+    // Remove the previous popup if it exists
+    if (this.state.popup) {
+      this.state.popup.remove();
+    }
+
+    // Add the new popup to the map
+    newPopup.addTo(this.state.map);
+
+    // Update the state with the new popup, selected feature, and coordinates
+    if (this.state.selectedFeature && this.state.selectedFeature.id === feature.id) {
+      this.setState({ selectedFeature: null, popup: null, selectedCoordinates: null }, () => {
+        this.removeHighlight();
+        newPopup.remove();
+      });
+    } else {
+      this.setState(
+        { selectedFeature: feature, popup: newPopup, selectedCoordinates: coordinates },
+        () => {
+          this.highlightFeature();
+        }
+      );
+    }
+  };
+
+  // Create generatePopupContent method
+  generatePopupContent = (feature) => {
+    const { activeVariable, colorScales } = this.state;
+    const properties = feature.properties;
     const { t } = this.props; // Destructure t from props for translations
-  
+
     console.log('Active variable:', activeVariable);
     console.log('Properties of clicked feature:', properties);
-  
+
     let popupContent = `<div class="popup-container"><div style="flex: 1;">`;
-  
+
     if (activeVariable === 'majority_race') {
       const races = [
         { name: t('map.labels.white'), percentage: properties.pct_white, colorClass: 'progress-bar-white' },
         { name: t('map.labels.black'), percentage: properties.pct_black, colorClass: 'progress-bar-black' },
         { name: t('map.labels.indigenous'), percentage: properties.pct_indigenous, colorClass: 'progress-bar-indigenous' },
         { name: t('map.labels.asian'), percentage: properties.pct_asian, colorClass: 'progress-bar-asian' },
-        { name: t('map.labels.parda'), percentage: properties.pct_pardos, colorClass: 'progress-bar-pardos' }
+        { name: t('map.labels.parda'), percentage: properties.pct_pardos, colorClass: 'progress-bar-pardos' },
       ];
-  
+
       races.sort((a, b) => (b.percentage || 0) - (a.percentage || 0));
-  
-      races.forEach(race => {
-        const percentage = race.percentage !== undefined ? (race.percentage * 100).toFixed(1) : 'Data Unavailable';
+
+      races.forEach((race) => {
+        const percentage =
+          race.percentage !== undefined ? (race.percentage * 100).toFixed(1) : t('dataUnavailable');
         popupContent += `
           <p style="margin: 0; line-height: 2; color: #000;">${percentage}%<strong> ${race.name}</strong> </p>
           <div class="progress-container">
@@ -139,28 +176,33 @@ class Map extends Component {
           </div>
         `;
       });
-  
+
       popupContent += `<div style="height: 5px;"></div>
       <div class="line-divider"></div>`;
-  
     } else if (activeVariable === 'pct_men_percentile') {
-      const malePercentage = properties.pct_men !== undefined ? (properties.pct_men * 100).toFixed(1) : 'Data Unavailable';
-      const femalePercentage = 1 - properties.pct_men !== undefined ? ([1 - properties.pct_men] * 100).toFixed(1) : 'Data Unavailable';
-  
+      const malePercentage =
+        properties.pct_men !== undefined ? (properties.pct_men * 100).toFixed(1) : t('dataUnavailable');
+      const femalePercentage =
+        properties.pct_men !== undefined ? ((1 - properties.pct_men) * 100).toFixed(1) : t('dataUnavailable');
+
       popupContent += `
-        <p style="margin: 0; line-height: 2; color: #000;">${malePercentage}%<strong> ${t('map.labels.male')}</strong></p>
+        <p style="margin: 0; line-height: 2; color: #000;">${malePercentage}%<strong> ${t(
+        'map.labels.male'
+      )}</strong></p>
         <div class="progress-container">
           <div class="progress-bar progress-bar-male" style="width: ${properties.pct_men * 100}%;"></div>
         </div>
-        <p style="margin: 0; line-height: 2; color: #000;">${femalePercentage}%<strong> ${t('map.labels.female')}</strong> </p>
+        <p style="margin: 0; line-height: 2; color: #000;">${femalePercentage}%<strong> ${t(
+        'map.labels.female'
+      )}</strong> </p>
         <div class="progress-container">
-          <div class="progress-bar progress-bar-female" style="width: ${[1 - properties.pct_men] * 100}%;"></div>
+          <div class="progress-bar progress-bar-female" style="width: ${(1 - properties.pct_men) * 100}%;"></div>
         </div>
         <div style="height: 5px;"></div>
         <div class="line-divider"></div>
       `;
     }
-  
+
     const stateName = properties.name_state;
     const stateCode = properties.state_id || properties.abbrev_state;
     const cityName = properties.city_name || properties.name_muni || properties.code_muni;
@@ -168,7 +210,7 @@ class Map extends Component {
     const avgMonthlyEarnings = this.formatNumber(properties.avg_monthly_earnings);
     const avgMonthlyEarningsDollars = this.formatNumber(properties.avg_monthly_earnings_dollars);
     const population = this.formatNumber(properties.n_people_15to17);
-  
+
     if (activeVariable !== 'pct_men_percentile' && activeVariable !== 'majority_race') {
       const value = properties[activeVariable];
       if (value === undefined || isNaN(value)) {
@@ -178,77 +220,80 @@ class Map extends Component {
         const percentileValue = properties[activeVariable];
         const percentage = Math.round(percentileValue * 100);
         const layerNameMap = {
-          'A_percentile': t('overlayButtons.access'),
-          'Q_percentile': t('overlayButtons.quality'),
-          'H_percentile': t('overlayButtons.accessQuality'),
-          'P_percentile': t('overlayButtons.population'),
-          'avg_monthly_earnings_percentile': t('overlayButtons.income'),
-          'pct_men_percentile': t('overlayButtons.gender'),
-          'majority_race': t('overlayButtons.race')
+          A_percentile: t('overlayButtons.access'),
+          Q_percentile: t('overlayButtons.quality'),
+          H_percentile: t('overlayButtons.accessQuality'),
+          P_percentile: t('overlayButtons.population'),
+          avg_monthly_earnings_percentile: t('overlayButtons.income'),
+          pct_men_percentile: t('overlayButtons.gender'),
+          majority_race: t('overlayButtons.race'),
         };
         const layerName = layerNameMap[activeVariable];
         const colorValue = this.getColorForValue(colorScales[activeVariable], percentileValue);
-  
+
         const formatPercentileRank = (rank) => {
           if (rank > 10 && rank < 20) return `${rank}${t('map.numbering.th')}`;
           const lastDigit = rank % 10;
           switch (lastDigit) {
-            case 1: return `${rank}${t('map.numbering.st')}`;
-            case 2: return `${rank}${t('map.numbering.nd')}`;
-            case 3: return `${rank}${t('map.numbering.rd')}`;
-            default: return `${rank}${t('map.numbering.th')}`;
+            case 1:
+              return `${rank}${t('map.numbering.st')}`;
+            case 2:
+              return `${rank}${t('map.numbering.nd')}`;
+            case 3:
+              return `${rank}${t('map.numbering.rd')}`;
+            default:
+              return `${rank}${t('map.numbering.th')}`;
           }
         };
-  
+
         const percentileRank = formatPercentileRank(percentage);
-  
+
         popupContent += `<span class="color-box" style="background-color: ${colorValue};"></span>`;
-        popupContent += `<strong class="percentile-text">${percentileRank}</strong> <span class="percentile-text">${t('map.percentileTemplate', {layerName: layerName })}</span>`;
+        popupContent += `<strong class="percentile-text">${percentileRank}</strong> <span class="percentile-text">${t(
+          'map.percentileTemplate',
+          { layerName: layerName }
+        )}</span>`;
         popupContent += `<div class="line-divider"></div>`;
       }
     }
-  
-    if (censusTract) popupContent += `<p style="margin: 0px; line-height: 2;">${t('map.tract')} <strong>${censusTract}</strong></p>`;
+
+    if (censusTract)
+      popupContent += `<p style="margin: 0px; line-height: 2;">${t('map.tract')} <strong>${censusTract}</strong></p>`;
     const locationLine = [cityName, stateName ? `${stateName} (${stateCode})` : null].filter(Boolean).join(', ');
-    if (locationLine) popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
-    if (population) popupContent += `<p style="margin: 0; line-height: 2;"><strong>${t('map.schoolChildren')}:</strong> ${population}</p>`;
-    if (avgMonthlyEarnings) popupContent += `<p style="margin: 0; line-height: 2;"><strong>${t('map.monthlyIncome')}:</strong> R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;
-  
+    if (locationLine)
+      popupContent += `<p style="margin: 0; line-height: 2;"><em>${locationLine}</em></p>`;
+    if (population)
+      popupContent += `<p style="margin: 0; line-height: 2;"><strong>${t('map.schoolChildren')}:</strong> ${population}</p>`;
+    if (avgMonthlyEarnings)
+      popupContent += `<p style="margin: 0; line-height: 2;"><strong>${t('map.monthlyIncome')}:</strong> R$${avgMonthlyEarnings} ≈ US$${avgMonthlyEarningsDollars}</p>`;
+
     popupContent += `</div></div>`;
-  
-        // Create a new Popup instance
-        const newPopup = new mapboxgl.Popup({ closeButton: true })
-        .setLngLat(coordinates)
-        .setHTML(popupContent);
+    return popupContent;
+  };
 
-    // Remove the previous popup if it exists
+  // Add updatePopupContent method
+  updatePopupContent = (feature) => {
+    const popupContent = this.generatePopupContent(feature);
+
     if (this.state.popup) {
-        this.state.popup.remove();
-    }
-
-    // Add the new popup to the map
-    newPopup.addTo(this.state.map);
-
-    // Update the state with the new popup
-    this.setState({ popup: newPopup, selectedFeature: e.features[0] });
-  
-    if (this.state.selectedFeature && this.state.selectedFeature.id === e.features[0].id) {
-      this.setState({ selectedFeature: null, popup: null }, () => {
-        this.removeHighlight();
-        newPopup.remove();
-      });
+      this.state.popup.setHTML(popupContent);
     } else {
-      this.setState({ selectedFeature: e.features[0], popup: newPopup }, () => {
-        this.highlightFeature();
-      });
+      // Recreate the popup if it doesn't exist
+      const coordinates = this.state.selectedCoordinates;
+      if (coordinates) {
+        const newPopup = new mapboxgl.Popup({ closeButton: true })
+          .setLngLat(coordinates)
+          .setHTML(popupContent);
+        newPopup.addTo(this.state.map);
+        this.setState({ popup: newPopup });
+      }
     }
   };
-  
 
   // Method to format numbers with commas
   formatNumber = (num) => {
     if (num == null) {
-        return 'Data Unavailable';
+      return this.props.t('dataUnavailable');
     }
     return Math.round(num).toLocaleString();
   };
@@ -267,20 +312,29 @@ class Map extends Component {
       { stop: 0.75, color: colorScale[10] },
       { stop: 1, color: colorScale[12] },
     ];
-  
+
     console.log('stops:', stops); // Add this log
-  
+
     // Find the correct color range for the value
     for (let i = 0; i < stops.length - 1; i++) {
       console.log(`Checking if ${value} is between ${stops[i].stop} and ${stops[i + 1].stop}`); // Add this log
       if (value >= stops[i].stop && value <= stops[i + 1].stop) {
         const t = (value - stops[i].stop) / (stops[i + 1].stop - stops[i].stop);
         const interpolatedColor = this.interpolateColor(stops[i].color, stops[i + 1].color, t);
-        console.log('Interpolating between', stops[i].color, 'and', stops[i + 1].color, 'with factor', t, 'result:', interpolatedColor); // Add this log
+        console.log(
+          'Interpolating between',
+          stops[i].color,
+          'and',
+          stops[i + 1].color,
+          'with factor',
+          t,
+          'result:',
+          interpolatedColor
+        ); // Add this log
         return interpolatedColor;
       }
     }
-  
+
     // If value is not in any range, return the last color
     console.warn('Value out of range, using last color', stops[stops.length - 1].color); // Add this log
     return stops[stops.length - 1].color;
@@ -293,7 +347,7 @@ class Map extends Component {
     const result = {
       r: Math.round(c1.r + factor * (c2.r - c1.r)),
       g: Math.round(c1.g + factor * (c2.g - c1.g)),
-      b: Math.round(c1.b + factor * (c2.b - c1.b))
+      b: Math.round(c1.b + factor * (c2.b - c1.b)),
     };
     return this.rgbToHex(result); // Convert the interpolated RGB to HEX
   };
@@ -308,7 +362,7 @@ class Map extends Component {
     return {
       r: (bigint >> 16) & 255,
       g: (bigint >> 8) & 255,
-      b: (bigint & 255)
+      b: bigint & 255,
     };
   };
 
@@ -385,7 +439,7 @@ class Map extends Component {
       pct_men_percentile: [0, 0.25, 0.5, 0.75, 1],
       majority_race: [0, 0.25, 0.5, 0.75, 1],
     };
-    
+
     let colorScales = {}; // Object to hold the color scales
     Object.keys(colorValues).forEach((key) => {
       colorScales[key] = this.createColorScale(key, colorValues[key], colorStops[key]);
@@ -400,11 +454,16 @@ class Map extends Component {
       'interpolate',
       ['linear'],
       ['get', mapVariable],
-      colorStops[0], colorArray[0],
-      colorStops[1], colorArray[1],
-      colorStops[2], colorArray[2],
-      colorStops[3], colorArray[3],
-      colorStops[4], colorArray[4],
+      colorStops[0],
+      colorArray[0],
+      colorStops[1],
+      colorArray[1],
+      colorStops[2],
+      colorArray[2],
+      colorStops[3],
+      colorArray[3],
+      colorStops[4],
+      colorArray[4],
     ];
     console.log(`Color scale for ${mapVariable}:`, colorScale); // Add this log
     return colorScale;
@@ -437,7 +496,7 @@ class Map extends Component {
     map.addSource('brazil-polygon-data-1', {
       type: 'vector',
       url: 'mapbox://felipehlvo.37gudv8r',
-    })
+    });
     map.addSource('brazil-polygon-data-2', {
       type: 'vector',
       url: 'mapbox://felipehlvo.20fz2p7e',
@@ -573,71 +632,84 @@ class Map extends Component {
 
   // Lifecycle method called when the component is updated
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.activeVariable !== this.state.activeVariable) {
-      console.log('Active variable changed from', prevState.activeVariable, 'to', this.state.activeVariable); // Add this log
+    if (
+      prevState.activeVariable !== this.state.activeVariable ||
+      prevProps.i18n.language !== this.props.i18n.language
+    ) {
+      console.log('Active variable or language changed');
       this.updateMapLayers(); // Update map layers if the active variable changes
+
+      // Update the popup content if a feature is selected
+      if (this.state.selectedFeature) {
+        this.updatePopupContent(this.state.selectedFeature);
+      }
     }
   }
 
   // Method to update map layers
-// Method to update map layers
-updateMapLayers = () => {
-  const { map, colorScales, activeVariable } = this.state;
-  if (!map) return;
+  updateMapLayers = () => {
+    const { map, colorScales, activeVariable } = this.state;
+    if (!map) return;
 
-  console.log('Updating map layers for activeVariable:', activeVariable); // Add this log
-  console.log('Color scale being applied:', colorScales[activeVariable]); // Add this log
+    console.log('Updating map layers for activeVariable:', activeVariable); // Add this log
+    console.log('Color scale being applied:', colorScales[activeVariable]); // Add this log
 
-  const layerTypes = {
-    'brazil-microregion-layer': 'fill-color',
-    'brazil-municipality-layer': 'fill-color',
-    'brazil-point-layer': 'circle-color',
-    'brazil-polygon-layer-1': 'fill-color',
-    'brazil-polygon-layer-2': 'fill-color',
-  };
+    const layerTypes = {
+      'brazil-microregion-layer': 'fill-color',
+      'brazil-municipality-layer': 'fill-color',
+      'brazil-point-layer': 'circle-color',
+      'brazil-polygon-layer-1': 'fill-color',
+      'brazil-polygon-layer-2': 'fill-color',
+    };
 
-  const colorMap = {
-    'n_people_15to17_white': '#08519c',
-    'n_people_15to17_black': '#006d2c',
-    'n_people_15to17_indigenous': '#bea40d',
-    'n_people_15to17_asian': '#62367b',
-    'n_people_15to17_parda': '#a50f15',
-  };
+    const colorMap = {
+      n_people_15to17_white: '#08519c',
+      n_people_15to17_black: '#006d2c',
+      n_people_15to17_indigenous: '#bea40d',
+      n_people_15to17_asian: '#62367b',
+      n_people_15to17_parda: '#a50f15',
+    };
 
-  Object.keys(layerTypes).forEach((layerId) => {
-    if (map.getLayer(layerId)) {
-      const colorScale = colorScales[activeVariable];
-      if (activeVariable === 'majority_race') {
-        console.log('Setting color scale for majority race layer'); // Add this log
-        map.setPaintProperty(layerId, layerTypes[layerId], [
-          'interpolate',
-          ['linear'],
-          ['get', 'majority_percentage'],
-          0, '#ffffff',
-          1, [
-            'match',
-            ['get', 'majority_race'],
-            'n_people_15to17_white', colorMap['n_people_15to17_white'],
-            'n_people_15to17_black', colorMap['n_people_15to17_black'],
-            'n_people_15to17_indigenous', colorMap['n_people_15to17_indigenous'],
-            'n_people_15to17_asian', colorMap['n_people_15to17_asian'],
-            'n_people_15to17_parda', colorMap['n_people_15to17_parda'],
-            '#ccc'
-          ]
-        ]);
+    Object.keys(layerTypes).forEach((layerId) => {
+      if (map.getLayer(layerId)) {
+        const colorScale = colorScales[activeVariable];
+        if (activeVariable === 'majority_race') {
+          console.log('Setting color scale for majority race layer'); // Add this log
+          map.setPaintProperty(layerId, layerTypes[layerId], [
+            'interpolate',
+            ['linear'],
+            ['get', 'majority_percentage'],
+            0,
+            '#ffffff',
+            1,
+            [
+              'match',
+              ['get', 'majority_race'],
+              'n_people_15to17_white',
+              colorMap['n_people_15to17_white'],
+              'n_people_15to17_black',
+              colorMap['n_people_15to17_black'],
+              'n_people_15to17_indigenous',
+              colorMap['n_people_15to17_indigenous'],
+              'n_people_15to17_asian',
+              colorMap['n_people_15to17_asian'],
+              'n_people_15to17_parda',
+              colorMap['n_people_15to17_parda'],
+              '#ccc',
+            ],
+          ]);
+        } else if (colorScale) {
+          console.log(`Setting color scale for layer ${layerId}`); // Add this log
+          map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
+        } else {
+          console.error(`Color scale for ${activeVariable} is not defined`);
+        }
       }
-      else if (colorScale) {
-        console.log(`Setting color scale for layer ${layerId}`); // Add this log
-        map.setPaintProperty(layerId, layerTypes[layerId], colorScale);
-      } else {
-        console.error(`Color scale for ${activeVariable} is not defined`);
-      }
-    }
-  });
-};
+    });
+  };
 
   handleButtonClick = (type) => {
-    const { t } = this.props;  
+    const { t } = this.props;
 
     const variableMap = {
       Access: 'A_percentile',
@@ -649,20 +721,26 @@ updateMapLayers = () => {
       Race: 'majority_race',
     };
     const newActiveVariable = variableMap[type];
-  
+
     // Define labels based on the active variable
     const labelsMap = {
-      'A_percentile': [t('map.labels.poor'), t('map.labels.adequate')],
-      'Q_percentile': [t('map.labels.poor'), t('map.labels.adequate')],
-      'H_percentile': [t('map.labels.poor'), t('map.labels.adequate')],
-      'P_percentile': [t('map.labels.sparse'), t('map.labels.dense')],
-      'avg_monthly_earnings_percentile': [t('map.labels.low'), t('map.labels.high')],
-      'pct_men_percentile': [t('map.labels.female'), t('map.labels.male')],
-      'majority_race': [t('map.labels.white'), t('map.labels.black'), t('map.labels.indigenous'), t('map.labels.asian'), t('map.labels.parda')],
+      A_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      Q_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      H_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      P_percentile: [t('map.labels.sparse'), t('map.labels.dense')],
+      avg_monthly_earnings_percentile: [t('map.labels.low'), t('map.labels.high')],
+      pct_men_percentile: [t('map.labels.female'), t('map.labels.male')],
+      majority_race: [
+        t('map.labels.white'),
+        t('map.labels.black'),
+        t('map.labels.indigenous'),
+        t('map.labels.asian'),
+        t('map.labels.parda'),
+      ],
     };
 
     const newLabels = labelsMap[newActiveVariable];
-  
+
     this.setState({
       activeVariable: newActiveVariable,
       colors: this.initializeColorScales()[newActiveVariable], // Update colors
@@ -676,12 +754,17 @@ updateMapLayers = () => {
     const { colors, labels } = this.state;
     return (
       <div className="map-wrapper">
-        <div ref={this.mapContainer} className="map-container" style={{ height: 'calc(100vh - 100px)' }} /> {/* Adjust height */}
+        <div
+          ref={this.mapContainer}
+          className="map-container"
+          style={{ height: 'calc(100vh - 100px)' }}
+        />{' '}
+        {/* Adjust height */}
         <OverlayButtons onButtonClick={this.handleButtonClick} onLayerChange={this.props.onLayerChange} />
         <Legend colors={colors} labels={labels} /> {/* Render Legend component */}
       </div>
     );
   }
-}  
+}
 
 export default withTranslation()(Map);
