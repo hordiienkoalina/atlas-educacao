@@ -1,7 +1,7 @@
 .info-button {
     position: fixed;
-    right: 1rem;
-    top: 11%;
+    right: 7rem;
+    top: 0.7%;
     z-index: 10001;
     background-color: #edf6ff;
     color: rgb(83, 83, 83);
@@ -36,6 +36,7 @@
   max-height: 80%;
   overflow-y: auto;
   position: relative;
+  max-width: 600px; /* Maintain max width */
 }
 
 .info-popup h1 {
@@ -53,8 +54,9 @@
 }
 
 .info-title {
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-top: 0rem;
+  margin-bottom: 1.75rem;
 }
 
