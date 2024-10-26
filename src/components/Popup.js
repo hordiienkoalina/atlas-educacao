@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Popup.css';
+import { Trans } from 'react-i18next';
 
 const Popup = ({ onClose }) => {
   const { t } = useTranslation();
@@ -22,11 +23,13 @@ const Popup = ({ onClose }) => {
       <div className="popup-content">
         <button className="popup-close" onClick={handleClose}>&times;</button>
         <h2>{t('popup.welcomeTitle')}</h2>
-        <p>{t('popup.description1')}</p>
+        <Trans i18nKey="popup.description1" components={{ u: <u /> }}/>
+        <p><Trans i18nKey="popup.description2"/></p>
         <p className="description-with-circle">
           <span className="dot"></span>
-          {t('popup.description2')}
+          <Trans i18nKey="popup.description3"/>
         </p>
+        
         <div>
           <input
             type="checkbox"

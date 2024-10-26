@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './InfoSection.css';
+import { Trans } from 'react-i18next';
+
 
 const InfoSection = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +28,18 @@ const InfoSection = () => {
         <div className="info-popup-overlay" onClick={toggleInfo}>
           <div className="info-popup" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={toggleInfo}>×</button>
+
             <h1 className="info-title">{t('info.title')} </h1>
-            <h3>{t('info.dotRepresentation.question')}</h3>
+
+            <h3><Trans i18nKey="info.dotRepresentation.question" components={{ u: <u /> }}/></h3>
             <p>{t('info.dotRepresentation.answer')}</p>
             
-            <h3>{t('info.colorRepresentation.question')}</h3>
-            <p>{t('info.colorRepresentation.answer')}</p>
+            <h3><Trans i18nKey="info.colorRepresentation.question" components={{ u: <u /> }}/></h3>
+            <Trans i18nKey="info.colorRepresentation.answer"/>
             
             <h3>{t('info.pardaRace.question')}</h3>
             <p>{t('info.pardaRace.answer')}</p>
+            
           </div>
         </div>
       )}
