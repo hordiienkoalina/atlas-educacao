@@ -11,6 +11,14 @@ import { withTranslation } from 'react-i18next';
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN; // Set the Mapbox access token
 
+const colorMap = {
+  n_people_15to17_parda: '#a50f15',
+  n_people_15to17_white: '#08519c',
+  n_people_15to17_black: '#006d2c',
+  n_people_15to17_indigenous: '#bea40d',
+  n_people_15to17_asian: '#62367b',
+};
+
 class Map extends Component {
   constructor(props) {
     super(props); // Call the constructor of the parent class (Component)
@@ -20,6 +28,7 @@ class Map extends Component {
       colorScales: this.initializeColorScales(),
       colors: this.initializeColorScales()['H_percentile'], // Set initial color scale
       labels: [this.props.t('map.labels.scarce'), this.props.t('map.labels.adequate')], // Default labels
+      legendType: 'gradient', // Default legend type
       selectedFeature: null,
       popup: null,
       selectedCoordinates: null, // Add selectedCoordinates to state
@@ -157,11 +166,11 @@ class Map extends Component {
 
     if (activeVariable === 'majority_race') {
       const races = [
+        { name: t('map.labels.parda'), percentage: properties.pct_pardos, colorClass: 'progress-bar-pardos' },
         { name: t('map.labels.white'), percentage: properties.pct_white, colorClass: 'progress-bar-white' },
         { name: t('map.labels.black'), percentage: properties.pct_black, colorClass: 'progress-bar-black' },
         { name: t('map.labels.indigenous'), percentage: properties.pct_indigenous, colorClass: 'progress-bar-indigenous' },
-        { name: t('map.labels.asian'), percentage: properties.pct_asian, colorClass: 'progress-bar-asian' },
-        { name: t('map.labels.parda'), percentage: properties.pct_pardos, colorClass: 'progress-bar-pardos' },
+        { name: t('map.labels.asian'), percentage: properties.pct_asian, colorClass: 'progress-bar-asian' }
       ];
 
       races.sort((a, b) => (b.percentage || 0) - (a.percentage || 0));
@@ -427,7 +436,13 @@ class Map extends Component {
       P_percentile: ['#f7fcb9', '#addd8e', '#31a354', '#006837', '#004529'],
       avg_monthly_earnings_percentile: ['#fff9c7', '#f7cd86', '#fec561', '#da5b09', '#8a3006'],
       pct_men_percentile: ['#d41ac0', '#e1a7be', '#fbf4ff', '#8caac2', '#083d7f'],
-      majority_race: ['#3babfb', '#7ce35c', '#c9d662', '#366d7b', '#cd5468'],
+      majority_race: [
+        colorMap['n_people_15to17_parda'],
+        colorMap['n_people_15to17_white'],
+        colorMap['n_people_15to17_black'],
+        colorMap['n_people_15to17_indigenous'],
+        colorMap['n_people_15to17_asian']
+      ],
     };
 
     const colorStops = {
@@ -662,14 +677,6 @@ class Map extends Component {
       'brazil-polygon-layer-2': 'fill-color',
     };
 
-    const colorMap = {
-      n_people_15to17_white: '#08519c',
-      n_people_15to17_black: '#006d2c',
-      n_people_15to17_indigenous: '#bea40d',
-      n_people_15to17_asian: '#62367b',
-      n_people_15to17_parda: '#a50f15',
-    };
-
     Object.keys(layerTypes).forEach((layerId) => {
       if (map.getLayer(layerId)) {
         const colorScale = colorScales[activeVariable];
@@ -685,6 +692,8 @@ class Map extends Component {
             [
               'match',
               ['get', 'majority_race'],
+              'n_people_15to17_parda',
+              colorMap['n_people_15to17_parda'],
               'n_people_15to17_white',
               colorMap['n_people_15to17_white'],
               'n_people_15to17_black',
@@ -693,8 +702,6 @@ class Map extends Component {
               colorMap['n_people_15to17_indigenous'],
               'n_people_15to17_asian',
               colorMap['n_people_15to17_asian'],
-              'n_people_15to17_parda',
-              colorMap['n_people_15to17_parda'],
               '#ccc',
             ],
           ]);
@@ -731,20 +738,35 @@ class Map extends Component {
       avg_monthly_earnings_percentile: [t('map.labels.low'), t('map.labels.high')],
       pct_men_percentile: [t('map.labels.female'), t('map.labels.male')],
       majority_race: [
+        t('map.labels.parda'),
         t('map.labels.white'),
         t('map.labels.black'),
         t('map.labels.indigenous'),
-        t('map.labels.asian'),
-        t('map.labels.parda'),
+        t('map.labels.asian')
       ],
     };
 
     const newLabels = labelsMap[newActiveVariable];
 
+    let newLegendType = 'gradient';
+    let newColors = this.initializeColorScales()[newActiveVariable];
+
+    if (newActiveVariable === 'majority_race') {
+      newLegendType = 'categories';
+      newColors = [
+        colorMap['n_people_15to17_parda'],
+        colorMap['n_people_15to17_white'],
+        colorMap['n_people_15to17_black'],
+        colorMap['n_people_15to17_indigenous'],
+        colorMap['n_people_15to17_asian']
+      ];
+    }
+
     this.setState({
       activeVariable: newActiveVariable,
-      colors: this.initializeColorScales()[newActiveVariable], // Update colors
+      colors: newColors,
       labels: newLabels, // Update labels
+      legendType: newLegendType,
     });
     this.props.onLayerChange(type); // Pass to parent component
   };
@@ -761,7 +783,8 @@ class Map extends Component {
         />{' '}
         {/* Adjust height */}
         <OverlayButtons onButtonClick={this.handleButtonClick} onLayerChange={this.props.onLayerChange} />
-        <Legend colors={colors} labels={labels} /> {/* Render Legend component */}
+        <Legend colors={colors} labels={labels} legendType={this.state.legendType} />
+
       </div>
     );
   }
