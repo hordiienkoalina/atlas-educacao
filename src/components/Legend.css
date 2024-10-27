@@ -11,7 +11,7 @@ bottom: 60px;
 right: 20px;
 z-index: 1;
 width: 95%;
-max-width: 240px; /* Adjust as needed */
+max-width: 250px; /* Adjust as needed */
 }
 
 .legend-scale {
