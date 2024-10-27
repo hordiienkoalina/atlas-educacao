@@ -38,7 +38,7 @@
   },
   "info":{
     "toggleInfoPopup": "Toggle info popup",
-    "title": "FAQs",
+    "title": "FAQ",
     "dotRepresentation": {
       "question": "What does each <u>dot</u> represent?",
       "answer": "Each dot represents the likely location of a group of 10 children in high-school age according to the 2010 Brazilian Census. The precise location of the dots is randomized within each census tract."
