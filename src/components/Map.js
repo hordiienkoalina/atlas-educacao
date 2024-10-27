@@ -145,7 +145,7 @@ class Map extends Component {
     const popupContent = this.generatePopupContent(feature);
 
     // Create a new Popup instance
-    const newPopup = new mapboxgl.Popup({ closeButton: true })
+    const newPopup = new mapboxgl.Popup({ closeButton: true, offset: [0, -25]})
       .setLngLat(coordinates)
       .setHTML(popupContent);
 
@@ -310,7 +310,7 @@ class Map extends Component {
       // Recreate the popup if it doesn't exist
       const coordinates = this.state.selectedCoordinates;
       if (coordinates) {
-        const newPopup = new mapboxgl.Popup({ closeButton: true })
+        const newPopup = new mapboxgl.Popup({ closeButton: true , offset: [0, -25]})
           .setLngLat(coordinates)
           .setHTML(popupContent);
         newPopup.addTo(this.state.map);
