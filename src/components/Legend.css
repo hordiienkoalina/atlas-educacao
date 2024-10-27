@@ -40,40 +40,38 @@ width: 100%;
 
 .legend-buttons-row {
 display: flex;
-justify-content: space-between;
+justify-content: center; /* Center the buttons horizontally */
 align-items: center;
+flex-wrap: wrap; /* Allow buttons to wrap if necessary */
 width: 100%;
-margin-bottom: 5px; /* Space between rows */
+margin-bottom: 2px; /* Space between rows */
 }
 
 .legend-button {
-flex: 1;
-margin: 0 5px;
-padding: 8px;
+margin: 4px; /* Add some margin around each button */
+padding: 10px 15px 10px 15px; /* Adjust padding to control the size */
 border-radius: 10px;
-display: flex;
+display: inline-flex; /* Use inline-flex to size buttons according to content */
 justify-content: center;
 align-items: center;
 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
+}  
 
 .legend-button-label {
 font-size: 14px;
 font-weight: bold;
 }
 
-/* Text color adjustments based on background color */
-.legend-button:nth-child(4) .legend-button-label /* Indigenous */
-{
-color: #000000; /* Black text */
+/* Default text color */
+.legend-button-label {
+color: #ffffff; /* Default to white text */
 }
 
-.legend-button:nth-child(1) .legend-button-label, /* Parda */
-.legend-button:nth-child(2) .legend-button-label, /* White */
-.legend-button:nth-child(3) .legend-button-label, /* Black */
-.legend-button:nth-child(5) .legend-button-label /* Asian */
-{ 
-color: #ffffff; /* White text */
+/* Override for specific buttons */
+
+/* Indigenous button (legend-button-3) */
+.legend-button-3 .legend-button-label {
+color: #000000; /* Black text */
 }
 
 /* Adjustments for smaller screens */
