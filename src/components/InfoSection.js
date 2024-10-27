@@ -37,7 +37,7 @@ const InfoSection = () => {
             <h3><Trans i18nKey="info.colorRepresentation.question" components={{ u: <u /> }}/></h3>
             <Trans i18nKey="info.colorRepresentation.answer"/>
             
-            <h3>{t('info.pardaRace.question')}</h3>
+            <h3><Trans i18nKey="info.pardaRace.question" components={{ u: <u /> }}/></h3>
             <p>{t('info.pardaRace.answer')}</p>
             
           </div>
