@@ -5,6 +5,7 @@ import './Legend.css';
 
 const Legend = ({ colors, labels, legendType, isRaceLegend }) => {
 if (legendType === 'gradient') {
+// Existing code for gradient legend
 const colorValues = Array.isArray(colors)
     ? colors.filter((value) => typeof value === 'string' && value.startsWith('#'))
     : [];
@@ -32,8 +33,8 @@ if (isRaceLegend) {
         <div className="legend-buttons-row">
         {firstRowLabels.map((label, index) => (
             <div
-            key={index}
-            className="legend-button"
+            key={`row1-${index}`}
+            className={`legend-button legend-button-${index}`}
             style={{ backgroundColor: firstRowColors[index] }}
             >
             <span className="legend-button-label">{label}</span>
@@ -43,8 +44,8 @@ if (isRaceLegend) {
         <div className="legend-buttons-row">
         {secondRowLabels.map((label, index) => (
             <div
-            key={index}
-            className="legend-button"
+            key={`row2-${index}`}
+            className={`legend-button legend-button-${index + 3}`}
             style={{ backgroundColor: secondRowColors[index] }}
             >
             <span className="legend-button-label">{label}</span>
@@ -57,11 +58,11 @@ if (isRaceLegend) {
     // Render buttons with colors and labels as before
     return (
     <div className="legend-container">
-        <div className="legend-buttons">
+        <div className="legend-buttons-row">
         {labels.map((label, index) => (
             <div
             key={index}
-            className="legend-button"
+            className={`legend-button legend-button-${index}`}
             style={{ backgroundColor: colors[index] }}
             >
             <span className="legend-button-label">{label}</span>
