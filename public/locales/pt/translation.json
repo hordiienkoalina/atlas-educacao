@@ -15,10 +15,11 @@
     "Race": "A distribuição racial da população."
   },
   "popup": {
-    "welcomeTitle": "Bem-vindo ao Atlas Educação",
-    "description1": "O acesso à educação é comumente associado ao custo e à proximidade de uma escola. Embora esses sejam fatores cruciais, outros elementos, como disponibilidade de recursos, capacidade de sala de aula e qualidade da educação, são igualmente fundamentais.",
-    "description2": "O Atlas Educação utiliza o Censo Demográfico e o Censo Escolar para destacar quais áreas têm acesso inadequado à educação pública de ensino médio. Use o mapa para explorar cada bairro do Brasil e ver quais têm mais e menos acesso a escolas públicas de ensino médio de alta qualidade.",
-    "dontShowAgain": "Não mostrar isso novamente"
+    "welcomeTitle": "Onde no Brasil os adolescentes têm dificuldade para acessar boas escolas públicas de ensino médio?",
+    "description1": "<strong>Atlas Educação</strong> responde a essa pergunta utilizando dados do Censo Demográfico e do Censo Escolar. Ao observar a <u>oferta e demanda de escolas</u>, <u>preferências dos alunos</u> e <u>qualidade das escolas</u>, mapeamos os níveis de acesso em todo o país e como eles se correlacionam com renda, gênero e raça.",
+    "description2": "Nosso objetivo é informar o público sobre como o acesso à educação varia geograficamente e oferecer os dados necessários aos gestores para direcionar recursos onde são mais necessários.",
+    "description3": "<strong>Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar</strong>. Use o mapa para explorar cada bairro do Brasil e ver quais têm mais e menos acesso a escolas públicas de ensino médio de alta qualidade. Confira a seção de perguntas frequentes para ajuda na interpretação do mapa e veja a metodologia para uma explicação completa.",
+    "dontShowAgain": " Não mostrar isso novamente"
   },
   "overlayButtons": {
     "accessQuality": "Acesso-Qualidade",
@@ -35,17 +36,36 @@
     "methodology": "Metodologia",
     "downloadData": "Baixar Dados"
   },
+  "info": {
+    "toggleInfoPopup": "Alternar popup de informações",
+    "title": "Perguntas Frequentes",
+    "dotRepresentation": {
+      "question": "O que cada <u>ponto</u> representa?",
+      "answer": "Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar de acordo com o Censo Brasileiro de 2010. A localização precisa dos pontos é randomizada dentro de cada setor censitário."
+    },
+    "colorRepresentation": {
+      "question": "O que as <u>cores</u> representam?",
+      "answer": "As cores mostram o percentil da métrica em relação a outras regiões do estado (métricas são normalizadas em cada estado para refletir o fato de que política e a gestão das escolas públicas de ensino médio são feitas no nível estadual no Brasil). Em outras palavras, dentro de cada estado, ranqueamos cada região pela métrica e atribuímos a cor com base na posição no ranking. Por esse motivo, <strong><i>uma comparação entre estados é enganosa</i></strong>, pois eles estão em escalas diferentes."
+    },
+    "scarcityAdequacy": {
+      "question": "O que é considerado 'escasso' e o que é considerado 'adequado'?",
+      "answer": "A escolha do que é escasso e adequado é arbitrária. A CONTINUAÇÃO É NECESSÁRIA."
+    },
+    "pardaRace": {
+      "question": "O que é a raça 'parda'?",
+      "answer": "Pardo é uma categoria étnica e de cor de pele usada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) nos censos brasileiros. A palavra pardo é utilizada para se referir a brasileiros com variadas ascendências étnicas. O IBGE define a categoria parda como uma pessoa 'que se identifica como tendo uma mistura de duas ou mais opções de cor ou raça, incluindo branco, preto, pardo e indígena.'"
+    }
+  },
   "map": {
     "search": "Pesquisar por endereço ou lugar...",
     "percentileTemplate": "Percentil de {{layerName}}",
-    "accessQuality": "Acesso-Qualidade",
     "schoolChildren": "Número de Alunos",
     "monthlyIncome": "Renda Mensal Média",
     "tract": "Setor",
     "labels": {
-      "poor": "Baixo",
-      "adequate": "Adequado",
-      "scarce": "Escasso",
+      "poor": "Pior",
+      "adequate": "Melhor",
+      "scarce": "Pior",
       "dense": "Denso",
       "low": "Baixo",
       "high": "Alto",
@@ -58,10 +78,10 @@
       "parda": "Pardo"
     },
     "numbering": {
-        "th":"<sup>o</sup>",
-        "st":"<sup>o</sup>",
-        "nd":"<sup>o</sup>",
-        "rd":"<sup>o</sup>"
+      "th": "<sup>o</sup>",
+      "st": "<sup>o</sup>",
+      "nd": "<sup>o</sup>",
+      "rd": "<sup>o</sup>"
     }
   }
 }
