@@ -45,15 +45,15 @@
     },
     "colorRepresentation": {
       "question": "O que as <u>cores</u> representam?",
-      "answer": "As cores mostram o percentil da métrica em relação a outras regiões do estado (métricas são normalizadas em cada estado para refletir o fato de que política e a gestão das escolas públicas de ensino médio são feitas no nível estadual no Brasil). Em outras palavras, dentro de cada estado, ranqueamos cada região pela métrica e atribuímos a cor com base na posição no ranking. Por esse motivo, <strong><i>uma comparação entre estados é enganosa</i></strong>, pois eles estão em escalas diferentes."
+      "answer": "As cores mostram o percentil da métrica em relação a outras regiões do estado. As métricas são normalizadas em cada estado para refletir o fato de que a gestão das escolas públicas de ensino médio é feitas no nível estadual no Brasil. Em outras palavras, dentro de cada estado, ranqueamos cada região pela métrica e atribuímos sua cor com base no ranking. Por esse motivo, <strong><i>uma comparação entre estados é enganosa</i></strong>, pois eles estão em escalas diferentes."
     },
     "scarcityAdequacy": {
       "question": "O que é considerado 'escasso' e o que é considerado 'adequado'?",
       "answer": "A escolha do que é escasso e adequado é arbitrária. A CONTINUAÇÃO É NECESSÁRIA."
     },
     "pardaRace": {
-      "question": "O que é a raça 'parda'?",
-      "answer": "Pardo é uma categoria étnica e de cor de pele usada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) nos censos brasileiros. A palavra pardo é utilizada para se referir a brasileiros com variadas ascendências étnicas. O IBGE define a categoria parda como uma pessoa 'que se identifica como tendo uma mistura de duas ou mais opções de cor ou raça, incluindo branco, preto, pardo e indígena.'"
+      "question": "O que é a raça <u>parda</u>?",
+      "answer": "Parda(o) é uma categoria étnica e de cor de pele usada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) nos censos brasileiros. A palavra pardo é utilizada para se referir a brasileiros com variadas ascendências étnicas. O IBGE define a categoria parda como uma pessoa 'que se identifica como tendo uma mistura de duas ou mais opções de cor ou raça, incluindo branco, preto, pardo e indígena.'"
     }
   },
   "map": {
