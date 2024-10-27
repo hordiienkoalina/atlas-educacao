@@ -19,9 +19,9 @@ const InfoSection = () => {
         className="info-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="16" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="8"></line>
+          <circle cx="14" cy="14" r="12"></circle>
+          <line x1="14" y1="19" x2="14" y2="14"></line>
+          <line x1="14" y1="9" x2="14" y2="9"></line>
         </svg>
       </button>
       {isOpen && (

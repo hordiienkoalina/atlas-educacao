@@ -1,15 +1,14 @@
 .info-button {
     position: fixed;
-    right: 7rem;
-    top: 0.7%;
+    right: 6.8rem;
+    top: 1.1%;
     z-index: 10001;
-    background-color: #edf6ff;
-    color: rgb(83, 83, 83);
-    padding: 0.5rem;
+    background-color: #eaeaea00;
+    color: #333;
+    padding: 0.4rem;
     border-radius: 50%;
     height: 2.5rem;
     width: 2.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     border: none;
     cursor: pointer;
   }
