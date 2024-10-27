@@ -19,7 +19,7 @@
         "description1": "<strong>Atlas Educação</strong> answers that question by using data from the Brazilian Demographic Census and the School Census. By looking at <u>supply and demand of schools</u>, <u>student preferences</u>, and <u>school quality</u>, we map out access levels across the country and how they correlate with income, gender, and race.",
         "description2": "Our goal is to inform the public about how access to education varies geographically and offer the data policymakers need to focus resources where they are most needed.",
         "description3": "<strong>Each dot represents the likely location of a group of 10 children in high-school age</strong>. Use the map to explore every neighborhood in Brazil to see which ones have the most and the least access to high-quality public high schools. Check out the FAQ section for help interpreting the map and the methodology for the full explanation.",
-        "dontShowAgain": "Don't show this again"
+        "dontShowAgain": " Don't show this again"
       },
     "overlayButtons": {
         "accessQuality": "Access-Quality",
@@ -38,7 +38,7 @@
   },
   "info":{
     "toggleInfoPopup": "Toggle info popup",
-    "title": "FAQ",
+    "title": "FAQs",
     "dotRepresentation": {
       "question": "What does each <u>dot</u> represent?",
       "answer": "Each dot represents the likely location of a group of 10 children in high-school age according to the 2010 Brazilian Census. The precise location of the dots is randomized within each census tract."
