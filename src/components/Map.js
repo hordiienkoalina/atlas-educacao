@@ -27,7 +27,6 @@ class Map extends Component {
       activeVariable: 'H_percentile',
       colorScales: this.initializeColorScales(),
       colors: this.initializeColorScales()['H_percentile'], // Set initial color scale
-      labels: [this.props.t('map.labels.scarce'), this.props.t('map.labels.adequate')], // Default labels
       legendType: 'gradient', // Default legend type
       selectedFeature: null,
       popup: null,
@@ -62,6 +61,27 @@ class Map extends Component {
       });
     });
   }
+  
+  // Method to compute labels based on the active variable
+  computeLabels = () => {
+    const { t } = this.props;
+    const labelsMap = {
+      A_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      Q_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      H_percentile: [t('map.labels.poor'), t('map.labels.adequate')],
+      P_percentile: [t('map.labels.sparse'), t('map.labels.dense')],
+      avg_monthly_earnings_percentile: [t('map.labels.low'), t('map.labels.high')],
+      pct_men_percentile: [t('map.labels.female'), t('map.labels.male')],
+      majority_race: [
+        t('map.labels.parda'),
+        t('map.labels.white'),
+        t('map.labels.black'),
+        t('map.labels.indigenous'),
+        t('map.labels.asian'),
+      ],
+    };
+    return labelsMap[this.state.activeVariable];
+  };  
 
   // Method to add map controls
   addMapControls = (map) => {
@@ -742,7 +762,7 @@ class Map extends Component {
         t('map.labels.white'),
         t('map.labels.black'),
         t('map.labels.indigenous'),
-        t('map.labels.asian')
+        t('map.labels.asian'),
       ],
     };
 
@@ -750,6 +770,7 @@ class Map extends Component {
 
     let newLegendType = 'gradient';
     let newColors = this.initializeColorScales()[newActiveVariable];
+    let isRaceLegend = false; // Initialize the isRaceLegend flag
 
     if (newActiveVariable === 'majority_race') {
       newLegendType = 'categories';
@@ -758,36 +779,47 @@ class Map extends Component {
         colorMap['n_people_15to17_white'],
         colorMap['n_people_15to17_black'],
         colorMap['n_people_15to17_indigenous'],
-        colorMap['n_people_15to17_asian']
+        colorMap['n_people_15to17_asian'],
       ];
+      isRaceLegend = true; // Set the flag to true for race legend
     }
 
     this.setState({
       activeVariable: newActiveVariable,
       colors: newColors,
-      labels: newLabels, // Update labels
+      labels: newLabels,
       legendType: newLegendType,
+      isRaceLegend: isRaceLegend, // Update state with the flag
     });
     this.props.onLayerChange(type); // Pass to parent component
   };
 
-  // Render method
   render() {
-    const { colors, labels } = this.state;
+    const { colors, activeVariable, legendType } = this.state;
+    const labels = this.computeLabels();
+    const isRaceLegend = activeVariable === 'majority_race';
+  
     return (
       <div className="map-wrapper">
         <div
           ref={this.mapContainer}
           className="map-container"
           style={{ height: 'calc(100vh - 100px)' }}
-        />{' '}
+        />
         {/* Adjust height */}
-        <OverlayButtons onButtonClick={this.handleButtonClick} onLayerChange={this.props.onLayerChange} />
-        <Legend colors={colors} labels={labels} legendType={this.state.legendType} />
-
+        <OverlayButtons
+          onButtonClick={this.handleButtonClick}
+          onLayerChange={this.props.onLayerChange}
+        />
+        <Legend
+          colors={colors}
+          labels={labels}
+          legendType={legendType}
+          isRaceLegend={isRaceLegend}
+        />
       </div>
     );
   }
-}
+}  
 
 export default withTranslation()(Map);

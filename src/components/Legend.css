@@ -1,6 +1,3 @@
-/* Legend.css */
-
-/* Existing styles for gradient legend */
 .legend-container {
 display: flex;
 flex-direction: column;
@@ -33,7 +30,14 @@ margin-top: 5px;
 font-size: 14px;
 }
 
-/* Styles for race legend with buttons */
+/* Styles for legend with buttons */
+.legend-buttons {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
 .legend-buttons-row {
 display: flex;
 justify-content: space-between;
