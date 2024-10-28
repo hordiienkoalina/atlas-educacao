@@ -8,7 +8,7 @@ function Footer() {
     return (
         <footer className="footer-menu">
             {/* Link to the GitHub repository */}
-            <a href="https://github.com/hordiienkoalina/access-to-education" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/hordiienkoalina/atlas-educacao" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-github"></i> {/* GitHub icon */}
             </a>
             <span className="divider">|</span> {/* Divider between links */}
