@@ -53,8 +53,8 @@ Atlas Educação aims to inform the public and policymakers about geographic dis
 📦 **Node.js**: Version 14 or higher. <br>
 
 ### Installation
-1. Clone the Repository: ```git clone https://github.com/hordiienkoalina/access-to-education.git ```
-2. Navigate to the Project Directory: ```cd access-to-education```
+1. Clone the Repository: ```git clone https://github.com/hordiienkoalina/atlas-educacao.git ```
+2. Navigate to the Project Directory: ```cd atlas-educacao```
 3. Install Dependencies: ```npm install```
 4. Run the Application: ```npm start```
 
@@ -75,7 +75,7 @@ Contributions are welcome! Please follow these steps:
 
 ## 📜 License
 
-This project is licensed under the GNU General Public License v3.0. See the LICENSE.md file for details.
+This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE.md](https://github.com/hordiienkoalina/atlas-educacao/blob/main/LICENSE.md) file for details.
 
 ## 📧 Contact
 LinkedIn: [Felipe Horta Oliveira](https://www.linkedin.com/in/felipehlvoliveira/) <br>
