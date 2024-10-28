@@ -74,8 +74,8 @@ Contributions are welcome! Please follow these steps:
 5. Open a pull request.
 
 ## 📧 Contact
-LinkedIn: Felipe Horta Oliveira <br>
+LinkedIn: [Felipe Horta Oliveira](https://www.linkedin.com/in/felipehlvoliveira/) <br>
 Email: felipehlvo@gmail.com <br>
 
-LinkedIn: Alina Hordiienko <br>
+LinkedIn: [Alina Hordiienko](https://www.linkedin.com/in/hordiienkoalina/) <br>
 Email: alinahordiienko@gmail.com <br>
