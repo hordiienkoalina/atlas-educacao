@@ -73,6 +73,10 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch: ```git push origin feature/YourFeature.```
 5. Open a pull request.
 
+## 📜 License
+
+This project is licensed under the GNU General Public License v3.0. See the LICENSE.md file for details.
+
 ## 📧 Contact
 LinkedIn: [Felipe Horta Oliveira](https://www.linkedin.com/in/felipehlvoliveira/) <br>
 Email: felipehlvo@gmail.com <br>
