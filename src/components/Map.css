@@ -69,7 +69,7 @@
     margin-bottom: 7.5px;
     border: 1px solid #747474; /* Border color */
     border-radius: 2px; /* Rounded corners */
-    vertical-align: top; /* Align to the top */
+    vertical-align: middle; /* Align to the top */
 }
 
 .percentile-text {
@@ -112,25 +112,25 @@ border-radius: 2px;
 transition: width 0.3s ease;
 }
 
+.progress-bar-pardos {
+background-color: #a50f15;
+}  
+
 .progress-bar-white {
-background-color: #3babfb; /* Blue color */
+background-color: #08519c; 
 }
 
 .progress-bar-black {
-background-color: #7ce35c; /* Green color */
+background-color: #006d2c;
 }
 
 .progress-bar-indigenous {
-background-color: #c9d662; /* Yellow color */
+background-color: #bea40d;
 }
 
 .progress-bar-asian {
-background-color: #366d7b; /* Dark green color */
+background-color: #62367b; 
 }
-
-.progress-bar-pardos {
-background-color: #cd5468; /* Red color */
-}  
 
 .progress-bar-male {
 background-color: #083d7f; /* Blue color */

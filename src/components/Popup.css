@@ -10,6 +10,14 @@
   max-width: 600px; /* Maintain max width */
 }
 
+.dot {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background-color: rgb(97, 218, 208);
+  border-radius: 50%;
+  margin-right: 8px;
+}
 .popup-content {
   background: rgba(255, 255, 255, 1);
   padding: 20px;

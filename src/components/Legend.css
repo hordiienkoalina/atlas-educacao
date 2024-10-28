@@ -1,44 +1,88 @@
 .legend-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 12.5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    bottom: 60px; 
-    right: 20px;
-    z-index: 1;
-    width: 240px;
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color: #f9f9f9; /* Light background */
+padding: 10px;
+border-radius: 15px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+position: fixed;
+bottom: 60px;
+right: 20px;
+z-index: 1;
+width: 95%;
+max-width: 250px; /* Adjust as needed */
 }
 
 .legend-scale {
-    display: flex;
-    height: 20px;
-    width: 100%;
-    border-radius: 5px;
-    background-size: cover; /* Ensures the gradient covers the entire width */
+display: flex;
+height: 20px;
+width: 100%;
+border-radius: 5px;
+background-size: cover; /* Ensures the gradient covers the entire width */
 }
 
 .legend-labels {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 5px;
-    font-size: 14px;
+display: flex;
+justify-content: space-between;
+width: 100%;
+margin-top: 5px;
+font-size: 14px;
 }
 
-/* Temporary fix for search bar resizing on narrow window sizes */
+/* Styles for legend with buttons */
+.legend-buttons {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
+.legend-buttons-row {
+display: flex;
+justify-content: center; /* Center the buttons horizontally */
+align-items: center;
+flex-wrap: wrap; /* Allow buttons to wrap if necessary */
+width: 100%;
+margin-bottom: 2px; /* Space between rows */
+}
+
+.legend-button {
+margin: 4px; /* Add some margin around each button */
+padding: 10px 15px 10px 15px; /* Adjust padding to control the size */
+border-radius: 10px;
+display: inline-flex; /* Use inline-flex to size buttons according to content */
+justify-content: center;
+align-items: center;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}  
+
+.legend-button-label {
+font-size: 14px;
+font-weight: bold;
+}
+
+/* Default text color */
+.legend-button-label {
+color: #ffffff; /* Default to white text */
+}
+
+/* Override for specific buttons */
+
+/* Indigenous button (legend-button-3) */
+.legend-button-3 .legend-button-label {
+color: #000000; /* Black text */
+}
+
+/* Adjustments for smaller screens */
 @media (max-width: 820px) {
-    .legend-container {
-        bottom: 110px; ; /* Hide the legend on narrow screens */
-    }
+.legend-container {
+bottom: 110px;
+}
 }
 
-/* Temporary fix for search bar resizing on narrow window sizes */
 @media (max-width: 548px) {
-    .legend-container {
-        bottom: 150px; ; /* Hide the legend on narrow screens */
-    }
+.legend-container {
+bottom: 150px;
+}
 }

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Popup.css';
+import { Trans } from 'react-i18next';
 
 const Popup = ({ onClose }) => {
+  const { t } = useTranslation();
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -14,31 +17,26 @@ const Popup = ({ onClose }) => {
     }
     onClose();
   };
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
         <button className="popup-close" onClick={handleClose}>&times;</button>
-        <h2 style={{ marginBottom: 20}}>Welcome to Atlas Educação</h2>
-
-        <p> The Atlas Educação uses the Brazilian Demographic Census and the School Census 
-          to highlight which areas have inadequate access to public secondary education. 
-          Use the map to explore every neighborhood in Brazil to see which have the most 
-          and the least access to high-quality public high schools.</p>
-
-          <p style={{ marginTop: '0'}}> <b> Each dot represents the likely location of a group of 10 children in high-school age </b>
-            based on the 2010 Brazilian Census. Schools are not shown on the map, but their location
-            was used to calculate the supply of high-school seats for each student in their area. 
-            All variables (except income and gender) are scaled to each state because most public high-schools in Brazil
-            are managed by state-level institutions and policies. 
-            See full explanation in the Methodology section. </p>
-          
+        <h2>{t('popup.welcomeTitle')}</h2>
+        <Trans i18nKey="popup.description1" components={{ u: <u /> }}/>
+        <p><Trans i18nKey="popup.description2"/></p>
+        <p className="description-with-circle">
+          <span className="dot"></span>
+          <Trans i18nKey="popup.description3"/>
+        </p>
+        
         <div>
           <input
             type="checkbox"
             id="dont-show-again"
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="dont-show-again">Don't show this again</label>
+          <label htmlFor="dont-show-again">{t('popup.dontShowAgain')}</label>
         </div>
       </div>
     </div>
