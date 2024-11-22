@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Popup.css';
+import { Trans } from 'react-i18next';
 
 const Popup = ({ onClose }) => {
+  const { t } = useTranslation();
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -14,20 +17,26 @@ const Popup = ({ onClose }) => {
     }
     onClose();
   };
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
         <button className="popup-close" onClick={handleClose}>&times;</button>
-        <h2>Welcome to Atlas Educação</h2>
-        <p>Access to education is commonly associated with the cost and proximity of a school. While these are crucial factors, other elements like resource availability, classroom capacity, and education quality are equally pivotal. </p>
-        <p> The Atlas Educação uses the Demographic Census and the School Census to highlight which areas have inadequate access to public secondary education. Use the map to explore every neighborhood in Brazil to see which have the most and the least access to high-quality public high schools.</p>
+        <h2>{t('popup.welcomeTitle')}</h2>
+        <Trans i18nKey="popup.description1" components={{ u: <u /> }}/>
+        <p><Trans i18nKey="popup.description2"/></p>
+        <p className="description-with-circle">
+          <span className="dot"></span>
+          <Trans i18nKey="popup.description3"/>
+        </p>
+        
         <div>
           <input
             type="checkbox"
             id="dont-show-again"
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="dont-show-again">Don't show this again</label>
+          <label htmlFor="dont-show-again">{t('popup.dontShowAgain')}</label>
         </div>
       </div>
     </div>
