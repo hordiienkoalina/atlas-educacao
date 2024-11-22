@@ -1,5 +1,5 @@
 {
-  "homepage": "https://atlaseducacao.com",
+  "homepage": "https://hordiienkoalina.github.io/access-to-education",
   "name": "atlas-educacao",
   "version": "0.1.0",
   "private": true,
@@ -10,20 +10,16 @@
     "@testing-library/user-event": "^13.5.0",
     "geojson-precision": "^1.0.0",
     "html2canvas": "^1.4.1",
-    "i18next": "^23.15.2",
-    "i18next-browser-languagedetector": "^8.0.0",
-    "i18next-http-backend": "^2.6.2",
     "mapbox-gl": "^3.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.0.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --cname atlaseducacao.com",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts eject"

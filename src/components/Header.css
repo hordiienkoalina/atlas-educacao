@@ -2,7 +2,7 @@
 
 /* Styling for the header container */
 .header {
-    background-color: hsl(0, 0%, 100%); /* White background color */
+    background-color: #ffffff; /* White background color */
     padding: 15px; /* Padding for spacing */
     text-align: left; /* Align text to the left */
     position: relative; /* Position relative to parent */
@@ -22,22 +22,6 @@
 .header-content {
     display: flex; /* Flexbox for horizontal layout */
     align-items: center; /* Center items vertically */
-}
-
-.language-buttons {
-    margin-left: auto; /* Push language buttons to the right */
-}
-
-.lang-button {
-    background: none; /* No background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor */
-    margin: 0 5px; /* Margin between buttons */
-    font-size: 14px; /* Font size */
-}
-
-.lang-button:hover {
-    text-decoration: underline; /* Underline on hover */
 }
 
 /* Style for the logo image */
