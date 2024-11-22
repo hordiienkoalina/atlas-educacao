@@ -1,5 +1,6 @@
 map/data/data_archive/
 public/data/access_data_polygons_simpler.json
+.history/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

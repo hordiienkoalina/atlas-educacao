@@ -12,44 +12,62 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
     };
 
     return (
-    <div className="overlay-buttons">
-        <button 
-        className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
-        onClick={() => handleClick('Access-Quality')}
-        >
-        {t('overlayButtons.accessQuality')} {/* Translate button text */}
-        </button>
-        <button 
-        className={`overlay-button ${activeButton === 'Quality' ? 'active' : ''}`} 
-        onClick={() => handleClick('Quality')}
-        >
-        {t('overlayButtons.quality')}
-        </button>
-        <button 
-        className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
-        onClick={() => handleClick('Access')}
-        >
-        {t('overlayButtons.access')}
-        </button>
-        <button 
-        className={`overlay-button ${activeButton === 'Income' ? 'active' : ''}`} 
-        onClick={() => handleClick('Income')}
-        >
-        {t('overlayButtons.income')}
-        </button>
-        <button 
-        className={`overlay-button ${activeButton === 'Gender' ? 'active' : ''}`} 
-        onClick={() => handleClick('Gender')}
-        >
-        {t('overlayButtons.gender')}
-        </button>
-        <button 
-        className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
-        onClick={() => handleClick('Race')}
-        >
-        {t('overlayButtons.race')}
-        </button>
-    </div>
+        <div className="overlay-buttons">
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Access-Quality')}
+                >
+                    {t('overlayButtons.accessQuality')} {/* Translate button text */}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Quality' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Quality')}
+                >
+                    {t('overlayButtons.quality')}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Access')}
+                >
+                    {t('overlayButtons.access')}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Income' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Income')}
+                >
+                    {t('overlayButtons.income')}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Gender' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Gender')}
+                >
+                    {t('overlayButtons.gender')}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+            <div className="tooltip">
+                <button 
+                    className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
+                    onClick={() => handleClick('Race')}
+                >
+                    {t('overlayButtons.race')}
+                </button>
+                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+            </div>
+        </div>
     );
 }
 
