@@ -55,6 +55,10 @@
   "info":{
     "toggleInfoPopup": "Toggle info popup",
     "title": "FAQ",
+    "dataSource": {
+      "question": "Where do the <u>data</u> come from?",
+      "answer": "The data on the schools was gathered from the 2019 Censo Escolar, a yearly survey of every school in Brazil. The data includes several features of the school, including the administration type (public or private), the number and education of teachers, the number of students, some data on the infrastructure, and the school's address.  Only public high schools with at least one active class are included in the analysis, which include Municipal, State, and Federal schools. <br><br> The measure of school quality used is the Primary Education Development Index (Índice de Desenvolvimento da Educação Básica - IDEB), which is an indicator that combines information from the SAEB (an evaluation conducted every two years with every public school in the country and is the primary metric used by the government to track educational achievement) and approval rates of students. <br><br>The data on demographics, students, and their location is taken from the 2010 Census, conducted by the Brazilian Institute of Geography and Statistics (IBGE). The census has extensive data on the population of Brazil at a census tract level. Census tracts are the smallest unit of observation for the census and comprise an average of 613 people. For each census tract, we get the number of people aged 15 to 17 as our population (prospective high school students). Each dataset was the latest available for its category as of the Atlas Educação's development (2023)."
+    },
     "dotRepresentation": {
       "question": "What does each <u>dot</u> represent?",
       "answer": "Each dot represents the likely location of a group of 10 children of high-school age according to the 2010 Brazilian Census. The precise location of the dots is randomized within each census tract."

@@ -31,6 +31,9 @@ const InfoSection = () => {
 
             <h1 className="info-title">{t('info.title')} </h1>
 
+            <h3><Trans i18nKey="info.dataSource.question" components={{ u: <u /> }}/></h3>
+            <p><Trans i18nKey="info.dataSource.answer"/></p>
+
             <h3><Trans i18nKey="info.dotRepresentation.question" components={{ u: <u /> }}/></h3>
             <p>{t('info.dotRepresentation.answer')}</p>
             
