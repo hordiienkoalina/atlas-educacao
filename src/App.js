@@ -22,12 +22,12 @@ const App = () => {
   };
 
   const layerDescriptions = {
-    'Access': t('layerDescriptions.Access'),
-    'Quality': t('layerDescriptions.Quality'),
-    'Access-Quality': t('layerDescriptions.AccessQuality'),
-    'Income': t('layerDescriptions.Income'),
-    'Gender': t('layerDescriptions.Gender'),
-    'Race': t('layerDescriptions.Race'),
+    'Access': t('layerDescriptions.access.description'),
+    'Quality': t('layerDescriptions.quality.description'),
+    'Access-Quality': t('layerDescriptions.accessQuality.description'),
+    'Income': t('layerDescriptions.income.description'),
+    'Gender': t('layerDescriptions.gender.description'),
+    'Race': t('layerDescriptions.race.description'),
   };
 
   useEffect(() => {

@@ -18,36 +18,36 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
                     className={`overlay-button ${activeButton === 'Access-Quality' ? 'active' : ''}`} 
                     onClick={() => handleClick('Access-Quality')}
                 >
-                    {t('overlayButtons.accessQuality')} {/* Translate button text */}
+                    {t('layerDescriptions.accessQuality.title')} {/* Translate button text */}
                 </button>
-                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                <span className="tooltiptext">{t("layerDescriptions.accessQuality.blurb")}</span>
             </div>
             <div className="tooltip">
                 <button 
                     className={`overlay-button ${activeButton === 'Quality' ? 'active' : ''}`} 
                     onClick={() => handleClick('Quality')}
                 >
-                    {t('overlayButtons.quality')}
+                    {t('layerDescriptions.quality.title')}
                 </button>
-                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                <span className="tooltiptext">{t("layerDescriptions.quality.blurb")}</span>
             </div>
             <div className="tooltip">
                 <button 
                     className={`overlay-button ${activeButton === 'Access' ? 'active' : ''}`} 
                     onClick={() => handleClick('Access')}
                 >
-                    {t('overlayButtons.access')}
+                    {t('layerDescriptions.access.title')}
                 </button>
-                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                <span className="tooltiptext">{t("layerDescriptions.access.blurb")}</span>
             </div>
             <div className="tooltip">
                 <button 
                     className={`overlay-button ${activeButton === 'Income' ? 'active' : ''}`} 
                     onClick={() => handleClick('Income')}
                 >
-                    {t('overlayButtons.income')}
+                    {t('layerDescriptions.income.title')}
                 </button>
-                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                <span className="tooltiptext">{t("layerDescriptions.income.blurb")}</span>
             </div>
             {/* <div className="tooltip">
                 <button 
@@ -63,9 +63,9 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
                     className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
                     onClick={() => handleClick('Race')}
                 >
-                    {t('overlayButtons.race')}
+                    {t('layerDescriptions.race.title')}
                 </button>
-                <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                <span className="tooltiptext">{t("layerDescriptions.race.blurb")}</span>
             </div>
         </div>
     );

@@ -6,14 +6,6 @@
     "Gender": "Gender",
     "Race": "Race",
     "noDescriptionAvailable": "No description available.",
-    "layerDescriptions": {
-      "Access": "The spatial access to public high schools, considering supply and demand of schools and student preferences.",
-      "Quality": "The quality of each school based on test scores and grade progression ratios.",
-      "AccessQuality": "The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.",
-      "Income": "The monthly household earnings.",
-      "Gender": "The gender distribution of the population.",
-      "Race": "The racial distribution of the population."
-    },
     "popup": {
         "welcomeTitle": "Where in Brazil are teens struggling to access good public high schools?",
         "description1": "<strong>Atlas Educação</strong> answers that question by using data from the Brazilian Demographic Census and the School Census. By looking at <u>supply and demand of schools</u>, <u>student preferences</u>, and <u>school quality</u>, we map out access levels across the country and how they correlate with income, gender, and race.",
@@ -21,13 +13,37 @@
         "description3": "<strong>Each dot represents the likely location of a group of 10 children of high-school age</strong>. Use the map to explore every neighborhood in Brazil to see which ones have the most and the least access to high-quality public high schools. Check out the FAQ section for help interpreting the map and the methodology for the full explanation.",
         "dontShowAgain": " Don't show this again"
       },
-    "overlayButtons": {
-        "accessQuality": "Access-Quality",
-        "quality": "Quality",
-        "access": "Access",
-        "income": "Income",
-        "gender": "Gender",
-        "race": "Race"
+    "layerDescriptions": {
+        "accessQuality": {
+          "title": "Access-Quality",
+          "blurb": "The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.",
+          "description": "The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality."
+        },
+        "quality": {
+          "title": "Quality",
+          "blurb": "The quality of each school based on test scores and grade progression ratios.",
+          "description": "Percentile of school quality within each state. School quality is based on the IDEB (Índice de Desenvolvimento da Educação Básica), a government indicator that combines information from the SAEB, an evaluation conducted every two years with every public school in the country and is the primary metric used by the government to track educational achievement, and the grade progression ratio of students."
+        },
+        "access": {
+          "title": "Access",
+          "blurb": "The spatial access to public high schools, considering supply and demand of schools and student preferences.",
+          "description": "The spatial access to public high schools, considering supply and demand of schools and student preferences."
+        },
+        "income": {
+          "title": "Income",
+          "blurb": "The monthly household earnings.",
+          "description": "The monthly household earnings."
+        },
+        "gender": {
+          "title": "Gender",
+          "blurb": "The gender distribution of the population.",
+          "description": "The gender distribution of the population."
+        },
+        "race": {
+          "title": "Race",
+          "blurb": "The racial distribution of the population.",
+          "description": "The racial distribution of the population."
+        }
       },
     "header": {
         "title": "Atlas Educação"
