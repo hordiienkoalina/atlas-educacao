@@ -1,5 +1,3 @@
-/* Subheader.css - Styles for the subheader component */
-
 .subheader {
     background-color: #fafafa; /* White background color */
     padding: 3px; /* Adjust padding as needed */
@@ -7,6 +5,13 @@
     position: relative; /* Ensure it's not absolute or fixed */
     z-index: 10; /* Ensure it stays above other content */
     border-bottom: 1px solid #848484; /* Light gray border at the bottom */
+}
+
+.subheader-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px; /* Space for the toggle button */
 }
 
 .subheader h2 {
@@ -19,14 +24,42 @@
     padding-top: 15px; /* Top padding for the title */
 }
 
-.subheader p {
+.toggle-button {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding-right: 5px;
+    padding-top: 15px;
+    color: #333; /* Match title color */
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.toggle-button:hover {
+    transform: scale(1);
+}
+
+.subheader-description {
     font-size: 15px; /* Font size for the description */
     font-family: "Be Vietnam Pro", sans-serif;
     color: #333; /* Gray color for the description */
     margin: 0; /* Remove default margin */
     padding-left: 35px; /* Left padding for the description */
     padding-right: 65px; /* Left padding for the description */
-
     padding-top: 5px; /* Top padding for the description */
     padding-bottom: 15px; /* Bottom padding for the description */
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.subheader-description.hidden {
+    max-height: 10px;
+    opacity: 0;
+    padding: 0; /* Remove padding when hidden */
+}
+
+.subheader-description.visible {
+    max-height: 200px; /* Adjust based on content height */
+    opacity: 1;
 }
