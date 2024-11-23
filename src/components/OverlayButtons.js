@@ -49,7 +49,7 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
                 </button>
                 <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
             </div>
-            <div className="tooltip">
+            {/* <div className="tooltip">
                 <button 
                     className={`overlay-button ${activeButton === 'Gender' ? 'active' : ''}`} 
                     onClick={() => handleClick('Gender')}
@@ -57,7 +57,7 @@ function OverlayButtons({ onButtonClick, onLayerChange }) {
                     {t('overlayButtons.gender')}
                 </button>
                 <span className="tooltiptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
-            </div>
+            </div> */}
             <div className="tooltip">
                 <button 
                     className={`overlay-button ${activeButton === 'Race' ? 'active' : ''}`} 
