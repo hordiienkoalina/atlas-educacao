@@ -18,7 +18,7 @@ const Subheader = ({ title, description }) => {
                     onClick={toggleDescription}
                     aria-label={isDescriptionVisible ? "Hide description" : "Show description"}
                 >
-                    {isDescriptionVisible ? '×' : '+'} {/* Toggle button symbol */}
+                    {isDescriptionVisible ? '_' : '+'} {/* Toggle button symbol */}
                 </button>
             </div>
             <div className={`subheader-description ${isDescriptionVisible ? 'visible' : 'hidden'}`}>

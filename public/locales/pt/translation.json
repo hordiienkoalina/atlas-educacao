@@ -6,82 +6,98 @@
   "Gender": "Gênero",
   "Race": "Raça",
   "noDescriptionAvailable": "Nenhuma descrição disponível.",
-  "layerDescriptions": {
-    "Access": "O acesso espacial a escolas públicas de ensino médio, considerando a oferta e a demanda de escolas e as preferências dos alunos.",
-    "Quality": "A qualidade de cada escola com base em notas de testes e taxas de progressão de ano.",
-    "AccessQuality": "O acesso espacial a escolas públicas de ensino médio de alta qualidade, considerando a oferta e a demanda de escolas, preferências dos alunos e qualidade da escola.",
-    "Income": "Os rendimentos mensais das famílias.",
-    "Gender": "A distribuição de gênero da população.",
-    "Race": "A distribuição racial da população."
-  },
   "popup": {
-    "welcomeTitle": "Onde no Brasil os adolescentes têm dificuldade para acessar boas escolas públicas de ensino médio?",
-    "description1": "<strong>Atlas Educação</strong> responde a essa pergunta utilizando dados do Censo Demográfico e do Censo Escolar. Ao medir a <u>oferta e demanda de escolas</u>, <u>preferências dos alunos</u> e <u>qualidade das escolas</u>, mapeamos os níveis de acesso em todo o país e como eles se correlacionam com renda, gênero e raça.",
-    "description2": "Nosso objetivo é informar o público sobre como o acesso à educação varia geograficamente e oferecer os dados necessários aos gestores para direcionar recursos onde são mais necessários.",
-    "description3": "<strong>Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar</strong>. Use o mapa para explorar cada bairro do Brasil e ver quais têm mais e menos acesso a escolas públicas de ensino médio de alta qualidade. Confira a seção de perguntas frequentes para ajuda na interpretação do mapa e veja a metodologia para uma explicação completa.",
-    "dontShowAgain": " Não mostrar isso novamente"
+      "welcomeTitle": "Onde no Brasil os adolescentes têm dificuldade para acessar boas escolas públicas de ensino médio?",
+      "description1": "<strong>Atlas Educação</strong> responde a essa pergunta utilizando dados do Censo Demográfico Brasileiro e do Censo Escolar. Ao analisar <u>oferta e demanda de escolas</u>, <u>preferências dos alunos</u> e <u>qualidade das escolas</u>, mapeamos os níveis de acesso em todo o país e suas correlações com renda, gênero e raça.",
+      "description2": "Nosso objetivo é informar o público sobre como o acesso à educação varia geograficamente e fornecer aos gestores os dados necessários para alocar recursos de forma eficaz.",
+      "description3": "<strong>Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar</strong>. Use o mapa para explorar todos os bairros do Brasil e ver quais áreas têm mais e menos acesso a escolas públicas de ensino médio de alta qualidade. Confira a seção de perguntas frequentes para ajuda na interpretação do mapa e veja a metodologia para uma explicação completa.",
+      "dontShowAgain": "Não mostrar isso novamente"
   },
-  "overlayButtons": {
-    "accessQuality": "Acesso-Qualidade",
-    "quality": "Qualidade",
-    "access": "Acesso",
-    "income": "Renda",
-    "gender": "Gênero",
-    "race": "Raça"
+  "layerDescriptions": {
+      "accessQuality": {
+          "title": "Acesso-Qualidade",
+          "blurb": "O acesso espacial a escolas públicas de ensino médio de alta qualidade, considerando a oferta e demanda de escolas, preferências dos alunos e qualidade das escolas.",
+          "description": "Percentil de acesso espacial a escolas de alta qualidade dentro de cada estado. A métrica de Acesso-Qualidade pondera o acesso espacial (facilidade de encontrar uma vaga em uma escola próxima) pela qualidade média das escolas na região."
+      },
+      "quality": {
+          "title": "Qualidade",
+          "blurb": "A qualidade de cada escola com base em notas de testes e taxas de progressão de ano.",
+          "description": "Percentil de qualidade escolar dentro de cada estado. A qualidade escolar é baseada no IDEB (Índice de Desenvolvimento da Educação Básica), um indicador governamental que combina informações do SAEB, uma avaliação conduzida a cada dois anos com todas as escolas públicas do país, e a taxa de progressão de ano dos alunos."
+      },
+      "access": {
+          "title": "Acesso",
+          "blurb": "O acesso espacial às escolas públicas de ensino médio, considerando a oferta e demanda de escolas e as preferências dos alunos.",
+          "description": "Percentil de acesso espacial às escolas dentro de cada estado. A métrica de acesso mede a facilidade para os alunos encontrarem uma vaga em escolas próximas. É calculada usando a técnica de 3-Step Floating Catchment Area (3SFCA), que combina capacidade das escolas ajustada pela distância, demanda local e competição entre escolas próximas."
+      },
+      "income": {
+          "title": "Renda",
+          "blurb": "Os rendimentos mensais das famílias.",
+          "description": "Percentil da renda mensal média das famílias, de acordo com o Censo Brasileiro de 2010, normalizado por estado."
+      },
+      "gender": {
+          "title": "Gênero",
+          "blurb": "A distribuição de gênero da população.",
+          "description": "Distribuição de gênero da população de acordo com o Censo Brasileiro de 2010."
+      },
+      "race": {
+          "title": "Raça",
+          "blurb": "A distribuição racial da população.",
+          "description": "Distribuição racial da população de acordo com o Censo Brasileiro de 2010."
+      }
   },
   "header": {
-    "title": "Atlas Educação"
+      "title": "Atlas Educação"
   },
   "footer": {
-    "methodology": "Metodologia",
-    "downloadData": "Baixar Dados"
+      "methodology": "Metodologia",
+      "downloadData": "Baixar Dados"
   },
   "info": {
-    "toggleInfoPopup": "Alternar popup de informações",
-    "title": "Perguntas Frequentes",
-    "dotRepresentation": {
-      "question": "O que cada <u>ponto</u> representa?",
-      "answer": "Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar de acordo com o Censo Brasileiro de 2010. A localização precisa dos pontos é randomizada dentro de cada setor censitário."
-    },
-    "colorRepresentation": {
-      "question": "O que as <u>cores</u> representam?",
-      "answer": "As cores mostram o percentil da métrica em relação a outras regiões do estado. As métricas são normalizadas em cada estado para refletir o fato de que a gestão das escolas públicas de ensino médio é feitas no nível estadual no Brasil. Em outras palavras, dentro de cada estado, ranqueamos cada região pela métrica e atribuímos sua cor com base no ranking. Por esse motivo, <strong><i>uma comparação entre estados é enganosa</i></strong>, pois eles estão em escalas diferentes."
-    },
-    "scarcityAdequacy": {
-      "question": "O que é considerado 'escasso' e o que é considerado 'adequado'?",
-      "answer": "A escolha do que é escasso e adequado é arbitrária. A CONTINUAÇÃO É NECESSÁRIA."
-    },
-    "pardaRace": {
-      "question": "O que é a raça <u>parda</u>?",
-      "answer": "Parda(o) é uma categoria étnica e de cor de pele usada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) nos censos brasileiros. A palavra pardo é utilizada para se referir a brasileiros com variadas ascendências étnicas. O IBGE define a categoria parda como uma pessoa 'que se identifica como tendo uma mistura de duas ou mais opções de cor ou raça, incluindo branco, preto, pardo e indígena.'"
-    }
+      "toggleInfoPopup": "Alternar popup de informações",
+      "title": "Perguntas Frequentes",
+      "dataSource": {
+          "question": "De onde vêm os <u>dados</u>?",
+          "answer": "Os dados das escolas foram obtidos do Censo Escolar de 2019, uma pesquisa anual com todas as escolas do Brasil. Os dados incluem várias características, como o tipo de administração (pública ou privada), o número e a formação dos professores, o número de alunos, algumas informações de infraestrutura e o endereço da escola. Somente escolas públicas de ensino médio com pelo menos uma turma ativa foram incluídas na análise, abrangendo escolas Municipais, Estaduais e Federais. <br><br> A medida de qualidade escolar utilizada é o Índice de Desenvolvimento da Educação Básica (IDEB), que combina informações do SAEB (uma avaliação conduzida a cada dois anos em todas as escolas públicas do país e a principal métrica governamental para rastrear o desempenho educacional) e taxas de aprovação dos alunos. <br><br>Os dados demográficos e de localização dos alunos foram extraídos do Censo de 2010, realizado pelo Instituto Brasileiro de Geografia e Estatística (IBGE). O censo fornece dados populacionais detalhados ao nível do setor censitário, a menor unidade de observação, com uma média de 613 pessoas por setor. Para cada setor, identificamos o número de pessoas entre 15 e 17 anos como a população-alvo (estudantes potenciais do ensino médio). <br><br>Cada conjunto de dados era o mais recente disponível na época do desenvolvimento do Atlas Educação em 2023."
+      },
+      "dotRepresentation": {
+          "question": "O que cada <u>ponto</u> representa?",
+          "answer": "Cada ponto representa a provável localização de um grupo de 10 crianças em idade escolar, de acordo com o Censo Brasileiro de 2010. A localização precisa dos pontos é randomizada dentro de cada setor censitário."
+      },
+      "colorRepresentation": {
+          "question": "O que as <u>cores</u> representam?",
+          "answer": "As cores representam o percentil da métrica em relação a outras regiões do estado. As métricas são normalizadas em cada estado para refletir como a gestão e políticas públicas de ensino médio são realizadas no nível estadual no Brasil. Em outras palavras, dentro de cada estado, todas as regiões são classificadas pela métrica, e as cores são atribuídas com base nesse ranking. Por isso, <strong><i>comparações entre estados podem ser enganosas</i></strong>, pois estão em escalas diferentes."
+      },
+      "pardaRace": {
+          "question": "O que é a raça <u>parda</u>?",
+          "answer": "Parda(o) é uma categoria étnica e de cor de pele usada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) nos censos brasileiros. O termo 'pardo' refere-se a brasileiros com ascendências étnicas mistas. O IBGE define 'pardo' como uma pessoa 'que se identifica como tendo uma mistura de duas ou mais opções de cor ou raça, incluindo branco, preto, pardo e indígena.'"
+      }
   },
   "map": {
-    "search": "Pesquisar por endereço ou lugar...",
-    "percentileTemplate": "Percentil de {{layerName}}",
-    "schoolChildren": "Número de Alunos",
-    "monthlyIncome": "Renda Mensal Média",
-    "tract": "Setor",
-    "labels": {
-      "poor": "Pior",
-      "adequate": "Melhor",
-      "scarce": "Pior",
-      "dense": "Denso",
-      "low": "Baixo",
-      "high": "Alto",
-      "female": "Feminino",
-      "male": "Masculino",
-      "white": "Branco",
-      "black": "Preto",
-      "indigenous": "Indígena",
-      "asian": "Asiático",
-      "parda": "Pardo"
-    },
-    "numbering": {
-      "th": "<sup>o</sup>",
-      "st": "<sup>o</sup>",
-      "nd": "<sup>o</sup>",
-      "rd": "<sup>o</sup>"
-    }
+      "search": "Pesquisar por endereço ou lugar...",
+      "percentileTemplate": "Percentil de {{layerName}}",
+      "schoolChildren": "Número de Alunos",
+      "monthlyIncome": "Renda Mensal Média",
+      "tract": "Setor",
+      "labels": {
+          "poor": "Pior",
+          "adequate": "Melhor",
+          "scarce": "Pior",
+          "dense": "Denso",
+          "low": "Baixo",
+          "high": "Alto",
+          "female": "Feminino",
+          "male": "Masculino",
+          "white": "Branco",
+          "black": "Preto",
+          "indigenous": "Indígena",
+          "asian": "Asiático",
+          "parda": "Pardo"
+      },
+      "numbering": {
+          "th": "<sup>o</sup>",
+          "st": "<sup>o</sup>",
+          "nd": "<sup>o</sup>",
+          "rd": "<sup>o</sup>"
+      }
   }
 }

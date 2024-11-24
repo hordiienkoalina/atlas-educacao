@@ -249,13 +249,13 @@ class Map extends Component {
         const percentileValue = properties[activeVariable];
         const percentage = Math.round(percentileValue * 100);
         const layerNameMap = {
-          A_percentile: t('overlayButtons.access'),
-          Q_percentile: t('overlayButtons.quality'),
-          H_percentile: t('overlayButtons.accessQuality'),
-          P_percentile: t('overlayButtons.population'),
-          avg_monthly_earnings_percentile: t('overlayButtons.income'),
-          pct_men_percentile: t('overlayButtons.gender'),
-          majority_race: t('overlayButtons.race'),
+          A_percentile: t('layerDescriptions.access.title'),
+          Q_percentile: t('layerDescriptions.quality.title'),
+          H_percentile: t('layerDescriptions.accessQuality.title'),
+          // P_percentile: t('overlayButtons.population'),
+          avg_monthly_earnings_percentile: t('layerDescriptions.income.title'),
+          pct_men_percentile: t('layerDescriptions.gender.title'),
+          majority_race: t('layerDescriptions.race.title'),
         };
         const layerName = layerNameMap[activeVariable];
         const colorValue = this.getColorForValue(colorScales[activeVariable], percentileValue);

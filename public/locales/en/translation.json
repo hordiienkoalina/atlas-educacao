@@ -1,107 +1,103 @@
 {
-    "Access": "Access",
-    "Quality": "Quality",
-    "Access-Quality": "Access-Quality",
-    "Income": "Income",
-    "Gender": "Gender",
-    "Race": "Race",
-    "noDescriptionAvailable": "No description available.",
-    "popup": {
-        "welcomeTitle": "Where in Brazil are teens struggling to access good public high schools?",
-        "description1": "<strong>Atlas Educação</strong> answers that question by using data from the Brazilian Demographic Census and the School Census. By looking at <u>supply and demand of schools</u>, <u>student preferences</u>, and <u>school quality</u>, we map out access levels across the country and how they correlate with income, gender, and race.",
-        "description2": "Our goal is to inform the public about how access to education varies geographically and offer the data policymakers need to target resources where they are most needed.",
-        "description3": "<strong>Each dot represents the likely location of a group of 10 children of high-school age</strong>. Use the map to explore every neighborhood in Brazil to see which ones have the most and the least access to high-quality public high schools. Check out the FAQ section for help interpreting the map and the methodology for the full explanation.",
-        "dontShowAgain": " Don't show this again"
-      },
-    "layerDescriptions": {
-        "accessQuality": {
+  "Access": "Access",
+  "Quality": "Quality",
+  "Access-Quality": "Access-Quality",
+  "Income": "Income",
+  "Gender": "Gender",
+  "Race": "Race",
+  "noDescriptionAvailable": "No description available.",
+  "popup": {
+      "welcomeTitle": "Where in Brazil are teens struggling to access good public high schools?",
+      "description1": "<strong>Atlas Educação</strong> answers that question by using data from the Brazilian Demographic Census and the School Census. By analyzing <u>supply and demand for schools</u>, <u>student preferences</u>, and <u>school quality</u>, we map out access levels across the country and their correlation with income, gender, and race.",
+      "description2": "Our goal is to inform the public about how access to education varies geographically and provide policymakers with the data needed to allocate resources effectively.",
+      "description3": "<strong>Each dot represents the likely location of a group of 10 children of high school age</strong>. Use the map to explore every neighborhood in Brazil and see which areas have the most and least access to high-quality public high schools. Check out the FAQ section for help interpreting the map, and review the methodology for a complete explanation.",
+      "dontShowAgain": "Don't show this again"
+  },
+  "layerDescriptions": {
+      "accessQuality": {
           "title": "Access-Quality",
-          "blurb": "The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.",
-          "description": "The spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality."
-        },
-        "quality": {
+          "blurb": "The spatial access to high-quality public high schools, considering supply and demand for schools, student preferences, and school quality.",
+          "description": "Percentile of the spatial access to high-quality schools within each state. Access-Quality weights spatial access to schools (how easy it is to find a spot in a nearby school) by the average school quality in the region."
+      },
+      "quality": {
           "title": "Quality",
           "blurb": "The quality of each school based on test scores and grade progression ratios.",
-          "description": "Percentile of school quality within each state. School quality is based on the IDEB (Índice de Desenvolvimento da Educação Básica), a government indicator that combines information from the SAEB, an evaluation conducted every two years with every public school in the country and is the primary metric used by the government to track educational achievement, and the grade progression ratio of students."
-        },
-        "access": {
+          "description": "Percentile of school quality within each state. School quality is based on the IDEB (Índice de Desenvolvimento da Educação Básica), a government indicator combining information from the SAEB, an evaluation conducted every two years for every public school in the country, and the grade progression ratio of students."
+      },
+      "access": {
           "title": "Access",
-          "blurb": "The spatial access to public high schools, considering supply and demand of schools and student preferences.",
-          "description": "The spatial access to public high schools, considering supply and demand of schools and student preferences."
-        },
-        "income": {
+          "blurb": "The spatial access to public high schools, considering supply and demand for schools and student preferences.",
+          "description": "Percentile of spatial access to schools within each state. The access metric measures how easy it is for prospective students to find a spot in nearby schools. It is calculated using the 3-Step Floating Catchment Area (3SFCA), which combines high school capacity adjusted for distance, nearby demand, and competition among nearby schools."
+      },
+      "income": {
           "title": "Income",
-          "blurb": "The monthly household earnings.",
-          "description": "The monthly household earnings."
-        },
-        "gender": {
+          "blurb": "Monthly household earnings.",
+          "description": "Percentile of average monthly household earnings according to the 2010 Brazilian Census, normalized for each state."
+      },
+      "gender": {
           "title": "Gender",
           "blurb": "The gender distribution of the population.",
-          "description": "The gender distribution of the population."
-        },
-        "race": {
+          "description": "Gender distribution of the population according to the 2010 Brazilian Census."
+      },
+      "race": {
           "title": "Race",
           "blurb": "The racial distribution of the population.",
-          "description": "The racial distribution of the population."
-        }
-      },
-    "header": {
-        "title": "Atlas Educação"
-      },
-    "footer": {
-    "methodology": "Methodology",
-    "downloadData": "Download Data"
+          "description": "Racial distribution of the population according to the 2010 Brazilian Census."
+      }
   },
-  "info":{
-    "toggleInfoPopup": "Toggle info popup",
-    "title": "FAQ",
-    "dataSource": {
-      "question": "Where do the <u>data</u> come from?",
-      "answer": "The data on the schools was gathered from the 2019 Censo Escolar, a yearly survey of every school in Brazil. The data includes several features of the school, including the administration type (public or private), the number and education of teachers, the number of students, some data on the infrastructure, and the school's address.  Only public high schools with at least one active class are included in the analysis, which include Municipal, State, and Federal schools. <br><br> The measure of school quality used is the Primary Education Development Index (Índice de Desenvolvimento da Educação Básica - IDEB), which is an indicator that combines information from the SAEB (an evaluation conducted every two years with every public school in the country and is the primary metric used by the government to track educational achievement) and approval rates of students. <br><br>The data on demographics, students, and their location is taken from the 2010 Census, conducted by the Brazilian Institute of Geography and Statistics (IBGE). The census has extensive data on the population of Brazil at a census tract level. Census tracts are the smallest unit of observation for the census and comprise an average of 613 people. For each census tract, we get the number of people aged 15 to 17 as our population (prospective high school students). Each dataset was the latest available for its category as of the Atlas Educação's development (2023)."
-    },
-    "dotRepresentation": {
-      "question": "What does each <u>dot</u> represent?",
-      "answer": "Each dot represents the likely location of a group of 10 children of high-school age according to the 2010 Brazilian Census. The precise location of the dots is randomized within each census tract."
-    },
-    "colorRepresentation": {
-      "question": "What do the <u>colors</u> represent?",
-      "answer": "The colors show the metric's percentile relative to other regions in the state. Metrics are scaled to each state to reflect how public high school policy and management is done at the state level in Brazil. In other words, within each state we rank all regions by the metric and assign each region a color based on their rank. For this reason, <strong><i>a comparison between states is misleading</i></strong> since they are on different scales."
-    },
-    "scarcityAdequacy": {
-      "question": "What is considered 'scarce' and what is considered 'adequate'?",
-      "answer": "The choice of scarce and adequate is arbitrary. TO BE CONTINUED"
-    },
-    "pardaRace": {
-      "question": "What is <u>parda</u>?",
-      "answer": "Parda(o) is an ethnic and skin color category used by the Brazilian Institute of Geography and Statistics (IBGE) in the Brazilian censuses. The word pardo is used to refer to Brazilians with varied ethnic ancestries. IBGE defines the pardo category as a person 'who identifies as having a mixture of two or more color or race options, including white, black, parda and indigenous'."
-    }
+  "header": {
+      "title": "Atlas Educação"
   },
-  "map":{
-    "search": "Search for address or place..",
-    "percentileTemplate": "{{layerName}} Percentile",
-    "schoolChildren": "Number of Schoolchildren",
-    "monthlyIncome": "Avg Monthly Income",
-    "tract": "Tract",
-    "labels": {
-        "poor": "Worst",
-        "adequate": "Best",
-        "scarce": "Worst",
-        "dense": "Dense",
-        "low": "Low",
-        "high": "High",
-        "female": "Female",
-        "male": "Male",
-        "white": "White",
-        "black": "Black",
-        "indigenous": "Indigenous",
-        "asian": "Asian",
-        "parda": "Parda"
+  "footer": {
+      "methodology": "Methodology",
+      "downloadData": "Download Data"
+  },
+  "info": {
+      "toggleInfoPopup": "Toggle info popup",
+      "title": "FAQ",
+      "dataSource": {
+          "question": "Where do the <u>data</u> come from?",
+          "answer": "The school data were gathered from the 2019 Censo Escolar, an annual survey of every school in Brazil. The data include various features such as the administration type (public or private), the number and education of teachers, the number of students, some infrastructure data, and the school's address. Only public high schools with at least one active class are included in the analysis, covering Municipal, State, and Federal schools. <br><br> The measure of school quality used is the Primary Education Development Index (Índice de Desenvolvimento da Educação Básica - IDEB), which combines information from the SAEB (a biennial evaluation conducted for every public school in the country and the government's primary metric for tracking educational achievement) and student approval rates. <br><br>Demographic and student location data come from the 2010 Census conducted by the Brazilian Institute of Geography and Statistics (IBGE). The census provides extensive population data at the census tract level, the smallest observation unit comprising an average of 613 people. For each census tract, we identify the number of people aged 15 to 17 as the target population (prospective high school students). <br><br>Each dataset was the latest available as of Atlas Educação's development in 2023. Since the information is gathered from different sources with different collection dates, the access metrics might not be accurate in cases when in the population or schools in a region changed substantially between surveys."
       },
-    "numbering": {
-        "th":"th",
-        "st":"st",
-        "nd":"nd",
-        "rd":"rd"
-    }
-}
+      "dotRepresentation": {
+          "question": "What does each <u>dot</u> represent?",
+          "answer": "Each dot represents the likely location of a group of 10 children of high school age, according to the 2010 Brazilian Census. The dots' precise locations are randomized within each census tract."
+      },
+      "colorRepresentation": {
+          "question": "What do the <u>colors</u> represent?",
+          "answer": "The colors represent the metric's percentile relative to other regions in the state. Metrics are scaled within each state to reflect how public high school policy and management occur at the state level in Brazil. In other words, each state ranks all regions by the metric and assigns colors based on their rank. Therefore, <strong><i>comparing between states is misleading</i></strong> because they are on different scales."
+      },
+      "pardaRace": {
+          "question": "What is <u>parda</u>?",
+          "answer": "Parda(o) is an ethnic and skin color category used by the Brazilian Institute of Geography and Statistics (IBGE) in the Brazilian censuses. The term 'pardo' refers to Brazilians with mixed ethnic ancestries. IBGE defines 'pardo' as a person 'who identifies as having a mixture of two or more color or race options, including white, black, pardo, and Indigenous.'"
+      }
+  },
+  "map": {
+      "search": "Search for an address or place...",
+      "percentileTemplate": "{{layerName}} Percentile",
+      "schoolChildren": "Number of Schoolchildren",
+      "monthlyIncome": "Avg Monthly Income",
+      "tract": "Tract",
+      "labels": {
+          "poor": "Worst",
+          "adequate": "Best",
+          "scarce": "Worst",
+          "dense": "Dense",
+          "low": "Low",
+          "high": "High",
+          "female": "Female",
+          "male": "Male",
+          "white": "White",
+          "black": "Black",
+          "indigenous": "Indigenous",
+          "asian": "Asian",
+          "parda": "Parda"
+      },
+      "numbering": {
+          "th": "th",
+          "st": "st",
+          "nd": "nd",
+          "rd": "rd"
+      }
   }
+}
