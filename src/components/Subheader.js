@@ -1,5 +1,7 @@
 import React, { useState } from 'react'; // Import React and useState hook
 import './Subheader.css'; // Import CSS for subheader
+import { FaMinus, FaPlus } from "react-icons/fa";
+
 
 const Subheader = ({ title, description }) => {
     const [isDescriptionVisible, setDescriptionVisible] = useState(true);
@@ -18,7 +20,7 @@ const Subheader = ({ title, description }) => {
                     onClick={toggleDescription}
                     aria-label={isDescriptionVisible ? "Hide description" : "Show description"}
                 >
-                    {isDescriptionVisible ? '_' : '+'} {/* Toggle button symbol */}
+                    {isDescriptionVisible ? <FaMinus size={15}/> : <FaPlus size={15}/>} {/* Toggle button symbol */}
                 </button>
             </div>
             <div className={`subheader-description ${isDescriptionVisible ? 'visible' : 'hidden'}`}>
