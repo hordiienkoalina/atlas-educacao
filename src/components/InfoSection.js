@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './InfoSection.css';
 import { Trans } from 'react-i18next';
+import { BsQuestionCircle } from "react-icons/bs";
+
 
 
 const InfoSection = () => {
@@ -18,11 +20,7 @@ const InfoSection = () => {
         onClick={toggleInfo}
         className="info-button"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="14" cy="14" r="12"></circle>
-          <line x1="14" y1="19" x2="14" y2="14"></line>
-          <line x1="14" y1="9" x2="14" y2="9"></line>
-        </svg>
+        <BsQuestionCircle size={25}/>
       </button>
       {isOpen && (
         <div className="info-popup-overlay" onClick={toggleInfo}>
@@ -30,6 +28,9 @@ const InfoSection = () => {
             <button className="close-button" onClick={toggleInfo}>×</button>
 
             <h1 className="info-title">{t('info.title')} </h1>
+
+            <h3><Trans i18nKey="info.dataSource.question" components={{ u: <u /> }}/></h3>
+            <p><Trans i18nKey="info.dataSource.answer"/></p>
 
             <h3><Trans i18nKey="info.dotRepresentation.question" components={{ u: <u /> }}/></h3>
             <p>{t('info.dotRepresentation.answer')}</p>

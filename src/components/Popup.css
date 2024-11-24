@@ -43,6 +43,11 @@
   cursor: pointer;
 }
 
+.icon-inline {
+  vertical-align: bottom; /* Aligns with the text */
+  position: relative;
+}
+
 /* Media query for small screens */
 @media (max-width: 600px) {
   .popup-overlay {

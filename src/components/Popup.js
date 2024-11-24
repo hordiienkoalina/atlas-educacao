@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Popup.css';
 import { Trans } from 'react-i18next';
+import { BsQuestionCircle } from "react-icons/bs";
+
 
 const Popup = ({ onClose }) => {
   const { t } = useTranslation();
@@ -27,8 +29,9 @@ const Popup = ({ onClose }) => {
         <p><Trans i18nKey="popup.description2"/></p>
         <p className="description-with-circle">
           <span className="dot"></span>
-          <Trans i18nKey="popup.description3"/>
+          <Trans i18nKey="popup.description3" components={{ BsQuestionCircle: <BsQuestionCircle className="icon-inline"/> }}/>
         </p>
+        
         
         <div>
           <input
