@@ -9,39 +9,39 @@
   "popup": {
       "welcomeTitle": "Where in Brazil are teens struggling to access good public high schools?",
       "description1": "<strong>Atlas Educação</strong> answers that question by using data from the Brazilian Demographic Census and the School Census. By analyzing <u>supply and demand for schools</u>, <u>student preferences</u>, and <u>school quality</u>, we map out access levels across the country and their correlation with income, gender, and race.",
-      "description2": "Our goal is to inform the public about how access to education varies geographically and provide policymakers with the data needed to allocate resources effectively.",
-      "description3": "<strong>Each dot represents the likely location of a group of 10 children of high school age</strong>. Use the map to explore every neighborhood in Brazil and see which areas have the most and least access to high-quality public high schools. Check out the FAQ <BsQuestionCircle/> section for help interpreting the map, and review the methodology for a complete explanation.",
+      "description2": "Our goal is to inform the public about how access to education varies geographically and offer policymakers the data required to focus resources where they are most needed.",
+      "description3": "<strong>Each dot represents the likely location of a group of 10 children of high school age</strong>. Use the map to explore every neighborhood in Brazil and see which areas have the most and least access to high-quality public high schools. Check out the FAQ <BsQuestionCircle/> section for help interpreting the map and the methodology for the full explanation.",
       "dontShowAgain": "Don't show this again"
   },
   "layerDescriptions": {
       "accessQuality": {
           "title": "Access-Quality",
-          "blurb": "The spatial access to high-quality public high schools, considering supply and demand for schools, student preferences, and school quality.",
-          "description": "Percentile of the spatial access to high-quality schools within each state. Access-Quality weights spatial access to schools (how easy it is to find a spot in a nearby school) by the average school quality in the region."
+          "blurb": "Spatial access to high-quality public high schools, considering supply and demand of schools, student preferences, and school quality.",
+          "description": "Access-Quality is a composite indicator combining spatial access to schools and school quality. It measures how easy it is for prospective students to find a spot in a high-quality school nearby. Spatial access is calculated based on high school capacity, demand for classroom spots, and competition between schools. School quality is based on the IDEB, a government indicator that combines grade progression ratios and student test scores in standardized evaluations. The Access-Quality metric is displayed as a percentile within each state."
       },
       "quality": {
           "title": "Quality",
-          "blurb": "The quality of each school based on test scores and grade progression ratios.",
-          "description": "Percentile of school quality within each state. School quality is based on the IDEB (Índice de Desenvolvimento da Educação Básica), a government indicator combining information from the SAEB, an evaluation conducted every two years for every public school in the country, and the grade progression ratio of students."
+          "blurb": "Quality of each school based on test scores and grade progression ratios.",
+          "description": "School Quality is based on the 2019 IDEB (Primary School Development Index), a government indicator that combines grade progression ratios gathered from the School Census and student test scores on the SAEB, an evaluation conducted every two years with every public school in the country. IDEB is the primary metric used by the government to track educational achievement. The Quality metric is displayed as a percentile within each state."
       },
       "access": {
           "title": "Access",
-          "blurb": "The spatial access to public high schools, considering supply and demand for schools and student preferences.",
-          "description": "Percentile of spatial access to schools within each state. The access metric measures how easy it is for prospective students to find a spot in nearby schools. It is calculated using the 3-Step Floating Catchment Area (3SFCA), which combines high school capacity adjusted for distance, nearby demand, and competition among nearby schools."
+          "blurb": "Spatial access to public high schools, considering supply and demand of schools and student preferences.",
+          "description": "School Access is a composite metric that measures how easy it is for prospective students to find a spot in nearby schools. It is calculated using the 3-Step Floating Catchment Area method, which combines distance-adjusted high school capacity (based on the number of teachers employed according to the 2019 School Census), demand for classroom spots (based on the number of students in high-school age in the area according to the 2010 Brazilian Census), and competition between schools. The Access metric is displayed as a percentile within each state."
       },
       "income": {
           "title": "Income",
           "blurb": "Monthly household earnings.",
-          "description": "Percentile of average monthly household earnings according to the 2010 Brazilian Census, normalized for each state."
+          "description": "Percentile of average monthly household earnings within each state according to the 2010 Brazilian Census."
       },
       "gender": {
           "title": "Gender",
-          "blurb": "The gender distribution of the population.",
+          "blurb": "Gender distribution of the population.",
           "description": "Gender distribution of the population according to the 2010 Brazilian Census."
       },
       "race": {
           "title": "Race",
-          "blurb": "The racial distribution of the population.",
+          "blurb": "Racial distribution of the population.",
           "description": "Racial distribution of the population according to the 2010 Brazilian Census."
       }
   },

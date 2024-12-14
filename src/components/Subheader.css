@@ -46,9 +46,9 @@
     color: #333; /* Gray color for the description */
     margin: 0; /* Remove default margin */
     padding-left: 35px; /* Left padding for the description */
-    padding-right: 65px; /* Left padding for the description */
-    padding-top: 5px; /* Top padding for the description */
-    padding-bottom: 15px; /* Bottom padding for the description */
+    padding-right: 50px; /* Left padding for the description */
+    padding-top: 0px; /* Top padding for the description */
+    padding-bottom: 5px; /* Bottom padding for the description */
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
 }

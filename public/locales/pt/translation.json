@@ -14,36 +14,36 @@
       "dontShowAgain": "Não mostrar isso novamente"
   },
   "layerDescriptions": {
-      "accessQuality": {
-          "title": "Acesso-Qualidade",
-          "blurb": "O acesso espacial a escolas públicas de ensino médio de alta qualidade, considerando a oferta e demanda de escolas, preferências dos alunos e qualidade das escolas.",
-          "description": "Percentil de acesso espacial a escolas de alta qualidade dentro de cada estado. A métrica de Acesso-Qualidade pondera o acesso espacial (facilidade de encontrar uma vaga em uma escola próxima) pela qualidade média das escolas na região."
-      },
-      "quality": {
-          "title": "Qualidade",
-          "blurb": "A qualidade de cada escola com base em notas de testes e taxas de progressão de ano.",
-          "description": "Percentil de qualidade escolar dentro de cada estado. A qualidade escolar é baseada no IDEB (Índice de Desenvolvimento da Educação Básica), um indicador governamental que combina informações do SAEB, uma avaliação conduzida a cada dois anos com todas as escolas públicas do país, e a taxa de progressão de ano dos alunos."
-      },
-      "access": {
-          "title": "Acesso",
-          "blurb": "O acesso espacial às escolas públicas de ensino médio, considerando a oferta e demanda de escolas e as preferências dos alunos.",
-          "description": "Percentil de acesso espacial às escolas dentro de cada estado. A métrica de acesso mede a facilidade para os alunos encontrarem uma vaga em escolas próximas. É calculada usando a técnica de 3-Step Floating Catchment Area (3SFCA), que combina capacidade das escolas ajustada pela distância, demanda local e competição entre escolas próximas."
-      },
-      "income": {
-          "title": "Renda",
-          "blurb": "Os rendimentos mensais das famílias.",
-          "description": "Percentil da renda mensal média das famílias, de acordo com o Censo Demográfico de 2010, normalizado por estado."
-      },
-      "gender": {
-          "title": "Gênero",
-          "blurb": "A distribuição de gênero da população.",
-          "description": "Distribuição de gênero da população de acordo com o Censo Demográfico de 2010."
-      },
-      "race": {
-          "title": "Raça",
-          "blurb": "A distribuição racial da população.",
-          "description": "Distribuição racial da população de acordo com o Censo Demográfico de 2010."
-      }
+    "accessQuality": {
+        "title": "Acesso-Qualidade",
+        "blurb": "Acesso espacial a escolas públicas de ensino médio de alta qualidade, considerando oferta e demanda, preferências dos alunos e qualidade das escolas.",
+        "description": "Acesso-Qualidade é um indicador composto que combina a qualidade e o acesso espacial às escolas. Ele mede a facilidade com que os estudantes conseguem uma vaga em uma escola de alta qualidade perto de sua moradia. O acesso espacial é calculado com base na capacidade das escolas de ensino médio, demanda por vagas e competição entre escolas. A qualidade das escolas é baseada no IDEB, um indicador governamental que combina taxas de progressão de série e notas de alunos em avaliações padronizadas. Acesso-Qualidade é exibido de acordo com o percentil em cada estado."
+    },
+    "quality": {
+        "title": "Qualidade",
+        "blurb": "Qualidade de cada escola com base nas notas e taxas de progressão de série.",
+        "description": "A Qualidade da Escola é baseada no IDEB 2019 (Índice de Desenvolvimento da Educação Básica), um indicador governamental que combina taxas de progressão de série, coletadas do Censo Escolar, e notas dos alunos no SAEB, uma avaliação realizada a cada dois anos em todas as escolas públicas do país. O IDEB é a principal métrica usada pelo governo para medir o desempenho educacional. Qualidade é exibida de acordo com o percentil em cada estado."
+    },
+    "access": {
+        "title": "Acesso",
+        "blurb": "Acesso espacial às escolas públicas de ensino médio, considerando oferta e demanda e preferências dos alunos.",
+        "description": "O Acesso Escolar é uma métrica composta que mede a facilidade com que os estudantes conseguem uma vaga em escolas próximas de sua moradia. É calculado usando o método 3-Step Floating Catchment Area, que combina a capacidade das salas de aula (com base no número de professores empregados segundo o Censo Escolar de 2019) ajustada pela distância, demanda por vagas (com base no número de jovens em idade escolar na área segundo o Censo Demográfico de 2010) e competição entre escolas. Acesso é exibido de acordo com o percentil em cada estado."
+    },
+    "income": {
+        "title": "Renda",
+        "blurb": "Renda mensal domiciliar.",
+        "description": "Percentil da renda média mensal domiciliar de acordo com o Censo Demográfico de 2010 em cada estado."
+    },
+    "gender": {
+        "title": "Gênero",
+        "blurb": "Distribuição de gênero da população.",
+        "description": "Distribuição de gênero da população de acordo com o Censo Demográfico de 2010."
+    },
+    "race": {
+        "title": "Raça",
+        "blurb": "Distribuição racial da população.",
+        "description": "Distribuição racial da população de acordo com o Censo Demográfico de 2010."
+    }
   },
   "header": {
       "title": "Atlas Educação"
