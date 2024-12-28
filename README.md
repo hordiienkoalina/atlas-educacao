@@ -1,5 +1,5 @@
 # 🗺️ Atlas Educação
-Atlas Educação is a tool designed to visualize access to high-quality public high schools across Brazil. Leveraging datasets from the Brazilian Demographic Census (2010) and the School Census (2020), the platform highlights disparities in <ins>educational access</ins> and correlates them with <ins>demographic factors</ins> such as <ins>income, race, and gender</ins>.
+[Atlas Educação](https://atlaseducacao.com/) is a tool designed to visualize access to high-quality public high schools across Brazil. Leveraging datasets from the Brazilian Demographic Census (2010) and the School Census (2020), the platform highlights disparities in <ins>educational access</ins> and correlates them with <ins>demographic factors</ins> such as <ins>income, race, and gender</ins>.
 
 ## 🖼️ Interface Preview
 
